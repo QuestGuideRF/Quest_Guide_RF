@@ -1,0 +1,1 @@
+from bot.api.routes import setup_api_routes
