@@ -7,7 +7,7 @@ Allow: /dashboard.php
 Allow: /routes.php
 Allow: /photos.php
 Allow: /achievements.php
-Allow: /payments.php
+Allow: /bank.php
 Allow: /settings.php
 
 # Запрещаем индексацию служебных файлов и директорий
