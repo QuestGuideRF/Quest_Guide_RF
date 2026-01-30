@@ -1,0 +1,38 @@
+# Секреты и окружение
+.env
+*.env
+!*.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+bot/venv/
+bot/.venv/
+venv/
+.venv/
+*.egg-info/
+.eggs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Системные
+.DS_Store
+Thumbs.db
+
+# Служебные файлы коммитов
+msg*.txt
+
+# Логи и временные файлы
+*.log
+uploads/users/
+photos/*
+!photos/.gitkeep
+!uploads/.gitkeep
+!uploads/hints/.gitkeep
