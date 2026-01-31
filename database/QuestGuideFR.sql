@@ -1,22 +1,7 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1-1.el8
--- https://www.phpmyadmin.net/
---
--- Хост: localhost
--- Время создания: Янв 31 2026 г., 08:44
--- Версия сервера: 8.0.25-15
--- Версия PHP: 8.2.30
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
---
--- База данных: `u3372144_schema`
---
--- --------------------------------------------------------
 --
 -- Структура таблицы `achievements`
 --
