@@ -40,6 +40,10 @@ $banned_count = $pdo->query("SELECT COUNT(*) as cnt FROM users WHERE is_banned =
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="fas fa-users me-2"></i>Пользователи</h2>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Статистика -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="row g-3 mb-4">
     <div class="col-md-4">
         <div class="card">
@@ -66,6 +70,10 @@ $banned_count = $pdo->query("SELECT COUNT(*) as cnt FROM users WHERE is_banned =
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -90,6 +98,10 @@ $banned_count = $pdo->query("SELECT COUNT(*) as cnt FROM users WHERE is_banned =
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Таблица пользователей -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -134,8 +146,16 @@ $banned_count = $pdo->query("SELECT COUNT(*) as cnt FROM users WHERE is_banned =
                                     <?php if ($avatar_path): ?>
                                         <img src="<?= htmlspecialchars($avatar_path) ?>"
                                              class="rounded-circle me-2" width="32" height="32"
+<<<<<<< HEAD
                                              data-fallback="<?= htmlspecialchars(strtoupper(substr($user['first_name'], 0, 1))) ?>"
                                              onerror="var s=this.getAttribute('data-fallback'); if(s){ this.style.display='none'; var d=document.createElement('div'); d.className='rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2'; d.style.cssText='width:32px;height:32px'; d.textContent=s; this.parentNode.insertBefore(d,this.nextSibling); }">
+=======
+                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2"
+                                             style="width: 32px; height: 32px; display: none;">
+                                            <?= strtoupper(substr($user['first_name'], 0, 1)) ?>
+                                        </div>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <?php else: ?>
                                         <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2"
                                              style="width: 32px; height: 32px;">
@@ -160,7 +180,11 @@ $banned_count = $pdo->query("SELECT COUNT(*) as cnt FROM users WHERE is_banned =
                             </td>
                             <td><?= $user['routes_count'] ?></td>
                             <td><?= $user['completed_count'] ?></td>
+<<<<<<< HEAD
                             <td><?= number_format($user['total_paid'] ?? 0) ?> грошей</td>
+=======
+                            <td><?= number_format($user['total_paid'] ?? 0) ?>₽</td>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             <td>
                                 <small class="text-muted">
                                     <?= date('d.m.Y', strtotime($user['created_at'])) ?>
@@ -180,10 +204,13 @@ $banned_count = $pdo->query("SELECT COUNT(*) as cnt FROM users WHERE is_banned =
                                        target="_blank" class="btn btn-sm btn-primary" title="Telegram">
                                         <i class="fab fa-telegram"></i>
                                     </a>
+<<<<<<< HEAD
                                     <a href="/admin/users/progress.php?user_id=<?= $user['id'] ?>"
                                        class="btn btn-sm btn-info" title="Прогресс">
                                         <i class="fas fa-tasks"></i>
                                     </a>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <?php if ($user['role'] != 'ADMIN'): ?>
                                         <button class="btn btn-sm btn-<?= $user['is_banned'] ? 'success' : 'warning' ?>"
                                                 onclick="toggleBan(<?= $user['id'] ?>, <?= $user['is_banned'] ?>)"

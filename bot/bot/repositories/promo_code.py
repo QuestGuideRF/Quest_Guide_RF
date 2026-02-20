@@ -51,7 +51,14 @@ class PromoCodeRepository(BaseRepository[PromoCode]):
         if result.scalar_one_or_none():
             logger.debug(f"Пользователь {user_id} уже использовал промокод {code}")
             return False, "promo_code_already_used", None
+<<<<<<< HEAD
         if promo_code.route_id is not None and route_id is not None:
+=======
+        if promo_code.route_id is not None:
+            if route_id is None:
+                logger.debug(f"Промокод {code} привязан к маршруту {promo_code.route_id}, но пользователь не выбрал маршрут")
+                return False, "promo_code_wrong_route", None
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             if promo_code.route_id != route_id:
                 logger.debug(f"Промокод {code} привязан к маршруту {promo_code.route_id}, но пользователь выбрал маршрут {route_id}")
                 return False, "promo_code_wrong_route", None
@@ -85,6 +92,7 @@ class PromoCodeRepository(BaseRepository[PromoCode]):
         self.session.add(promo_use)
         await self.session.commit()
         await self.session.refresh(promo_code)
+<<<<<<< HEAD
         return final_price, discount_amount
     async def get_uses_by_user(self, user_id: int):
         from sqlalchemy.orm import selectinload
@@ -95,3 +103,6 @@ class PromoCodeRepository(BaseRepository[PromoCode]):
             .order_by(PromoCodeUse.used_at.desc())
         )
         return list(result.scalars().all())
+=======
+        return final_price, discount_amount
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

@@ -1,8 +1,16 @@
 import cv2
 import numpy as np
 import logging
+<<<<<<< HEAD
 import gc
 from typing import Tuple, Optional
+=======
+import hashlib
+import time
+import gc
+from typing import Tuple, Optional
+from collections import defaultdict
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from pathlib import Path
 import urllib.request
 import urllib.error
@@ -14,6 +22,11 @@ except ImportError:
 logger = logging.getLogger(__name__)
 cv2.setNumThreads(1)
 cv2.ocl.setUseOpenCL(False)
+<<<<<<< HEAD
+=======
+_photo_hashes = defaultdict(list)
+_last_cleanup = time.time()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 _yolo_session = None
 _yolo_error: Optional[str] = None
 _yolo_onnx_path: Optional[Path] = None
@@ -148,6 +161,163 @@ def _nms_xyxy(boxes: np.ndarray, scores: np.ndarray, iou_thres: float = 0.45) ->
 class PoseService:
     def __init__(self, config):
         self.config = config
+<<<<<<< HEAD
+=======
+        self._face_cascade = None
+        self.min_unique_colors = 15
+        self.hash_timeout = 3600
+    def get_cascade(self, name: str = 'default'):
+        cascades = {
+            'default': 'haarcascade_frontalface_default.xml',
+            'alt': 'haarcascade_frontalface_alt.xml',
+            'alt2': 'haarcascade_frontalface_alt2.xml',
+            'profile': 'haarcascade_profileface.xml',
+        }
+        cascade_path = cv2.data.haarcascades + cascades.get(name, cascades['default'])
+        cascade = cv2.CascadeClassifier(cascade_path)
+        if cascade.empty():
+            logger.error(f"Не удалось загрузить каскад: {cascade_path}")
+        return cascade
+    @property
+    def face_cascade(self):
+        if self._face_cascade is None:
+            self._face_cascade = self.get_cascade('alt2')
+        return self._face_cascade
+    def _load_and_resize_image(self, photo_path: str, max_size: int = 480):
+        img = cv2.imread(photo_path)
+        if img is None:
+            return None
+        h, w = img.shape[:2]
+        if max(h, w) > max_size:
+            scale = max_size / max(h, w)
+            new_w = int(w * scale)
+            new_h = int(h * scale)
+            img = cv2.resize(img, (new_w, new_h), interpolation=cv2.INTER_AREA)
+        return img
+    def _compute_image_hash(self, img) -> str:
+        small = cv2.resize(img, (16, 16), interpolation=cv2.INTER_AREA)
+        gray = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
+        avg = gray.mean()
+        binary = (gray > avg).flatten()
+        hash_str = ''.join(['1' if b else '0' for b in binary])
+        return hashlib.md5(hash_str.encode()).hexdigest()
+    def _is_duplicate_photo(self, img, user_id: int) -> bool:
+        global _photo_hashes, _last_cleanup
+        if time.time() - _last_cleanup > 1800:
+            current_time = time.time()
+            for uid in list(_photo_hashes.keys()):
+                _photo_hashes[uid] = [
+                    (h, t) for h, t in _photo_hashes[uid]
+                    if current_time - t < self.hash_timeout
+                ]
+                if not _photo_hashes[uid]:
+                    del _photo_hashes[uid]
+            _last_cleanup = current_time
+        current_hash = self._compute_image_hash(img)
+        current_time = time.time()
+        for saved_hash, saved_time in _photo_hashes.get(user_id, []):
+            if saved_hash == current_hash and current_time - saved_time < self.hash_timeout:
+                logger.warning(f"Дубликат фото от пользователя {user_id}")
+                return True
+        _photo_hashes[user_id].append((current_hash, current_time))
+        return False
+    def _check_color_diversity(self, img) -> Tuple[bool, int]:
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        hist = cv2.calcHist([hsv], [0], None, [180], [0, 180])
+        unique_hues = np.count_nonzero(hist > 10)
+        return unique_hues >= self.min_unique_colors, unique_hues
+    def _detect_face(self, gray, w, h) -> Optional[Tuple[int, int, int, int]]:
+        faces = self.face_cascade.detectMultiScale(
+            gray,
+            scaleFactor=1.15,
+            minNeighbors=3,
+            minSize=(25, 25),
+            maxSize=(int(w * 0.85), int(h * 0.85))
+        )
+        if len(faces) > 0:
+            return tuple(faces[0])
+        return None
+    def _check_pose_soft(self, gray, face, required_pose: str) -> Tuple[bool, str]:
+        h, w = gray.shape[:2]
+        face_x, face_y, face_w, face_h = face
+        face_center_x = face_x + face_w // 2
+        upper_region = gray[0:face_y, :] if face_y > 20 else None
+        left_region = gray[face_y:face_y+face_h, 0:face_x] if face_x > 20 else None
+        right_region = gray[face_y:face_y+face_h, face_x+face_w:w] if face_x + face_w < w - 20 else None
+        has_upper_activity = False
+        has_side_activity = False
+        if upper_region is not None and upper_region.size > 100:
+            edges = cv2.Canny(upper_region, 30, 80)
+            contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            significant = [c for c in contours if cv2.contourArea(c) > 150]
+            has_upper_activity = len(significant) >= 1
+            del edges
+        if left_region is not None and left_region.size > 100:
+            edges = cv2.Canny(left_region, 30, 80)
+            contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if any(cv2.contourArea(c) > 200 for c in contours):
+                has_side_activity = True
+            del edges
+        if right_region is not None and right_region.size > 100:
+            edges = cv2.Canny(right_region, 30, 80)
+            contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if any(cv2.contourArea(c) > 200 for c in contours):
+                has_side_activity = True
+            del edges
+        if required_pose == "hands_up":
+            if has_upper_activity:
+                return True, "✅ Руки подняты! Отлично!"
+            else:
+                return True, "✅ Фото принято!"
+        elif required_pose == "heart":
+            if has_upper_activity:
+                return True, "✅ Сердечко! ❤️"
+            else:
+                return True, "✅ Фото принято!"
+        elif required_pose == "point":
+            if has_side_activity or has_upper_activity:
+                return True, "✅ Указываете пальцем! 👉"
+            else:
+                return True, "✅ Фото принято!"
+        return True, "✅ Фото принято!"
+    async def check_pose(self, photo_path: str, required_pose: str, language: str = 'ru', user_id: int = 0) -> Tuple[bool, str]:
+        try:
+            from bot.utils.i18n import i18n
+            img = self._load_and_resize_image(photo_path, max_size=480)
+            if img is None:
+                return False, i18n.get("photo_read_error", language, default="❌ Could not read photo")
+            if user_id and self._is_duplicate_photo(img, user_id):
+                del img
+                gc.collect()
+                return False, i18n.get("photo_duplicate", language, default="❌ Это фото уже отправлялось. Сделайте новое фото!")
+            color_ok, unique_colors = self._check_color_diversity(img)
+            if not color_ok:
+                del img
+                gc.collect()
+                logger.warning(f"Мало цветов на фото: {unique_colors}")
+                return False, i18n.get("photo_too_simple", language, default="❌ Фото слишком однотонное. Сделайте фото на улице с объектом!")
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            h, w = gray.shape[:2]
+            face = self._detect_face(gray, w, h)
+            if face is None:
+                del img, gray
+                gc.collect()
+                return False, i18n.get("pose_face_not_visible", language, default="❌ Не вижу лицо на фото. Встаньте лицом к камере!")
+            pose_ok, pose_msg = self._check_pose_soft(gray, face, required_pose)
+            del img, gray
+            gc.collect()
+            if language == 'en':
+                pose_msg = pose_msg.replace("Руки подняты! Отлично!", "Hands raised! Great!")
+                pose_msg = pose_msg.replace("Сердечко!", "Heart shape!")
+                pose_msg = pose_msg.replace("Указываете пальцем!", "Pointing!")
+                pose_msg = pose_msg.replace("Фото принято!", "Photo accepted!")
+            return pose_ok, pose_msg
+        except Exception as e:
+            gc.collect()
+            from bot.utils.i18n import i18n
+            logger.error(f"Ошибка при проверке фото: {e}", exc_info=True)
+            return True, i18n.get("pose_accepted", language, default="✅ Фото принято!")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     async def check_people_count(self, photo_path: str) -> Tuple[bool, str, int]:
         if not ONNXRUNTIME_AVAILABLE:
             logger.error("[PEOPLE] onnxruntime не установлен")
@@ -253,5 +423,11 @@ class PoseService:
         finally:
             _unload_yolo_session()
     def __del__(self):
+<<<<<<< HEAD
         gc.collect()
         logger.info("PoseService (YOLO) очищен")
+=======
+        self._face_cascade = None
+        gc.collect()
+        logger.info("PoseService очищен")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

@@ -1,5 +1,8 @@
 from aiohttp import web
+<<<<<<< HEAD
 from sqlalchemy import text
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from sqlalchemy.ext.asyncio import AsyncSession
 import json
 from bot.loader import SessionLocal, config
@@ -114,6 +117,7 @@ async def api_payments(request: web.Request):
 async def api_achievements(request: web.Request):
     telegram_id = request['telegram_id']
     async with SessionLocal() as session:
+<<<<<<< HEAD
         user_repo = UserRepository(session)
         user = await user_repo.get_by_telegram_id(telegram_id)
         if not user:
@@ -123,6 +127,12 @@ async def api_achievements(request: web.Request):
         user_achievements = await session.execute(
             text("SELECT achievement_id, earned_at FROM user_achievements WHERE user_id = :user_id"),
             {"user_id": user.id}
+=======
+        all_achievements = await session.execute("SELECT * FROM achievements ORDER BY category, `order`")
+        all_achievements = all_achievements.fetchall()
+        user_achievements = await session.execute(
+            f"SELECT achievement_id, earned_at FROM user_achievements WHERE user_id = {telegram_id}"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         )
         user_achievements = {ua.achievement_id: ua.earned_at for ua in user_achievements.fetchall()}
         return web.json_response({
@@ -144,6 +154,7 @@ async def api_photos(request: web.Request):
     telegram_id = request['telegram_id']
     route_id = request.query.get('route_id')
     async with SessionLocal() as session:
+<<<<<<< HEAD
         user_repo = UserRepository(session)
         user = await user_repo.get_by_telegram_id(telegram_id)
         if not user:
@@ -155,6 +166,13 @@ async def api_photos(request: web.Request):
             params["route_id"] = route_id
         query += " ORDER BY created_at DESC LIMIT 100"
         photos = await session.execute(text(query), params)
+=======
+        query = f"SELECT * FROM user_photos WHERE user_id = {telegram_id}"
+        if route_id:
+            query += f" AND point_id IN (SELECT id FROM points WHERE route_id = {route_id})"
+        query += " ORDER BY created_at DESC LIMIT 100"
+        photos = await session.execute(query)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         photos = photos.fetchall()
         return web.json_response({
             'photos': [

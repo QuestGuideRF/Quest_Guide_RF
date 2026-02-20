@@ -21,15 +21,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$_POST['route_id'] ?? 0]);
         $next_order = $stmt->fetch()['next_order'];
         $stmt = $pdo->prepare("
+<<<<<<< HEAD
             INSERT INTO points (route_id, name, name_en, audio_text, audio_text_en,
                                fact_text, fact_text_en,
                                latitude, longitude, `order`, task_type, created_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+=======
+            INSERT INTO points (route_id, name, name_en, require_pose, audio_text, audio_text_en,
+                               fact_text, fact_text_en,
+                               latitude, longitude, `order`, task_type, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         ");
         $stmt->execute([
             $_POST['route_id'] ?? null,
             $_POST['name'] ?? '',
             !empty($_POST['name_en']) ? $_POST['name_en'] : null,
+<<<<<<< HEAD
+=======
+            !empty($_POST['require_pose']) ? $_POST['require_pose'] : null,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             !empty($_POST['audio_text']) ? $_POST['audio_text'] : null,
             !empty($_POST['audio_text_en']) ? $_POST['audio_text_en'] : null,
             !empty($_POST['fact_text']) ? $_POST['fact_text'] : null,
@@ -95,6 +106,20 @@ require_once __DIR__ . '/../includes/header.php';
                         <input type="text" name="name_en" id="point_name_en" class="form-control"
                                placeholder="For example: Red Square">
                     </div>
+<<<<<<< HEAD
+=======
+                    <!-- Просьба (Поза) -->
+                    <div class="mb-3">
+                        <label class="form-label">Просьба (Поза для фото)</label>
+                        <select name="require_pose" class="form-select">
+                            <option value="">Нет требования</option>
+                            <option value="hands_up">🤸 Поднять руки вверх</option>
+                            <option value="heart">❤️ Сделать сердечко руками</option>
+                            <option value="point">👉 Указать пальцем</option>
+                        </select>
+                    </div>
+                    <!-- Этап 1: Заметки и как дойти -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="card border-primary mb-4">
                         <div class="card-header bg-primary text-white">
                             <h6 class="mb-0"><i class="fas fa-1 me-2"></i>Этап 1: Заметки и как дойти</h6>
@@ -104,7 +129,11 @@ require_once __DIR__ . '/../includes/header.php';
                                 <label class="form-label">Заметки / Текст для аудио (Русский)</label>
                                 <div class="input-group">
                                     <textarea name="audio_text" id="point_audio_text_ru" class="form-control" rows="3"
+<<<<<<< HEAD
                                               placeholder="Дополнительная информация или текст для аудиогида..." maxlength="3500"></textarea>
+=======
+                                              placeholder="Дополнительная информация или текст для аудиогида..." maxlength="2000"></textarea>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <button type="button" class="btn btn-outline-secondary align-self-start" onclick="translateField('point_audio_text_ru', 'point_audio_text_en')" title="Перевести на английский" style="margin-top: 0;">
                                         <i class="fas fa-language"></i>
                                     </button>
@@ -114,10 +143,18 @@ require_once __DIR__ . '/../includes/header.php';
                             <div class="mb-3">
                                 <label class="form-label">Заметки / Текст для аудио (English)</label>
                                 <textarea name="audio_text_en" id="point_audio_text_en" class="form-control" rows="3"
+<<<<<<< HEAD
                                           placeholder="Additional information or text for audio guide..." maxlength="3500"></textarea>
                             </div>
                         </div>
                     </div>
+=======
+                                          placeholder="Additional information or text for audio guide..." maxlength="2000"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Этап 2: Факт -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="card border-success mb-4">
                         <div class="card-header bg-success text-white">
                             <h6 class="mb-0"><i class="fas fa-2 me-2"></i>Этап 2: Факт</h6>
@@ -127,7 +164,11 @@ require_once __DIR__ . '/../includes/header.php';
                                 <label class="form-label">Факт (Русский)</label>
                                 <div class="input-group">
                                     <textarea name="fact_text" id="point_fact_text_ru" class="form-control" rows="3"
+<<<<<<< HEAD
                                               placeholder="Интересный факт о месте..." maxlength="3500"></textarea>
+=======
+                                              placeholder="Интересный факт о месте..." maxlength="2000"></textarea>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <button type="button" class="btn btn-outline-secondary align-self-start" onclick="translateField('point_fact_text_ru', 'point_fact_text_en')" title="Перевести на английский" style="margin-top: 0;">
                                         <i class="fas fa-language"></i>
                                     </button>
@@ -137,10 +178,18 @@ require_once __DIR__ . '/../includes/header.php';
                             <div class="mb-3">
                                 <label class="form-label">Факт (English)</label>
                                 <textarea name="fact_text_en" id="point_fact_text_en" class="form-control" rows="3"
+<<<<<<< HEAD
                                           placeholder="Interesting fact about the place..." maxlength="3500"></textarea>
                             </div>
                         </div>
                     </div>
+=======
+                                          placeholder="Interesting fact about the place..." maxlength="2000"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Координаты -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="card border-info mb-4">
                         <div class="card-header bg-info text-white">
                             <h6 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Координаты</h6>

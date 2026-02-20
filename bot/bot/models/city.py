@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from sqlalchemy import String, Boolean, ForeignKey
+=======
+from sqlalchemy import String, Boolean
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import List, Optional
 from bot.models.base import Base, TimestampMixin
@@ -10,12 +14,15 @@ class City(Base, TimestampMixin):
     description: Mapped[Optional[str]] = mapped_column(String(1000), nullable=True)
     description_en: Mapped[Optional[str]] = mapped_column(String(1000), nullable=True, comment="Описание на английском")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+<<<<<<< HEAD
     creator_id: Mapped[Optional[int]] = mapped_column(
         ForeignKey("users.id", ondelete="SET NULL"),
         nullable=True,
         index=True,
         comment="ID модератора-создателя"
     )
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     routes: Mapped[List["Route"]] = relationship(
         "Route",
         back_populates="city",

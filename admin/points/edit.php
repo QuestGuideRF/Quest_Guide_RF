@@ -19,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             UPDATE points
             SET name = ?,
                 name_en = ?,
+<<<<<<< HEAD
+=======
+                require_pose = ?,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 audio_text = ?,
                 audio_text_en = ?,
                 fact_text = ?,
@@ -35,6 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([
             $_POST['name'] ?? null,
             $_POST['name_en'] ?? null,
+<<<<<<< HEAD
+=======
+            $_POST['require_pose'] ?? null,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             $_POST['audio_text'] ?? null,
             $_POST['audio_text_en'] ?? null,
             $_POST['fact_text'] ?? null,
@@ -110,6 +118,20 @@ require_once __DIR__ . '/../includes/header.php';
                         <input type="text" name="name_en" id="name_en" class="form-control"
                                value="<?= htmlspecialchars($point['name_en'] ?? '') ?>">
                     </div>
+<<<<<<< HEAD
+=======
+                    <!-- Просьба (Поза) -->
+                    <div class="mb-3">
+                        <label class="form-label">Просьба (Поза для фото)</label>
+                        <select name="require_pose" class="form-select">
+                            <option value="">Нет требования</option>
+                            <option value="hands_up" <?= ($point['require_pose'] ?? '') == 'hands_up' ? 'selected' : '' ?>>🤸 Поднять руки вверх</option>
+                            <option value="heart" <?= ($point['require_pose'] ?? '') == 'heart' ? 'selected' : '' ?>>❤️ Сделать сердечко руками</option>
+                            <option value="point" <?= ($point['require_pose'] ?? '') == 'point' ? 'selected' : '' ?>>👉 Указать пальцем</option>
+                        </select>
+                    </div>
+                    <!-- Этап 1: Заметки и как дойти -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="card border-primary mb-4">
                         <div class="card-header bg-primary text-white">
                             <h6 class="mb-0"><i class="fas fa-1 me-2"></i>Этап 1: Заметки и как дойти</h6>
@@ -118,7 +140,11 @@ require_once __DIR__ . '/../includes/header.php';
                             <div class="mb-3">
                                 <label class="form-label">Заметки / Текст для аудио (Русский)</label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <textarea name="audio_text" id="audio_text_ru" class="form-control" rows="3" maxlength="3500" placeholder="Дополнительная информация или текст для аудиогида..."><?= htmlspecialchars($point['audio_text'] ?? '') ?></textarea>
+=======
+                                    <textarea name="audio_text" id="audio_text_ru" class="form-control" rows="3" maxlength="2000" placeholder="Дополнительная информация или текст для аудиогида..."><?= htmlspecialchars($point['audio_text'] ?? '') ?></textarea>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <button type="button" class="btn btn-outline-secondary" onclick="translateField('audio_text_ru', 'audio_text_en')" title="Перевести на английский">
                                         <i class="fas fa-language"></i>
                                     </button>
@@ -127,10 +153,18 @@ require_once __DIR__ . '/../includes/header.php';
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Заметки / Текст для аудио (English)</label>
+<<<<<<< HEAD
                                 <textarea name="audio_text_en" id="audio_text_en" class="form-control" rows="3" maxlength="3500" placeholder="Additional information or text for audio guide..."><?= htmlspecialchars($point['audio_text_en'] ?? '') ?></textarea>
                             </div>
                         </div>
                     </div>
+=======
+                                <textarea name="audio_text_en" id="audio_text_en" class="form-control" rows="3" maxlength="2000" placeholder="Additional information or text for audio guide..."><?= htmlspecialchars($point['audio_text_en'] ?? '') ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Этап 2: Факт -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="card border-success mb-4">
                         <div class="card-header bg-success text-white">
                             <h6 class="mb-0"><i class="fas fa-2 me-2"></i>Этап 2: Факт</h6>
@@ -139,7 +173,11 @@ require_once __DIR__ . '/../includes/header.php';
                             <div class="mb-3">
                                 <label class="form-label">Факт (Русский)</label>
                                 <div class="input-group">
+<<<<<<< HEAD
                                     <textarea name="fact_text" id="fact_text_ru" class="form-control" rows="3" maxlength="3500" placeholder="Интересный факт о месте..."><?= htmlspecialchars($point['fact_text'] ?? '') ?></textarea>
+=======
+                                    <textarea name="fact_text" id="fact_text_ru" class="form-control" rows="3" maxlength="2000" placeholder="Интересный факт о месте..."><?= htmlspecialchars($point['fact_text'] ?? '') ?></textarea>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <button type="button" class="btn btn-outline-secondary" onclick="translateField('fact_text_ru', 'fact_text_en')" title="Перевести на английский">
                                         <i class="fas fa-language"></i>
                                     </button>
@@ -148,10 +186,18 @@ require_once __DIR__ . '/../includes/header.php';
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Факт (English)</label>
+<<<<<<< HEAD
                                 <textarea name="fact_text_en" id="fact_text_en" class="form-control" rows="3" maxlength="3500" placeholder="Interesting fact about the place..."><?= htmlspecialchars($point['fact_text_en'] ?? '') ?></textarea>
                             </div>
                         </div>
                     </div>
+=======
+                                <textarea name="fact_text_en" id="fact_text_en" class="form-control" rows="3" maxlength="2000" placeholder="Interesting fact about the place..."><?= htmlspecialchars($point['fact_text_en'] ?? '') ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Этап 3: Задания -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="card border-warning mb-4">
                         <div class="card-header bg-warning text-dark">
                             <h6 class="mb-0"><i class="fas fa-3 me-2"></i>Этап 3: Задания</h6>
@@ -201,7 +247,11 @@ require_once __DIR__ . '/../includes/header.php';
                                                 <div class="mb-3">
                                                     <label class="form-label">Задание (Русский) *</label>
                                                     <div class="input-group">
+<<<<<<< HEAD
                                                         <textarea class="form-control task-text-ru" rows="3" maxlength="3500" required placeholder="Что нужно найти на этой точке... Можно указать 'Как добраться' в начале текста"><?= htmlspecialchars($task['task_text'] ?? '') ?></textarea>
+=======
+                                                        <textarea class="form-control task-text-ru" rows="3" maxlength="3000" required placeholder="Что нужно найти на этой точке... Можно указать 'Как добраться' в начале текста"><?= htmlspecialchars($task['task_text'] ?? '') ?></textarea>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                                         <button type="button" class="btn btn-outline-secondary align-self-start" onclick="translateTaskField(this)" title="Перевести на английский" style="margin-top: 0;">
                                                             <i class="fas fa-language"></i>
                                                         </button>
@@ -210,7 +260,11 @@ require_once __DIR__ . '/../includes/header.php';
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Задание (English)</label>
+<<<<<<< HEAD
                                                     <textarea class="form-control task-text-en" rows="3" maxlength="3500" placeholder="What to find at this point..."><?= htmlspecialchars($task['task_text_en'] ?? '') ?></textarea>
+=======
+                                                    <textarea class="form-control task-text-en" rows="3" maxlength="3000" placeholder="What to find at this point..."><?= htmlspecialchars($task['task_text_en'] ?? '') ?></textarea>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                                 </div>
                                                 <div class="task-text-answer-fields" style="display: <?= in_array($task['task_type'] ?? '', ['text', 'riddle']) ? 'block' : 'none' ?>;">
                                                     <div class="card bg-light">
@@ -253,11 +307,19 @@ require_once __DIR__ . '/../includes/header.php';
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
+=======
+                    <!-- Скрытые поля для обратной совместимости -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <input type="hidden" name="task_type" value="<?= htmlspecialchars($point['task_type'] ?? 'photo') ?>">
                     <input type="hidden" name="text_answer" value="<?= htmlspecialchars($point['text_answer'] ?? '') ?>">
                     <input type="hidden" name="text_answer_hint" value="<?= htmlspecialchars($point['text_answer_hint'] ?? '') ?>">
                     <input type="hidden" name="max_attempts" value="<?= htmlspecialchars($point['max_attempts'] ?? 3) ?>">
                     <input type="hidden" name="accept_partial_match" value="<?= !empty($point['accept_partial_match']) ? '1' : '0' ?>">
+<<<<<<< HEAD
+=======
+                    <!-- Координаты -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="card border-info mb-4">
                         <div class="card-header bg-info text-white">
                             <h6 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Координаты</h6>
@@ -402,7 +464,11 @@ function addTask() {
                 <div class="mb-3">
                     <label class="form-label">Задание (Русский) *</label>
                     <div class="input-group">
+<<<<<<< HEAD
                         <textarea class="form-control task-text-ru" rows="2" maxlength="3500" required></textarea>
+=======
+                        <textarea class="form-control task-text-ru" rows="2" required></textarea>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <button type="button" class="btn btn-outline-secondary align-self-start" onclick="translateTaskField(this)" title="Перевести на английский" style="margin-top: 0;">
                             <i class="fas fa-language"></i>
                         </button>
@@ -410,7 +476,11 @@ function addTask() {
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Задание (English)</label>
+<<<<<<< HEAD
                     <textarea class="form-control task-text-en" rows="2" maxlength="3500"></textarea>
+=======
+                    <textarea class="form-control task-text-en" rows="2"></textarea>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 </div>
                 <div class="task-text-answer-fields" style="display: none;">
                     <div class="card bg-light">
@@ -522,10 +592,14 @@ function saveAllTasks() {
         };
         tasksData.push(taskData);
     });
+<<<<<<< HEAD
     if (tasksData.length === 0) {
         return Promise.resolve();
     }
     return Promise.all(tasksData.map(taskData => {
+=======
+    Promise.all(tasksData.map(taskData => {
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         return fetch('/admin/api/save_task.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -547,7 +621,10 @@ function saveAllTasks() {
             id: task.id || results[index].id,
             order: index
         }));
+<<<<<<< HEAD
         if (orderData.length === 0) return;
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         return fetch('/admin/api/reorder_tasks.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -562,6 +639,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tasksContainer.addEventListener('input', debounce(saveAllTasks, 1000));
         tasksContainer.addEventListener('change', debounce(saveAllTasks, 500));
     }
+<<<<<<< HEAD
     const form = document.querySelector('form[method="POST"]');
     if (form) {
         form.addEventListener('submit', function(e) {
@@ -589,6 +667,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 });
 function debounce(func, wait) {
     let timeout;

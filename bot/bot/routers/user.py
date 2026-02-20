@@ -8,7 +8,11 @@ from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 from sqlalchemy.ext.asyncio import AsyncSession
+<<<<<<< HEAD
 from bot.loader import config
+=======
+from bot.config import load_config
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from bot.fsm.states import UserStates
 from bot.keyboards.user import UserKeyboards
 from bot.loader import bot
@@ -22,6 +26,7 @@ from bot.services.vision import VisionService
 from bot.services.pose_movenet import PoseService
 from bot.services.antifraud import AntiFraudService
 from bot.services.admin_notifier import AdminNotifier
+<<<<<<< HEAD
 from bot.utils.helpers import download_photo, download_photo_by_file_id, format_duration, format_distance, get_point_tasks, tasks_from_models, parse_task_text, split_long_message
 from bot.utils.i18n import get_localized_field
 from bot.utils.commands import set_user_commands
@@ -55,6 +60,16 @@ async def _send_post_quest_flow(message: Message, user: User, progress_id: int, 
     )
 logger = logging.getLogger(__name__)
 router = Router()
+=======
+from bot.utils.helpers import download_photo, format_duration, format_distance, get_point_tasks, parse_task_text, split_long_message
+from bot.utils.i18n import get_localized_field
+from bot.repositories.task import TaskRepository
+from sqlalchemy import text
+from aiogram.types import FSInputFile
+logger = logging.getLogger(__name__)
+router = Router()
+config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.message(F.sticker | F.animation)
 async def reject_stickers_and_gifs(message: Message, user: User):
     from bot.utils.i18n import i18n
@@ -73,6 +88,7 @@ async def cmd_promo(
     session: AsyncSession,
 ):
     from bot.utils.i18n import i18n
+<<<<<<< HEAD
     await state.clear()
     await message.answer(
         i18n.get("promo_menu_title", user.language),
@@ -171,6 +187,13 @@ async def cb_promo_my_list(
             parse_mode="HTML",
         )
     await callback.answer()
+=======
+    await state.set_state(UserStates.waiting_promo_code)
+    await message.answer(
+        i18n.get("promo_code_enter_command", user.language),
+        reply_markup=UserKeyboards.cancel_keyboard(user.language)
+    )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.message(Command("start"))
 async def cmd_start(
     message: Message,
@@ -179,6 +202,7 @@ async def cmd_start(
     session: AsyncSession,
 ):
     from bot.utils.i18n import i18n
+<<<<<<< HEAD
     from bot.repositories.user import UserRepository
     await state.clear()
     if message.text:
@@ -198,6 +222,9 @@ async def cmd_start(
                     await session.refresh(user)
             except (ValueError, IndexError):
                 pass
+=======
+    await state.clear()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     if not user.language:
         result = await session.execute(
             text("SELECT COUNT(*) FROM user_progress WHERE user_id = :user_id"),
@@ -229,6 +256,7 @@ async def back_to_main(callback: CallbackQuery, user: User, state: FSMContext):
         reply_markup=UserKeyboards.main_menu(user.language),
     )
     await callback.answer()
+<<<<<<< HEAD
 @router.callback_query(F.data == "from_review:main_menu")
 async def from_review_main_menu(callback: CallbackQuery, user: User, state: FSMContext):
     from bot.utils.i18n import i18n
@@ -438,6 +466,8 @@ async def cb_show_top(callback: CallbackQuery, user: User, session: AsyncSession
     except Exception:
         await callback.message.answer(text, parse_mode="HTML", disable_web_page_preview=True)
     await callback.answer()
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data == "select_city")
 async def select_city(
     callback: CallbackQuery,
@@ -536,7 +566,11 @@ async def route_selected(
             3: i18n.get('hard', user.language)
         }
         description += f"• {i18n.get('difficulty', user.language)}: {difficulty_names.get(route.difficulty, i18n.get('medium', user.language))}\n"
+<<<<<<< HEAD
     description += f"• {i18n.get('price', user.language)}: {route.price} грошей\n"
+=======
+    description += f"• {i18n.get('price', user.language)}: {route.price}₽\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     if tags:
         tag_texts = []
         for tag in tags:
@@ -566,10 +600,18 @@ async def start_quest(
     from bot.utils.i18n import i18n
     from bot.utils.settings import is_subscription_check_enabled
     from bot.loader import bot
+<<<<<<< HEAD
+=======
+    from bot.config import load_config
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     from aiogram.exceptions import TelegramBadRequest
     from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
     subscription_check_enabled = await is_subscription_check_enabled(session)
     if subscription_check_enabled:
+<<<<<<< HEAD
+=======
+        config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         if (config.channel.channel_id and config.channel.channel_id != 0) or config.channel.channel_username:
             try:
                 user_id = user.telegram_id if hasattr(user, 'telegram_id') else user.id
@@ -603,8 +645,12 @@ async def start_quest(
                     except TelegramBadRequest:
                         pass
                 if member:
+<<<<<<< HEAD
                     status_val = getattr(member.status, 'value', str(member.status)).lower() if member.status else ''
                     is_subscribed = status_val in ('member', 'administrator', 'creator')
+=======
+                    is_subscribed = member.status in ['member', 'administrator', 'creator']
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     if not is_subscribed:
                         channel_username = config.channel.channel_username or "questguiderf"
                         channel_link = f"https://t.me/{channel_username}"
@@ -661,10 +707,13 @@ async def start_quest(
         current_point = await point_repo.get_with_tasks(current_point.id)
     tasks = get_point_tasks(current_point)
     if not tasks:
+<<<<<<< HEAD
         task_repo = TaskRepository(session)
         task_models = await task_repo.get_by_point(current_point.id)
         tasks = tasks_from_models(task_models)
     if not tasks:
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         await callback.answer("❌ Ошибка: у точки нет заданий", show_alert=True)
         return
     current_task_index = 0
@@ -677,16 +726,28 @@ async def start_quest(
         task_index=current_task_index,
         total_tasks=len(tasks),
     )
+<<<<<<< HEAD
     await set_user_commands(bot, callback.from_user.id, user.language, in_quest=True)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     point_name = get_localized_field(current_point, 'name', user.language)
     task_text_value = current_task.get('task_text_en') if user.language == 'en' and current_task.get('task_text_en') else current_task.get('task_text', '')
     parsed = parse_task_text(task_text_value)
     header = f"{progress.current_point_order + 1}. {point_name}\n\n"
     messages_to_send = []
+<<<<<<< HEAD
+=======
+    audio_text_value = get_localized_field(current_point, 'audio_text', user.language)
+    if audio_text_value:
+        audio_msg = header + audio_text_value
+        messages_to_send.append(audio_msg)
+        header = ""
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     if parsed['directions']:
         directions_msg = header + f"{parsed['directions']}"
         messages_to_send.append(directions_msg)
         header = ""
+<<<<<<< HEAD
     audio_text_value = get_localized_field(current_point, 'audio_text', user.language)
     if audio_text_value:
         audio_msg = (header + audio_text_value) if header else audio_text_value
@@ -703,6 +764,11 @@ async def start_quest(
                 url=yandex_maps_url(current_point.latitude, current_point.longitude),
             )
         )
+=======
+    from aiogram.utils.keyboard import InlineKeyboardBuilder
+    from aiogram.types import InlineKeyboardButton
+    keyboard_builder = InlineKeyboardBuilder()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     keyboard_builder.row(
         InlineKeyboardButton(
             text=i18n.get("i_am_here", user.language),
@@ -768,10 +834,13 @@ async def i_am_here_handler(
         await callback.answer("Прогресс не найден", show_alert=True)
         return
     tasks = get_point_tasks(point)
+<<<<<<< HEAD
     if not tasks:
         task_repo = TaskRepository(session)
         task_models = await task_repo.get_by_point(point.id)
         tasks = tasks_from_models(task_models)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     if not tasks or task_index >= len(tasks):
         await callback.answer("Задание не найдено", show_alert=True)
         return
@@ -858,10 +927,13 @@ async def proceed_to_task_handler(
         await callback.answer("Прогресс не найден", show_alert=True)
         return
     tasks = get_point_tasks(point)
+<<<<<<< HEAD
     if not tasks:
         task_repo = TaskRepository(session)
         task_models = await task_repo.get_by_point(point.id)
         tasks = tasks_from_models(task_models)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     if not tasks or task_index >= len(tasks):
         await callback.answer("Задание не найдено", show_alert=True)
         return
@@ -889,6 +961,16 @@ async def proceed_to_task_handler(
             waiting_for_fact=False,
         )
     else:
+<<<<<<< HEAD
+=======
+        if point.require_pose:
+            pose_names = {
+                "hands_up": i18n.get("pose_hands_up", user.language, default="hands up"),
+                "heart": i18n.get("pose_heart", user.language, default="heart with hands"),
+                "point": i18n.get("pose_point", user.language, default="point with finger"),
+            }
+            task_msg += f"\n\n🤸 {i18n.get('pose_required', user.language)}: {pose_names.get(point.require_pose, point.require_pose)}"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         task_msg += f"\n\n{i18n.get('send_photo', user.language)}"
         await state.set_state(UserStates.in_quest)
         await state.update_data(
@@ -897,6 +979,24 @@ async def proceed_to_task_handler(
             waiting_for_fact=False,
         )
     keyboard_builder = InlineKeyboardBuilder()
+<<<<<<< HEAD
+=======
+    from bot.services.hints import HintService
+    hint_service = HintService(session)
+    can_use, _, hints_used, max_hints = await hint_service.check_hint_availability(
+        user.id, route_id, point.id
+    )
+    if can_use:
+        hint_button_text = i18n.get("hint", user.language, default="💡 Подсказка")
+        if hints_used < max_hints:
+            hint_button_text += f" ({max_hints - hints_used} {i18n.get('hints_left', user.language, default='осталось')})"
+        keyboard_builder.row(
+            InlineKeyboardButton(
+                text=hint_button_text,
+                callback_data=f"hint:request:{point.id}",
+            )
+        )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     keyboard_builder.row(
         InlineKeyboardButton(
             text=i18n.get("cancel_quest", user.language),
@@ -918,7 +1018,11 @@ async def proceed_to_task_handler(
                 await callback.message.answer(part)
     await callback.answer()
 @router.message(StateFilter(UserStates.in_quest), F.photo)
+<<<<<<< HEAD
 async def process_quest_photo_preview(
+=======
+async def process_quest_photo(
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     message: Message,
     session: AsyncSession,
     user: User,
@@ -934,6 +1038,7 @@ async def process_quest_photo_preview(
         else:
             await message.answer(i18n.get("proceed_to_task", user.language, default="▶️ Сначала нажмите кнопку 'Приступить к заданию'"))
         return
+<<<<<<< HEAD
     from bot.utils.i18n import i18n
     photo = message.photo[-1]
     await state.update_data(pending_photo_file_id=photo.file_id)
@@ -995,11 +1100,29 @@ async def cb_photo_confirm(
     message = callback.message
     point_repo = PointRepository(session)
     progress_repo = ProgressRepository(session)
+=======
+    from bot.utils.i18n import i18n, get_localized_field
+    from bot.utils.settings import is_manual_photo_moderation_enabled
+    start_time = time.time()
+    logger.info(f"[USER {user.telegram_id}] Получено фото, начинаем обработку")
+    data = await state.get_data()
+    route_id = data.get("route_id")
+    point_id = data.get("point_id")
+    status_msg = await message.answer(i18n.get("photo_received", user.language))
+    logger.info(f"[USER {user.telegram_id}] Отправлено подтверждение получения фото")
+    point_repo = PointRepository(session)
+    progress_repo = ProgressRepository(session)
+    photo = message.photo[-1]
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     manual_moderation = await is_manual_photo_moderation_enabled(session)
     try:
         logger.info(f"[USER {user.telegram_id}] Скачиваю фото...")
         await status_msg.edit_text(i18n.get("photo_downloading", user.language))
+<<<<<<< HEAD
         photo_path = await download_photo_by_file_id(bot, file_id)
+=======
+        photo_path = await download_photo(bot, photo)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         logger.info(f"[USER {user.telegram_id}] Фото скачано: {photo_path}, время: {time.time() - start_time:.2f}с")
         logger.info(f"[USER {user.telegram_id}] Загружаю данные точки...")
         await status_msg.edit_text(i18n.get("photo_loading_data", user.language))
@@ -1026,13 +1149,18 @@ async def cb_photo_confirm(
                 point_name=get_localized_field(point, 'name', user.language),
                 point_id=point_id,
                 progress_id=progress.id,
+<<<<<<< HEAD
                 photo_file_id=file_id,
+=======
+                photo_file_id=photo.file_id,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 route_name=route_name,
                 error_reason="Ручная модерация",
                 is_manual_moderation=True
             )
             await status_msg.edit_text(i18n.get("photo_checking", user.language, default="🔍 Проверяю фото..."))
             return
+<<<<<<< HEAD
         logger.info(f"[USER {user.telegram_id}] [ШАГ 1/3] Проверяю на фрод...")
         await status_msg.edit_text(i18n.get("checking_antifraud", user.language))
         antifraud_service = AntiFraudService()
@@ -1043,6 +1171,13 @@ async def cb_photo_confirm(
             progress.current_point_order,
             session=session,
             progress=progress,
+=======
+        logger.info(f"[USER {user.telegram_id}] [ШАГ 1/4] Проверяю на фрод...")
+        await status_msg.edit_text(i18n.get("checking_antifraud", user.language))
+        antifraud_service = AntiFraudService()
+        fraud_ok, fraud_messages = await antifraud_service.perform_all_checks(
+            photo_path, user.telegram_id, route_id, progress.current_point_order
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         )
         del antifraud_service
         gc.collect()
@@ -1056,14 +1191,22 @@ async def cb_photo_confirm(
                 point_name=point.name,
                 point_id=point_id,
                 progress_id=progress.id,
+<<<<<<< HEAD
                 photo_file_id=file_id,
+=======
+                photo_file_id=photo.file_id,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 route_name=data.get("route_name", "Неизвестный маршрут"),
                 error_reason=fraud_messages[-1]
             )
             await status_msg.edit_text(f"❌ {fraud_messages[-1]}\n\n⏳ {i18n.get('photo_sent_to_admin', user.language)}")
             return
+<<<<<<< HEAD
         await session.commit()
         logger.info(f"[USER {user.telegram_id}] [ШАГ 2/3] Считаю количество людей на фото...")
+=======
+        logger.info(f"[USER {user.telegram_id}] [ШАГ 2/4] Считаю количество людей на фото...")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         await status_msg.edit_text(i18n.get("checking_people", user.language))
         pose_service = None
         try:
@@ -1079,7 +1222,11 @@ async def cb_photo_confirm(
                     point_name=point.name,
                     point_id=point_id,
                     progress_id=progress.id,
+<<<<<<< HEAD
                     photo_file_id=file_id,
+=======
+                    photo_file_id=photo.file_id,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     route_name=data.get("route_name", "Неизвестный маршрут"),
                     error_reason=people_msg,
                     people_count=people_count
@@ -1096,7 +1243,11 @@ async def cb_photo_confirm(
                 point_name=point.name,
                 point_id=point_id,
                 progress_id=progress.id,
+<<<<<<< HEAD
                 photo_file_id=file_id,
+=======
+                photo_file_id=photo.file_id,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 route_name=data.get("route_name", "Неизвестный маршрут"),
                 error_reason="Ошибка при подсчете людей",
                 people_count=0
@@ -1109,12 +1260,49 @@ async def cb_photo_confirm(
             gc.collect()
             logger.info(f"[USER {user.telegram_id}] PoseService освобождён")
         gc.collect()
+<<<<<<< HEAD
         object_description = None
         point_tasks = get_point_tasks(point)
         if not point_tasks:
             task_repo = TaskRepository(session)
             task_models = await task_repo.get_by_point(point.id)
             point_tasks = tasks_from_models(task_models)
+=======
+        if point.require_pose:
+            logger.info(f"[USER {user.telegram_id}] [ШАГ 3/4] Проверяю позу {point.require_pose}...")
+            await status_msg.edit_text(i18n.get("checking_pose", user.language))
+            pose_service = None
+            try:
+                pose_service = PoseService(config.vision)
+                pose_ok, pose_msg = await pose_service.check_pose(
+                    photo_path, point.require_pose, user.language, user_id=user.telegram_id
+                )
+                logger.info(f"[USER {user.telegram_id}] Поза: {pose_ok}, время: {time.time() - start_time:.2f}с")
+                if not pose_ok:
+                    admin_notifier = AdminNotifier(bot, config.bot.admin_ids)
+                    await admin_notifier.notify_photo_verification_needed(
+                        photo_path=photo_path,
+                        user_id=user.telegram_id,
+                        username=user.username,
+                        point_name=point.name,
+                        point_id=point_id,
+                        progress_id=progress.id,
+                        photo_file_id=photo.file_id,
+                        route_name=data.get("route_name", "Неизвестный маршрут"),
+                        error_reason=pose_msg,
+                        pose_required=point.require_pose
+                    )
+                    await status_msg.edit_text(f"❌ {pose_msg}\n\n⏳ {i18n.get('photo_sent_to_admin', user.language)}")
+                    return
+            finally:
+                if pose_service:
+                    del pose_service
+                gc.collect()
+                logger.info(f"[USER {user.telegram_id}] PoseService освобождён")
+        gc.collect()
+        object_description = None
+        point_tasks = get_point_tasks(point)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         first_task_text = (point_tasks[0].get('task_text_en') if user.language == 'en' and point_tasks[0].get('task_text_en') else point_tasks[0].get('task_text', '')) if point_tasks else ''
         if first_task_text:
             task_text_clean = first_task_text.split('\n')[0].strip()
@@ -1124,7 +1312,11 @@ async def cb_photo_confirm(
         elif point.name:
             object_description = point.name
         if object_description:
+<<<<<<< HEAD
             logger.info(f"[USER {user.telegram_id}] [ШАГ 3/3] Проверяю локацию через CLIP: '{object_description}'...")
+=======
+            logger.info(f"[USER {user.telegram_id}] [ШАГ 4/4] Проверяю локацию через CLIP: '{object_description}'...")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await status_msg.edit_text(i18n.get("checking_location", user.language))
             vision_service = None
             try:
@@ -1148,7 +1340,11 @@ async def cb_photo_confirm(
                         point_name=point.name,
                         point_id=point_id,
                         progress_id=progress.id,
+<<<<<<< HEAD
                         photo_file_id=file_id,
+=======
+                        photo_file_id=photo.file_id,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         route_name=data.get("route_name", "Неизвестный маршрут"),
                         error_reason=f"Похоже, это не та локация (уверенность: {score:.1%})",
                         location_match=score * 100
@@ -1203,22 +1399,32 @@ async def cb_photo_confirm(
                 {
                     "user_id": user.id,
                     "point_id": point_id,
+<<<<<<< HEAD
                     "file_id": file_id,
+=======
+                    "file_id": photo.file_id,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     "file_path": relative_path,
                     "file_hash": None,
                 }
             )
             await session.commit()
             logger.info(f"[USER {user.telegram_id}] Фото сохранено: {relative_path}")
+<<<<<<< HEAD
             await _on_quest_completed(session, user, message)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         except Exception as e:
             logger.error(f"[USER {user.telegram_id}] Ошибка при сохранении фото: {e}", exc_info=True)
         tasks = get_point_tasks(point)
         if not tasks:
+<<<<<<< HEAD
             task_repo = TaskRepository(session)
             task_models = await task_repo.get_by_point(point.id)
             tasks = tasks_from_models(task_models)
         if not tasks:
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await status_msg.edit_text("❌ Ошибка: у точки нет заданий")
             return
         next_task_index = task_index + 1
@@ -1243,6 +1449,16 @@ async def cb_photo_confirm(
                     waiting_for_fact=False,
                 )
             else:
+<<<<<<< HEAD
+=======
+                if point.require_pose:
+                    pose_names = {
+                        "hands_up": i18n.get("pose_hands_up", user.language, default="hands up"),
+                        "heart": i18n.get("pose_heart", user.language, default="heart with hands"),
+                        "point": i18n.get("pose_point", user.language, default="point with finger"),
+                    }
+                    task_msg += f"\n\n🤸 {i18n.get('pose_required', user.language)}: {pose_names.get(point.require_pose, point.require_pose)}"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 task_msg += f"\n\n{i18n.get('send_photo', user.language)}"
                 await state.set_state(UserStates.in_quest)
                 await state.update_data(
@@ -1258,11 +1474,18 @@ async def cb_photo_confirm(
             return
         await status_msg.edit_text(i18n.get("point_completed", user.language))
         current_point_id = point_id
+<<<<<<< HEAD
         completed_point_order = getattr(point, 'order', progress.current_point_order)
         logger.info(f"[USER {user.telegram_id}] Завершена точка id={current_point_id}, order={completed_point_order}")
         next_point_data = await point_repo.get_next_point_data(route_id, completed_point_order)
         if not next_point_data:
             completed_count = completed_point_order + 1
+=======
+        logger.info(f"[USER {user.telegram_id}] Завершена точка id={current_point_id}, order={progress.current_point_order}")
+        next_point_data = await point_repo.get_next_point(route_id, progress.current_point_order)
+        if not next_point_data:
+            completed_count = progress.current_point_order + 1
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await progress_repo.complete_point(progress, None, None)
             completion_time = datetime.utcnow() - progress.started_at
             minutes = int(completion_time.total_seconds() / 60)
@@ -1280,11 +1503,22 @@ async def cb_photo_confirm(
             completion_msg += f"• {i18n.get('time_spent', user.language)} {format_duration(minutes)}\n\n"
             completion_msg += f"📜 {i18n.get('certificate_ready', user.language)}\n\n"
             completion_msg += f"{i18n.get('thanks', user.language)}"
+<<<<<<< HEAD
             await _send_post_quest_flow(message, user, progress.id, completion_msg)
             await _on_quest_completed(session, user, message)
             return
         if next_point_data:
             logger.info(f"[USER {user.telegram_id}] Найдена следующая точка id={next_point_data.id}, order={next_point_data.order}, текущая order={completed_point_order}")
+=======
+            await message.answer(
+                completion_msg,
+                reply_markup=UserKeyboards.quest_completed(),
+                parse_mode="HTML"
+            )
+            return
+        if next_point_data:
+            logger.info(f"[USER {user.telegram_id}] Найдена следующая точка id={next_point_data.id}, order={next_point_data.order}, текущая order={progress.current_point_order}")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         next_point = await point_repo.get_with_tasks(next_point_data.id) if next_point_data else None
         if not next_point:
             logger.error(f"[USER {user.telegram_id}] Не удалось загрузить следующую точку id={next_point_data.id if next_point_data else 'None'}")
@@ -1292,9 +1526,15 @@ async def cb_photo_confirm(
             return
         if next_point.id == current_point_id:
             logger.warning(f"[USER {user.telegram_id}] get_next_point вернул ту же точку (id={current_point_id}), пропускаем")
+<<<<<<< HEAD
             next_point_data = await point_repo.get_next_point_data(route_id, next_point.order)
             if not next_point_data:
                 completed_count = completed_point_order + 1
+=======
+            next_point_data = await point_repo.get_next_point(route_id, next_point.order)
+            if not next_point_data:
+                completed_count = progress.current_point_order + 1
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 await progress_repo.complete_point(progress, None, None)
                 completion_time = datetime.utcnow() - progress.started_at
                 minutes = int(completion_time.total_seconds() / 60)
@@ -1303,8 +1543,16 @@ async def cb_photo_confirm(
                 completion_msg += f"• {i18n.get('completed_points', user.language)} {progress.points_completed}\n"
                 completion_msg += f"• {i18n.get('time_spent', user.language)} {format_duration(minutes)}\n\n"
                 completion_msg += f"{i18n.get('thanks', user.language)}"
+<<<<<<< HEAD
                 await _send_post_quest_flow(message, user, progress.id, completion_msg)
                 await _on_quest_completed(session, user, message)
+=======
+                await message.answer(
+                    completion_msg,
+                    reply_markup=UserKeyboards.quest_completed(),
+                    parse_mode="HTML"
+                )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 return
             next_point = await point_repo.get_with_tasks(next_point_data.id)
             if not next_point:
@@ -1316,10 +1564,13 @@ async def cb_photo_confirm(
             )
             next_tasks = get_point_tasks(next_point)
             if not next_tasks:
+<<<<<<< HEAD
                 task_repo = TaskRepository(session)
                 task_models = await task_repo.get_by_point(next_point.id)
                 next_tasks = tasks_from_models(task_models)
             if not next_tasks:
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 await message.answer("❌ Ошибка: у следующей точки нет заданий")
                 return
             next_task = next_tasks[0]
@@ -1328,10 +1579,19 @@ async def cb_photo_confirm(
             parsed = parse_task_text(task_text_value)
             header = f"{next_point.order}. {next_point_name}\n\n"
             messages_to_send = []
+<<<<<<< HEAD
+=======
+            audio_text_value = get_localized_field(next_point, 'audio_text', user.language)
+            if audio_text_value:
+                audio_msg = header + f"{audio_text_value}"
+                messages_to_send.append(audio_msg)
+                header = ""
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             if parsed['directions']:
                 directions_msg = header + f"{parsed['directions']}"
                 messages_to_send.append(directions_msg)
                 header = ""
+<<<<<<< HEAD
             audio_text_value = get_localized_field(next_point, 'audio_text', user.language)
             if audio_text_value:
                 audio_msg = (header + f"{audio_text_value}") if header else f"{audio_text_value}"
@@ -1348,6 +1608,11 @@ async def cb_photo_confirm(
                         url=yandex_maps_url(next_point.latitude, next_point.longitude),
                     )
                 )
+=======
+            from aiogram.utils.keyboard import InlineKeyboardBuilder
+            from aiogram.types import InlineKeyboardButton
+            keyboard_builder = InlineKeyboardBuilder()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             keyboard_builder.row(
                 InlineKeyboardButton(
                     text=i18n.get("i_am_here", user.language),
@@ -1381,7 +1646,11 @@ async def cb_photo_confirm(
             if not messages_to_send:
                 await message.answer(header.strip(), reply_markup=keyboard_builder.as_markup())
         else:
+<<<<<<< HEAD
             completed_count = completed_point_order + 1
+=======
+            completed_count = progress.current_point_order + 1
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await progress_repo.complete_point(progress, None, None)
             completion_time = datetime.utcnow() - progress.started_at
             minutes = int(completion_time.total_seconds() / 60)
@@ -1399,8 +1668,16 @@ async def cb_photo_confirm(
             completion_msg += f"• {i18n.get('time_spent', user.language)} {format_duration(minutes)}\n\n"
             completion_msg += f"📜 {i18n.get('certificate_ready', user.language)}\n\n"
             completion_msg += f"{i18n.get('thanks', user.language)}"
+<<<<<<< HEAD
             await _send_post_quest_flow(message, user, progress.id, completion_msg)
             await _on_quest_completed(session, user, message)
+=======
+            await message.answer(
+                completion_msg,
+                reply_markup=UserKeyboards.quest_completed(),
+                parse_mode="HTML"
+            )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await state.clear()
     except Exception as e:
         from bot.utils.i18n import i18n
@@ -1411,8 +1688,12 @@ async def cb_photo_confirm(
                 f"{i18n.get('photo_error_try_again', user.language)}\n\n"
                 f"{i18n.get('error_code', user.language)} {type(e).__name__}"
             )
+<<<<<<< HEAD
         except Exception as edit_err:
             logger.warning(f"[USER {user.telegram_id}] Не удалось отредактировать сообщение об ошибке: {edit_err}")
+=======
+        except:
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await message.answer(
                 f"{i18n.get('photo_error', user.language)}\n"
                 f"{i18n.get('photo_error_try_again', user.language)}"
@@ -1453,10 +1734,13 @@ async def process_text_answer(
         await message.answer("❌ Ошибка: точка не найдена")
         return
     tasks = get_point_tasks(point)
+<<<<<<< HEAD
     if not tasks:
         task_repo = TaskRepository(session)
         task_models = await task_repo.get_by_point(point.id)
         tasks = tasks_from_models(task_models)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     if not tasks or task_index >= len(tasks):
         await message.answer("❌ Ошибка: задание не найдено")
         return
@@ -1503,6 +1787,16 @@ async def process_text_answer(
                     waiting_for_fact=False,
                 )
             else:
+<<<<<<< HEAD
+=======
+                if point.require_pose:
+                    pose_names = {
+                        "hands_up": i18n.get("pose_hands_up", user.language, default="hands up"),
+                        "heart": i18n.get("pose_heart", user.language, default="heart with hands"),
+                        "point": i18n.get("pose_point", user.language, default="point with finger"),
+                    }
+                    task_msg += f"\n\n🤸 {i18n.get('pose_required', user.language)}: {pose_names.get(point.require_pose, point.require_pose)}"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 task_msg += f"\n\n{i18n.get('send_photo', user.language)}"
                 await state.set_state(UserStates.in_quest)
                 await state.update_data(
@@ -1519,6 +1813,7 @@ async def process_text_answer(
         progress = await progress_repo.get(data.get("progress_id"))
         route_id = data.get("route_id")
         current_point_id = data.get("point_id")
+<<<<<<< HEAD
         current_point = await point_repo.get(current_point_id)
         completed_point_order = current_point.order if current_point else progress.current_point_order
         logger.info(f"[USER {user.telegram_id}] Завершена точка id={current_point_id}, order={completed_point_order}")
@@ -1527,6 +1822,14 @@ async def process_text_answer(
             logger.info(f"[USER {user.telegram_id}] Найдена следующая точка id={next_point_data.id}, order={next_point_data.order}, текущая order={completed_point_order}")
         if not next_point_data:
             completed_count = completed_point_order + 1
+=======
+        logger.info(f"[USER {user.telegram_id}] Завершена точка id={current_point_id}, order={progress.current_point_order}")
+        next_point_data = await point_repo.get_next_point(route_id, progress.current_point_order)
+        if next_point_data:
+            logger.info(f"[USER {user.telegram_id}] Найдена следующая точка id={next_point_data.id}, order={next_point_data.order}, текущая order={progress.current_point_order}")
+        if not next_point_data:
+            completed_count = progress.current_point_order + 1
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await progress_repo.complete_point(progress, None, None)
             completion_time = datetime.utcnow() - progress.started_at
             minutes = int(completion_time.total_seconds() / 60)
@@ -1544,8 +1847,16 @@ async def process_text_answer(
             completion_msg += f"• {i18n.get('time_spent', user.language)} {format_duration(minutes)}\n\n"
             completion_msg += f"📜 {i18n.get('certificate_ready', user.language)}\n\n"
             completion_msg += f"{i18n.get('thanks', user.language)}"
+<<<<<<< HEAD
             await _send_post_quest_flow(message, user, progress.id, completion_msg)
             await _on_quest_completed(session, user, message)
+=======
+            await message.answer(
+                completion_msg,
+                reply_markup=UserKeyboards.quest_completed(),
+                parse_mode="HTML"
+            )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             return
         next_point = await point_repo.get_with_tasks(next_point_data.id)
         if not next_point:
@@ -1554,9 +1865,15 @@ async def process_text_answer(
             return
         if next_point.id == current_point_id:
             logger.warning(f"[USER {user.telegram_id}] get_next_point вернул ту же точку (id={current_point_id}), пропускаем")
+<<<<<<< HEAD
             next_point_data = await point_repo.get_next_point_data(route_id, next_point.order)
             if not next_point_data:
                 completed_count = completed_point_order + 1
+=======
+            next_point_data = await point_repo.get_next_point(route_id, next_point.order)
+            if not next_point_data:
+                completed_count = progress.current_point_order + 1
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 await progress_repo.complete_point(progress, None, None)
                 completion_time = datetime.utcnow() - progress.started_at
                 minutes = int(completion_time.total_seconds() / 60)
@@ -1565,18 +1882,29 @@ async def process_text_answer(
                 completion_msg += f"• {i18n.get('completed_points', user.language)} {progress.points_completed}\n"
                 completion_msg += f"• {i18n.get('time_spent', user.language)} {format_duration(minutes)}\n\n"
                 completion_msg += f"{i18n.get('thanks', user.language)}"
+<<<<<<< HEAD
                 await _send_post_quest_flow(message, user, progress.id, completion_msg)
                 await _on_quest_completed(session, user, message)
+=======
+                await message.answer(
+                    completion_msg,
+                    reply_markup=UserKeyboards.quest_completed(),
+                    parse_mode="HTML"
+                )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 return
             next_point = await point_repo.get_with_tasks(next_point_data.id)
         if next_point:
             await progress_repo.complete_point(progress, next_point.id, next_point.order)
             next_tasks = get_point_tasks(next_point)
             if not next_tasks:
+<<<<<<< HEAD
                 task_repo = TaskRepository(session)
                 task_models = await task_repo.get_by_point(next_point.id)
                 next_tasks = tasks_from_models(task_models)
             if not next_tasks:
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 await message.answer("❌ Ошибка: у следующей точки нет заданий")
                 return
             next_task = next_tasks[0]
@@ -1585,10 +1913,19 @@ async def process_text_answer(
             parsed = parse_task_text(task_text_value)
             header = f"{next_point.order}. {next_point_name}\n\n"
             messages_to_send = []
+<<<<<<< HEAD
+=======
+            audio_text_value = get_localized_field(next_point, 'audio_text', user.language)
+            if audio_text_value:
+                audio_msg = header + f"{audio_text_value}"
+                messages_to_send.append(audio_msg)
+                header = ""
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             if parsed['directions']:
                 directions_msg = header + f"{parsed['directions']}"
                 messages_to_send.append(directions_msg)
                 header = ""
+<<<<<<< HEAD
             audio_text_value = get_localized_field(next_point, 'audio_text', user.language)
             if audio_text_value:
                 audio_msg = (header + f"{audio_text_value}") if header else f"{audio_text_value}"
@@ -1605,6 +1942,11 @@ async def process_text_answer(
                         url=yandex_maps_url(next_point.latitude, next_point.longitude),
                     )
                 )
+=======
+            from aiogram.utils.keyboard import InlineKeyboardBuilder
+            from aiogram.types import InlineKeyboardButton
+            keyboard_builder = InlineKeyboardBuilder()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             keyboard_builder.row(
                 InlineKeyboardButton(
                     text=i18n.get("i_am_here", user.language),
@@ -1638,7 +1980,11 @@ async def process_text_answer(
             if not messages_to_send:
                 await message.answer(header.strip(), reply_markup=keyboard_builder.as_markup())
         else:
+<<<<<<< HEAD
             completed_count = completed_point_order + 1
+=======
+            completed_count = progress.current_point_order + 1
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await progress_repo.complete_point(progress, None, None)
             completion_time = datetime.utcnow() - progress.started_at
             minutes = int(completion_time.total_seconds() / 60)
@@ -1656,8 +2002,16 @@ async def process_text_answer(
             completion_msg += f"• {i18n.get('time_spent', user.language)} {format_duration(minutes)}\n\n"
             completion_msg += f"📜 {i18n.get('certificate_ready', user.language)}\n\n"
             completion_msg += f"{i18n.get('thanks', user.language)}"
+<<<<<<< HEAD
             await _send_post_quest_flow(message, user, progress.id, completion_msg)
             await _on_quest_completed(session, user, message)
+=======
+            await message.answer(
+                completion_msg,
+                reply_markup=UserKeyboards.quest_completed(),
+                parse_mode="HTML"
+            )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await state.clear()
     else:
         attempts += 1
@@ -1690,6 +2044,7 @@ async def cancel_quest(
     state: FSMContext,
 ):
     await state.clear()
+<<<<<<< HEAD
     from bot.utils.i18n import i18n
     await callback.message.edit_text(
         i18n.get("quest_cancelled", user.language, default="❌ Квест прерван.\n\nВы можете начать заново в любой момент."),
@@ -1872,6 +2227,13 @@ async def resume_quest(
     )
     await callback.message.edit_text(text, reply_markup=builder.as_markup(), parse_mode="HTML")
     await callback.answer(i18n.get("quest_resumed_short", user.language, default="Квест продолжен!"))
+=======
+    await callback.message.edit_text(
+        "❌ Квест прерван.\n\nВы можете начать заново в любой момент.",
+        reply_markup=UserKeyboards.main_menu(),
+    )
+    await callback.answer()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data == "my_stats")
 async def my_stats(
     callback: CallbackQuery,
@@ -1879,6 +2241,7 @@ async def my_stats(
     user: User,
 ):
     from bot.utils.i18n import i18n
+<<<<<<< HEAD
     import logging
     logger = logging.getLogger(__name__)
     try:
@@ -1917,6 +2280,36 @@ async def my_stats(
         )
     except Exception:
         pass
+=======
+    progress_repo = ProgressRepository(session)
+    stats = await progress_repo.get_user_stats(user.id)
+    total_routes = stats.get('total_routes', 0)
+    completed = stats.get('completed', 0)
+    in_progress = stats.get('in_progress', 0)
+    total_points = stats.get('total_points', 0)
+    total_photos = stats.get('total_photos', 0)
+    longest_quest = stats.get('longest_quest', 0)
+    shortest_quest = stats.get('shortest_quest', 0)
+    user_rank = stats.get('user_rank', 1)
+    text = f"📊 <b>{i18n.get('your_stats', user.language)}</b>\n\n"
+    text += f"🗺 {i18n.get('total_routes', user.language)}: {total_routes}\n"
+    text += f"✅ {i18n.get('completed', user.language)}: {completed}\n"
+    text += f"⏳ {i18n.get('in_progress', user.language)}: {in_progress}\n"
+    text += f"📍 {i18n.get('total_points_completed', user.language)}: {total_points}\n"
+    text += f"📸 Сделано фото: {total_photos}\n\n"
+    if longest_quest > 0:
+        text += f"⏱ <b>Рекорды:</b>\n"
+        text += f"• Самый длинный квест: {format_duration(longest_quest)}\n"
+        if shortest_quest > 0:
+            text += f"• Самый быстрый квест: {format_duration(shortest_quest)}\n"
+        text += f"\n"
+    text += f"🏆 Ваша позиция: #{user_rank}\n"
+    await callback.message.edit_text(
+        text,
+        reply_markup=UserKeyboards.main_menu(user.language),
+        parse_mode="HTML",
+    )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     await callback.answer()
 @router.callback_query(F.data.startswith("lang:"))
 async def language_selected(callback: CallbackQuery, user: User, session: AsyncSession, state: FSMContext):
@@ -1932,13 +2325,17 @@ async def language_selected(callback: CallbackQuery, user: User, session: AsyncS
         reply_markup=UserKeyboards.main_menu(language),
     )
     await state.clear()
+<<<<<<< HEAD
     await set_user_commands(bot, callback.from_user.id, language, in_quest=False)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     await callback.answer(i18n.get("language_changed", language) or ("✅ Язык изменен!" if language == "ru" else "✅ Language changed!"))
 @router.callback_query(F.data == "settings")
 async def settings_menu(callback: CallbackQuery, user: User):
     from bot.utils.i18n import i18n
     await callback.message.edit_text(
         i18n.get("settings_menu", user.language),
+<<<<<<< HEAD
         reply_markup=UserKeyboards.settings_menu(user.language, getattr(user, "show_map", False)),
     )
     await callback.answer()
@@ -1954,6 +2351,11 @@ async def settings_toggle_show_map(callback: CallbackQuery, user: User, session:
     )
     status = i18n.get("show_map_on", user.language) if user.show_map else i18n.get("show_map_off", user.language)
     await callback.answer(status)
+=======
+        reply_markup=UserKeyboards.settings_menu(user.language),
+    )
+    await callback.answer()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data == "settings:language")
 async def settings_change_language(callback: CallbackQuery, user: User, state: FSMContext):
     from bot.utils.i18n import i18n
@@ -2187,14 +2589,24 @@ async def cmd_top(message: Message, session: AsyncSession, user: User):
         text += f"   👥 {i18n.get('top_completions', user.language)}: {completions}\n"
         if avg_time > 0:
             text += f"   ⏱ {i18n.get('top_avg_time', user.language)}: {format_duration(avg_time)}\n"
+<<<<<<< HEAD
         text += f"   💰 {i18n.get('top_price', user.language)}: {route.price} грошей\n"
+=======
+        text += f"   💰 {i18n.get('top_price', user.language)}: {route.price}₽\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         text += f"   🌐 <a href='{config.web.site_url}/routes/view.php?id={route.id}'>{i18n.get('top_more', user.language)}</a>\n\n"
     await message.answer(text, parse_mode="HTML", disable_web_page_preview=True)
 @router.callback_query(F.data == "check_subscription")
 async def check_subscription(callback: CallbackQuery, user: User):
     from bot.loader import bot
     from bot.utils.i18n import i18n
+<<<<<<< HEAD
     from aiogram.exceptions import TelegramBadRequest
+=======
+    from bot.config import load_config
+    from aiogram.exceptions import TelegramBadRequest
+    config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     try:
         user_id = user.telegram_id if hasattr(user, 'telegram_id') else user.id
         member = None
@@ -2239,8 +2651,12 @@ async def check_subscription(callback: CallbackQuery, user: User):
         if member is None:
             await callback.answer(i18n.get("subscribe_fail", user.language), show_alert=True)
             return
+<<<<<<< HEAD
         status_val = getattr(member.status, 'value', str(member.status)).lower() if member.status else ''
         is_subscribed = status_val in ('member', 'administrator', 'creator')
+=======
+        is_subscribed = member.status in ['member', 'administrator', 'creator']
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         if is_subscribed:
             await callback.message.edit_text(
                 f"{i18n.get('subscribe_success', user.language)}\n\n"
@@ -2267,7 +2683,11 @@ async def about(callback: CallbackQuery, user: User):
     await callback.answer()
 @router.message(
     F.text.startswith("/")
+<<<<<<< HEAD
     & ~F.text.regexp(r"^/(start|web|review|top|promo|admin|token|become_creator|partner|commands|restart_point|cancel_quest|skip)(@[\w_]+)?(\s|$)")
+=======
+    & ~F.text.regexp(r"^/(start|web|review|top|promo|admin|token)(@[\w_]+)?(\s|$)")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 )
 async def unknown_command(message: Message, user: User):
     from bot.utils.i18n import i18n

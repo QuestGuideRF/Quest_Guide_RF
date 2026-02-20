@@ -8,6 +8,7 @@ from aiogram import Dispatcher
 from sqlalchemy import text
 from bot.loader import bot, dp, engine
 from bot.models import Base
+<<<<<<< HEAD
 from bot.middlewares import DbSessionMiddleware, UserMiddleware, DebounceCallbackMiddleware
 from bot.middlewares.ban_check import BanCheckMiddleware
 from bot.routers import user_router, admin_router, payment_router, web_auth_router, hints_router, admin_hints_router, audio_router, filters_router, bank_router, moderator_router
@@ -20,11 +21,21 @@ from bot.services.admin_notifier import AdminNotifier
 from aiogram import Router
 from aiogram.types import ErrorEvent
 from aiogram.exceptions import TelegramNetworkError
+=======
+from bot.middlewares import DbSessionMiddleware, UserMiddleware
+from bot.middlewares.ban_check import BanCheckMiddleware
+from bot.routers import user_router, admin_router, payment_router, web_auth_router, hints_router, admin_hints_router, audio_router, filters_router, bank_router
+from bot.routers.admin_bans import router as admin_bans_router
+from bot.routers.reviews import router as reviews_router
+from bot.config import load_config
+from bot.services.admin_notifier import AdminNotifier
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
+<<<<<<< HEAD
 async def set_bot_commands():
     from aiogram.types import BotCommandScopeDefault
     from bot.utils.commands import COMMANDS_NORMAL
@@ -34,6 +45,8 @@ async def set_bot_commands():
         logger.info("✅ Меню команд установлено")
     except Exception as e:
         logger.warning(f"Не удалось установить команды: {e}")
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 async def create_tables():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
@@ -57,6 +70,7 @@ def setup_routers(dp: Dispatcher):
     dp.include_router(admin_bans_router)
     dp.include_router(audio_router)
     dp.include_router(reviews_router)
+<<<<<<< HEAD
     dp.include_router(quiz_router)
     dp.include_router(survey_router)
     dp.include_router(filters_router)
@@ -87,6 +101,13 @@ def _setup_error_handlers(dp: Dispatcher):
 def setup_middlewares(dp: Dispatcher):
     dp.message.middleware(DbSessionMiddleware())
     dp.callback_query.middleware(DebounceCallbackMiddleware())
+=======
+    dp.include_router(filters_router)
+    dp.include_router(bank_router)
+    logger.info("✅ Роутеры подключены")
+def setup_middlewares(dp: Dispatcher):
+    dp.message.middleware(DbSessionMiddleware())
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     dp.callback_query.middleware(DbSessionMiddleware())
     dp.message.middleware(UserMiddleware())
     dp.callback_query.middleware(UserMiddleware())
@@ -113,16 +134,23 @@ async def on_startup():
     await create_tables()
     setup_routers(dp)
     setup_middlewares(dp)
+<<<<<<< HEAD
     _setup_error_handlers(dp)
     await set_bot_commands()
     logger.info("✅ Бот успешно запущен!")
     try:
+=======
+    logger.info("✅ Бот успешно запущен!")
+    try:
+        config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         admin_notifier = AdminNotifier(bot, config.bot.admin_ids)
         from bot.loader import SessionLocal
         async with SessionLocal() as session:
             await admin_notifier.notify_bot_restart(error_log, session=session)
     except Exception as e:
         logger.error(f"Не удалось отправить уведомление о запуске: {e}")
+<<<<<<< HEAD
     if getattr(config, 'channel', None) and (config.channel.channel_id or config.channel.channel_username):
         try:
             from bot.services.channel_stats import run_daily_channel_stats
@@ -135,6 +163,8 @@ async def on_startup():
             ))
         except Exception as e:
             logger.warning("Не удалось запустить задачу статистики канала: %s", e)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     return True
 async def on_shutdown():
     logger.info("🛑 Остановка бота...")
@@ -158,6 +188,10 @@ async def main():
         except Exception:
             pass
         try:
+<<<<<<< HEAD
+=======
+            config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             admin_notifier = AdminNotifier(bot, config.bot.admin_ids)
             await admin_notifier.notify_critical_error(error_msg, error_details)
         except Exception as notify_error:

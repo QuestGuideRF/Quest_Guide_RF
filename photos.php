@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /** Галерея фотографий */
 require_once __DIR__ . '/includes/init.php';
 require_once __DIR__ . '/includes/i18n.php';
@@ -7,6 +8,16 @@ $current_lang = getCurrentLanguage();
 $route_filter = isset($_GET['route']) ? intval($_GET['route']) : null;
 $photos = $user ? getUserPhotos($user['id'], $route_filter) : [];
 $user_routes = $user ? getDB()->fetchAll(
+=======
+require_once __DIR__ . '/includes/init.php';
+require_once __DIR__ . '/includes/i18n.php';
+requireAuth();
+$user = getCurrentUser();
+$current_lang = getCurrentLanguage();
+$route_filter = isset($_GET['route']) ? intval($_GET['route']) : null;
+$photos = getUserPhotos($user['id'], $route_filter);
+$user_routes = getDB()->fetchAll(
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     'SELECT DISTINCT r.id, r.name, r.name_en, c.name as city_name, c.name_en as city_name_en
      FROM user_progress up
      JOIN routes r ON up.route_id = r.id
@@ -14,7 +25,11 @@ $user_routes = $user ? getDB()->fetchAll(
      WHERE up.user_id = ?
      ORDER BY r.name',
     [$user['id']]
+<<<<<<< HEAD
 ) : [];
+=======
+);
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $page_title = t('photos_title');
 $page_description = $current_lang === 'en'
     ? "Your photos from QuestGuideRF quest-excursions. View all photos taken during route completion at attractions."
@@ -58,10 +73,13 @@ require_once __DIR__ . '/includes/header.php';
         <h1>📸 <?= t('photos_title') ?></h1>
         <p class="text-muted"><?= t('photos_subtitle') ?></p>
     </div>
+<<<<<<< HEAD
     <?php if (!$user): ?>
     <p class="text-muted"><?= $current_lang === 'en' ? 'Sign in to see your photos from quests.' : 'Войдите, чтобы видеть свои фото с квестов.' ?></p>
     <a href="/pages/login.php" class="btn btn-primary mb-4"><?= t('login') ?></a>
     <?php endif; ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php if (!empty($user_routes)): ?>
     <div class="filters">
         <label for="route-filter"><?= t('filter_by_route') ?></label>
@@ -112,6 +130,10 @@ require_once __DIR__ . '/includes/header.php';
     </div>
     <?php endif; ?>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Модальное окно для просмотра фото -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div id="photo-modal" class="modal">
     <div class="modal-content">
         <button class="modal-close" onclick="closePhotoModal()">&times;</button>

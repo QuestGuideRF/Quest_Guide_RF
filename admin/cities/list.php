@@ -1,10 +1,15 @@
 <?php
 $page_title = 'Управление городами';
 require_once __DIR__ . '/../includes/header.php';
+<<<<<<< HEAD
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../../includes/db.php';
 $pdo = getDB()->getConnection();
 $is_moderator = function_exists('isModerator') && isModerator();
+=======
+require_once __DIR__ . '/../../includes/db.php';
+$pdo = getDB()->getConnection();
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $status = isset($_GET['status']) ? $_GET['status'] : '';
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $where = [];
@@ -42,6 +47,10 @@ $cities = $stmt->fetchAll();
         <i class="fas fa-plus me-2"></i>Добавить город
     </a>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры и поиск -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -65,6 +74,10 @@ $cities = $stmt->fetchAll();
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Массовые действия -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form id="bulkActionsForm">
@@ -89,6 +102,10 @@ $cities = $stmt->fetchAll();
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Таблица городов -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -107,11 +124,17 @@ $cities = $stmt->fetchAll();
                     </tr>
                 </thead>
                 <tbody>
+<<<<<<< HEAD
                     <?php foreach ($cities as $city):
                         $can_edit_row = !$is_moderator || (isset($city['creator_id']) && (int)$city['creator_id'] === (int)$_SESSION['admin_id']);
                     ?>
                         <tr>
                             <td><?php if ($can_edit_row): ?><input type="checkbox" class="city-checkbox" value="<?= $city['id'] ?>"><?php endif; ?></td>
+=======
+                    <?php foreach ($cities as $city): ?>
+                        <tr>
+                            <td><input type="checkbox" class="city-checkbox" value="<?= $city['id'] ?>"></td>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             <td><?= $city['id'] ?></td>
                             <td><strong><?= htmlspecialchars($city['name']) ?></strong></td>
                             <td>
@@ -137,19 +160,29 @@ $cities = $stmt->fetchAll();
                                 <?php endif; ?>
                             </td>
                             <td>
+<<<<<<< HEAD
                                 <?php $can_edit = $can_edit_row; ?>
                                 <div class="table-actions">
                                     <?php if ($can_edit): ?>
+=======
+                                <div class="table-actions">
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <a href="/admin/cities/edit.php?id=<?= $city['id'] ?>"
                                        class="btn btn-sm btn-primary" title="Редактировать">
                                         <i class="fas fa-edit"></i>
                                     </a>
+<<<<<<< HEAD
                                     <?php endif; ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <a href="/admin/routes/list.php?city_id=<?= $city['id'] ?>"
                                        class="btn btn-sm btn-info" title="Маршруты">
                                         <i class="fas fa-route"></i>
                                     </a>
+<<<<<<< HEAD
                                     <?php if ($can_edit): ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <button type="button"
                                             class="btn btn-sm btn-<?= $city['is_active'] ? 'warning' : 'success' ?>"
                                             onclick="toggleStatus(<?= $city['id'] ?>)"
@@ -162,7 +195,10 @@ $cities = $stmt->fetchAll();
                                             title="Удалить">
                                         <i class="fas fa-trash"></i>
                                     </button>
+<<<<<<< HEAD
                                     <?php endif; ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                 </div>
                             </td>
                         </tr>

@@ -16,6 +16,7 @@ if (empty($ids)) {
     echo json_encode(['error' => 'No IDs provided']);
     exit;
 }
+<<<<<<< HEAD
 if (isModerator() && in_array($action, ['activate', 'deactivate', 'toggle_status', 'change_price', 'delete', 'export'], true)) {
     $placeholders_ids = implode(',', array_fill(0, count($ids), '?'));
     $stmt = $pdo->prepare("SELECT id FROM routes WHERE id IN ($placeholders_ids) AND creator_id = ?");
@@ -27,6 +28,8 @@ if (isModerator() && in_array($action, ['activate', 'deactivate', 'toggle_status
         exit;
     }
 }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $placeholders = implode(',', array_fill(0, count($ids), '?'));
 try {
     switch ($action) {

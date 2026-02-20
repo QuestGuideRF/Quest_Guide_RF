@@ -18,6 +18,7 @@ if (!$route_id) {
 $stmt = $pdo->prepare("SELECT * FROM routes WHERE id = ?");
 $stmt->execute([$route_id]);
 $old_route = $stmt->fetch(PDO::FETCH_ASSOC);
+<<<<<<< HEAD
 if ($old_route && isModerator() && (empty($old_route['creator_id']) || (int)$old_route['creator_id'] !== (int)$_SESSION['admin_id'])) {
     http_response_code(403);
     $page_title = 'Доступ запрещён';
@@ -26,6 +27,8 @@ if ($old_route && isModerator() && (empty($old_route['creator_id']) || (int)$old
     require_once __DIR__ . '/../includes/footer.php';
     exit;
 }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $pdo->beginTransaction();
@@ -89,6 +92,7 @@ if (!isset($old_route)) {
         header('Location: /admin/routes/list.php');
         exit;
     }
+<<<<<<< HEAD
     if (isModerator() && (empty($route['creator_id']) || (int)$route['creator_id'] !== (int)$_SESSION['admin_id'])) {
         http_response_code(403);
         $page_title = 'Доступ запрещён';
@@ -97,6 +101,8 @@ if (!isset($old_route)) {
         require_once __DIR__ . '/../includes/footer.php';
         exit;
     }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 } else {
     $route = $old_route;
 }
@@ -126,7 +132,10 @@ $type_names = [
     'duration' => 'Длительность',
     'season' => 'Сезон'
 ];
+<<<<<<< HEAD
 $yandex_maps_key = defined('YANDEX_MAPS_API_KEY') ? YANDEX_MAPS_API_KEY : '';
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 ?>
 <?php if (isset($error)): ?>
     <div class="alert alert-danger alert-dismissible fade show">
@@ -183,7 +192,11 @@ $yandex_maps_key = defined('YANDEX_MAPS_API_KEY') ? YANDEX_MAPS_API_KEY : '';
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
+<<<<<<< HEAD
                             <label class="form-label">Цена (гроши) *</label>
+=======
+                            <label class="form-label">Цена (₽) *</label>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             <input type="number" name="price" class="form-control"
                                    value="<?= $route['price'] ?>" min="0" required>
                         </div>
@@ -324,6 +337,7 @@ $yandex_maps_key = defined('YANDEX_MAPS_API_KEY') ? YANDEX_MAPS_API_KEY : '';
                     <small class="text-muted">Среднее время</small>
                     <h4><?= round($route_stats['avg_duration'] ?? 0) ?> мин</h4>
                 </div>
+<<<<<<< HEAD
                 <div class="mb-3">
                     <small class="text-muted">Расстояние (пеший маршрут)</small>
                     <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -333,6 +347,8 @@ $yandex_maps_key = defined('YANDEX_MAPS_API_KEY') ? YANDEX_MAPS_API_KEY : '';
                         </button>
                     </div>
                 </div>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             </div>
         </div>
         <div class="card">
@@ -370,10 +386,15 @@ $yandex_maps_key = defined('YANDEX_MAPS_API_KEY') ? YANDEX_MAPS_API_KEY : '';
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Визуальный редактор маршрута -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="row mt-4">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
+<<<<<<< HEAD
                 <h5><i class="fas fa-map-marked-alt me-2"></i>Карта маршрута</h5>
             </div>
             <div class="card-body">
@@ -389,10 +410,98 @@ $yandex_maps_key = defined('YANDEX_MAPS_API_KEY') ? YANDEX_MAPS_API_KEY : '';
                 </div>
                 <?php endif; ?>
                 <div id="map" style="height: 400px; width: 100%;"></div>
+=======
+                <h5><i class="fas fa-map me-2"></i>Визуальный редактор маршрута</h5>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#routeMap">
+                            <i class="fas fa-map-marked-alt me-2"></i>Карта маршрута
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#routePreview">
+                            <i class="fas fa-eye me-2"></i>Предпросмотр
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#routeReorder">
+                            <i class="fas fa-sort me-2"></i>Изменение порядка
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content mt-3">
+                    <div class="tab-pane fade show active" id="routeMap">
+                        <div id="map" style="height: 500px; width: 100%;"></div>
+                        <div class="mt-3">
+                            <button class="btn btn-sm btn-primary" onclick="centerMap()">
+                                <i class="fas fa-crosshairs me-2"></i>Центрировать карту
+                            </button>
+                            <button class="btn btn-sm btn-info" onclick="calculateRoute()">
+                                <i class="fas fa-route me-2"></i>Рассчитать расстояние
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="routePreview">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Предпросмотр того, как маршрут будет выглядеть для пользователя
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4><?= htmlspecialchars($route['name']) ?></h4>
+                                <p><?= htmlspecialchars($route['description']) ?></p>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <strong>Цена:</strong> <?= number_format($route['price']) ?>₽
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Тип:</strong> <?= $route['route_type'] == 'WALKING' ? '🚶 Пеший' : '🚴 Велосипедный' ?>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Сложность:</strong>
+                                        <?php
+                                        $difficulty_names = [1 => '⭐ Легкий', 2 => '⭐⭐ Средний', 3 => '⭐⭐⭐ Сложный'];
+                                        echo $difficulty_names[$route['difficulty'] ?? 2] ?? '⭐⭐ Средний';
+                                        ?>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Время:</strong> <?= $route['estimated_duration'] ?> мин
+                                    </div>
+                                </div>
+                                <hr>
+                                <h5>Точки маршрута:</h5>
+                                <ol>
+                                    <?php foreach ($points as $point): ?>
+                                        <li><?= htmlspecialchars($point['name']) ?></li>
+                                    <?php endforeach; ?>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="routeReorder">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Перетащите точки для изменения порядка. Изменения сохраняются автоматически.
+                        </div>
+                        <div id="sortablePoints" class="list-group">
+                            <?php foreach ($points as $point): ?>
+                                <div class="list-group-item point-sortable" data-id="<?= $point['id'] ?>" style="cursor: move;">
+                                    <i class="fas fa-grip-vertical text-muted me-2"></i>
+                                    <span class="badge bg-secondary me-2 order-badge"><?= $point['order'] ?></span>
+                                    <strong><?= htmlspecialchars($point['name']) ?></strong>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <?php if ($yandex_maps_key !== ''): ?>
 <script src="https://api-maps.yandex.ru/2.1/?apikey=<?= htmlspecialchars($yandex_maps_key) ?>&lang=ru_RU" type="text/javascript"></script>
 <script>
@@ -501,4 +610,121 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <?php endif; ?>
+=======
+<!-- Yandex Maps API -->
+<script src="https://api-maps.yandex.ru/2.1/?apikey=d6e8ba68-8f5e-47b5-b59e-f71e03067a91&lang=ru_RU" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script>
+function translateField(fromId, toId) {
+    const fromField = document.getElementById(fromId);
+    const toField = document.getElementById(toId);
+    const text = fromField.value.trim();
+    if (!text) {
+        alert('Сначала заполните поле на русском языке');
+        return;
+    }
+    const btn = event.target.closest('button');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    fetch('/admin/api/translate.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({text: text, from: 'ru', to: 'en'})
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            toField.value = data.translated;
+            btn.innerHTML = '<i class="fas fa-check text-success"></i>';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-language"></i>';
+                btn.disabled = false;
+            }, 2000);
+        } else {
+            alert('Ошибка перевода: ' + (data.error || 'Неизвестная ошибка'));
+            btn.innerHTML = '<i class="fas fa-language"></i>';
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        alert('Ошибка: ' + err.message);
+        btn.innerHTML = '<i class="fas fa-language"></i>';
+        btn.disabled = false;
+    });
+}
+let map, routePolyline;
+const points = <?= json_encode($points) ?>;
+ymaps.ready(function() {
+    map = new ymaps.Map('map', {
+        center: points.length > 0 ? [points[0].latitude, points[0].longitude] : [55.7558, 37.6173],
+        zoom: 13
+    });
+    points.forEach((point, index) => {
+        const placemark = new ymaps.Placemark(
+            [point.latitude, point.longitude],
+            {
+                balloonContent: `<strong>${point.name}</strong><br>Порядок: ${point.order}`,
+                iconCaption: `${point.order}. ${point.name}`
+            },
+            {
+                preset: 'islands#blueCircleDotIcon',
+                draggable: false
+            }
+        );
+        map.geoObjects.add(placemark);
+    });
+    if (points.length > 1) {
+        const coordinates = points.map(p => [p.latitude, p.longitude]);
+        routePolyline = new ymaps.Polyline(coordinates, {}, {
+            strokeColor: '#667eea',
+            strokeWidth: 4,
+            strokeOpacity: 0.7
+        });
+        map.geoObjects.add(routePolyline);
+        map.setBounds(map.geoObjects.getBounds());
+    }
+});
+function centerMap() {
+    if (map && points.length > 0) {
+        map.setBounds(map.geoObjects.getBounds());
+    }
+}
+function calculateRoute() {
+    if (points.length < 2) {
+        alert('Нужно минимум 2 точки для расчета маршрута');
+        return;
+    }
+    alert('Расчет расстояния (функция в разработке)');
+}
+if (document.getElementById('sortablePoints')) {
+    const sortable = Sortable.create(document.getElementById('sortablePoints'), {
+        animation: 150,
+        handle: '.fa-grip-vertical',
+        onEnd: function(evt) {
+            const items = Array.from(document.querySelectorAll('.point-sortable'));
+            const newOrder = items.map((item, index) => ({
+                id: parseInt(item.dataset.id),
+                order: index + 1
+            }));
+            items.forEach((item, index) => {
+                item.querySelector('.order-badge').textContent = index + 1;
+            });
+            fetch('/admin/api/reorder_points.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({points: newOrder})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Ошибка при сохранении порядка: ' + (data.error || 'Неизвестная ошибка'));
+                }
+            });
+        }
+    });
+}
+</script>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

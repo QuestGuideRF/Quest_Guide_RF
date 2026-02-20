@@ -243,7 +243,13 @@ async def process_ban_with_reason(message, session: AsyncSession, state: FSMCont
         f"👮 Заблокировал: {user.first_name}"
     )
     await message.answer(success_msg, parse_mode="HTML")
+<<<<<<< HEAD
     from bot.loader import bot, config
+=======
+    from bot.loader import bot
+    from bot.config import load_config
+    config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     admin_notifier = AdminNotifier(bot, config.bot.admin_ids)
     await admin_notifier.notify_user_banned(
         target_user.telegram_id,

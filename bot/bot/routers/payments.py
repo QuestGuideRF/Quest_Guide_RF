@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 import logging
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery, PreCheckoutQuery, ContentType
 from sqlalchemy.ext.asyncio import AsyncSession
+<<<<<<< HEAD
 from bot.loader import bot, config
+=======
+from sqlalchemy import text
+from bot.config import load_config
+from bot.loader import bot
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from bot.models.user import User
 from bot.repositories.route import RouteRepository
 from bot.repositories.payment import PaymentRepository
@@ -12,8 +21,13 @@ from bot.services.payments import PaymentService
 from bot.keyboards.user import UserKeyboards
 from bot.utils.helpers import format_duration, format_distance
 from bot.fsm.states import UserStates
+<<<<<<< HEAD
 logger = logging.getLogger(__name__)
 router = Router()
+=======
+router = Router()
+config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 payment_service = PaymentService(config.payment)
 @router.callback_query(F.data.startswith("promo_code:"))
 async def enter_promo_code(
@@ -40,10 +54,14 @@ async def process_promo_code(
 ):
     from bot.utils.i18n import i18n, get_localized_field
     from bot.repositories.route import RouteRepository
+<<<<<<< HEAD
     if not message.text:
         await message.answer(i18n.get("promo_code_enter_command", user.language))
         return
     if message.text.strip().lower() in ['отмена', 'cancel', 'назад', 'back', '❌ отмена']:
+=======
+    if message.text and message.text.strip().lower() in ['отмена', 'cancel', 'назад', 'back', '❌ отмена']:
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         await state.clear()
         await message.answer(i18n.get("cancelled", user.language, default="❌ Отменено"))
         return
@@ -54,9 +72,19 @@ async def process_promo_code(
     if not route_id:
         from bot.repositories.progress import ProgressRepository
         progress_repo = ProgressRepository(session)
+<<<<<<< HEAD
         progress = await progress_repo.get_active_or_paused_progress(user.id)
         if progress:
             route_id = progress.route_id
+=======
+        result = await session.execute(
+            text(),
+            {"user_id": user.id}
+        )
+        progress_row = result.fetchone()
+        if progress_row:
+            route_id = progress_row[0]
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     if route_id:
         route_repo = RouteRepository(session)
         route = await route_repo.get(route_id)
@@ -64,6 +92,11 @@ async def process_promo_code(
             await message.answer(i18n.get("route_not_found", user.language))
             await state.clear()
             return
+<<<<<<< HEAD
+=======
+        import logging
+        logger = logging.getLogger(__name__)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         logger.info(f"Валидация промокода {promo_code_text} для пользователя {user.id} (telegram_id={user.telegram_id}), route_id={route_id}")
         is_valid, error_msg, promo_code = await promo_repo.validate_promo_code(
             promo_code_text, user.id, route_id
@@ -79,6 +112,7 @@ async def process_promo_code(
                 logger.info(f"Отправка ошибки пользователю: {error_text}")
                 await message.answer(error_text)
             return
+<<<<<<< HEAD
         discount_type_value = promo_code.discount_type.value.lower() if hasattr(promo_code.discount_type, 'value') else str(promo_code.discount_type).lower()
         if discount_type_value == "free_route":
             await promo_repo.apply_promo_code(promo_code, user.id, route_id, route.price)
@@ -122,6 +156,16 @@ async def process_promo_code(
             discount_text = f"{promo_code.discount_value}%"
         elif discount_type_value == "fixed":
             discount_text = f"{int(discount_amount)} г"
+=======
+        final_price, discount_amount = await promo_repo.apply_promo_code(
+            promo_code, user.id, route_id, route.price
+        )
+        discount_type_value = promo_code.discount_type.value.lower() if hasattr(promo_code.discount_type, 'value') else str(promo_code.discount_type).lower()
+        if discount_type_value == "percentage":
+            discount_text = f"{promo_code.discount_value}%"
+        elif discount_type_value == "fixed":
+            discount_text = f"{int(discount_amount)}₽"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         else:
             discount_text = i18n.get("promo_code_free", user.language)
         await message.answer(
@@ -143,7 +187,11 @@ async def process_promo_code(
             description += f"• {i18n.get('recommended_time', user.language)}: ~{format_duration(route.estimated_duration)}\n"
         if route.distance:
             description += f"• {i18n.get('distance', user.language)}: {format_distance(route.distance)}\n"
+<<<<<<< HEAD
         description += f"• {i18n.get('price', user.language)}: <s>{route.price} г</s> <b>{final_price} г</b>\n"
+=======
+        description += f"• {i18n.get('price', user.language)}: <s>{route.price}₽</s> <b>{final_price}₽</b>\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         route_message_id = data.get("route_message_id")
         if route_message_id:
             try:
@@ -154,8 +202,13 @@ async def process_promo_code(
                     reply_markup=UserKeyboards.route_detail(route_id, False, user.language, False),
                     parse_mode="HTML",
                 )
+<<<<<<< HEAD
             except Exception as e:
                 logger.warning("payments: не удалось отредактировать сообщение с маршрутом (route_id=%s): %s", route_id, e)
+=======
+            except:
+                pass
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     else:
         promo_code = await promo_repo.get_by_code(promo_code_text)
         if not promo_code:
@@ -167,6 +220,7 @@ async def process_promo_code(
             await state.clear()
             return
         discount_type_value = promo_code.discount_type.value.lower() if hasattr(promo_code.discount_type, 'value') else str(promo_code.discount_type).lower()
+<<<<<<< HEAD
         if discount_type_value == "free_route" and promo_code.route_id:
             route_id_for_promo = promo_code.route_id
             is_valid, error_msg, _ = await promo_repo.validate_promo_code(
@@ -213,6 +267,14 @@ async def process_promo_code(
             )
             return
         discount_text = f"{promo_code.discount_value}%" if discount_type_value == "percentage" else (f"{promo_code.discount_value} г" if discount_type_value == "fixed" else i18n.get("promo_code_free", user.language))
+=======
+        if discount_type_value == "percentage":
+            discount_text = f"{promo_code.discount_value}%"
+        elif discount_type_value == "fixed":
+            discount_text = f"{promo_code.discount_value}₽"
+        else:
+            discount_text = i18n.get("promo_code_free", user.language)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         route_info = ""
         if promo_code.route_id:
             route_repo = RouteRepository(session)
@@ -222,7 +284,11 @@ async def process_promo_code(
                 route_info = f"\n\n📍 {i18n.get('for_route', user.language, default='Для маршрута')}: {route_name}"
         await message.answer(
             f"✅ {i18n.get('promo_code_applied', user.language).format(discount=discount_text)}{route_info}\n\n"
+<<<<<<< HEAD
             f"{i18n.get('promo_select_route_to_use', user.language, default='Выберите маршрут и введите промокод на его экране.')}"
+=======
+            f"{i18n.get('promo_code_info', user.language, default='Промокод будет применен при оплате выбранного маршрута.')}"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         )
         await state.clear()
 @router.callback_query(F.data.startswith("pay:"))
@@ -272,6 +338,7 @@ async def process_payment(
         amount=final_price,
     )
     await payment_repo.mark_success(payment.id, "token_purchase", f"tx_{transaction.id}")
+<<<<<<< HEAD
     if getattr(user, "referred_by_id", None):
         try:
             from bot.services.referral_service import ReferralService
@@ -280,6 +347,8 @@ async def process_payment(
         except Exception as e:
             import logging
             logging.getLogger(__name__).error(f"Referral reward error: {e}")
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     route = await route_repo.get_with_points(route_id)
     route_name = get_localized_field(route, 'name', user.language)
     route_description = get_localized_field(route, 'description', user.language)
@@ -292,7 +361,11 @@ async def process_payment(
         description += f"• {i18n.get('recommended_time', user.language)}: ~{format_duration(route.estimated_duration)}\n"
     if route.distance:
         description += f"• {i18n.get('distance', user.language)}: {format_distance(route.distance)}\n"
+<<<<<<< HEAD
     description += f"• {i18n.get('price', user.language)}: {route.price} г\n"
+=======
+    description += f"• {i18n.get('price', user.language)}: {route.price}₽\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     description += i18n.get("route_paid", user.language)
     try:
         await callback.message.edit_text(
@@ -335,6 +408,7 @@ async def process_successful_payment(
                 ),
                 parse_mode="HTML"
             )
+<<<<<<< HEAD
             try:
                 from bot.services.admin_notifier import AdminNotifier
                 admin_notifier = AdminNotifier(bot, config.bot.admin_ids)
@@ -349,6 +423,8 @@ async def process_successful_payment(
                 )
             except Exception as e:
                 logger.warning("Не удалось отправить уведомление админам о пополнении: %s", e)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         else:
             await message.answer("✅ Платёж обработан!")
         return
@@ -390,7 +466,11 @@ async def process_successful_payment(
                 description += f"• {i18n.get('recommended_time', user.language)}: ~{format_duration(route.estimated_duration)}\n"
             if route.distance:
                 description += f"• {i18n.get('distance', user.language)}: {format_distance(route.distance)}\n"
+<<<<<<< HEAD
             description += f"• {i18n.get('price', user.language)}: {route.price} г\n"
+=======
+            description += f"• {i18n.get('price', user.language)}: {route.price}₽\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             description += i18n.get("route_paid", user.language)
             await bot.edit_message_text(
                 chat_id=message.chat.id,

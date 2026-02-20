@@ -53,8 +53,11 @@ $translations = [
         'create_certificate' => 'Создать сертификат',
         'creating' => 'Создание',
         'created' => 'Создано',
+<<<<<<< HEAD
         'download_album' => 'Скачать альбом',
         'download_certificate' => 'Скачать сертификат',
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         'settings' => 'Настройки',
         'about' => 'О нас',
         'contact' => 'Контакты',
@@ -181,6 +184,13 @@ $translations = [
         'min_people' => 'Минимум людей',
         'started' => 'Начато',
         'photos_button' => 'Фотографии',
+<<<<<<< HEAD
+=======
+        'pose_required' => 'Требуется поза',
+        'pose_hands_up' => 'Руки вверх',
+        'pose_heart' => 'Сердечко',
+        'pose_point' => 'Указать',
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         'points' => 'точек',
         'all_routes' => 'Все экскурсии',
         'available_routes' => 'Доступные экскурсии',
@@ -207,13 +217,18 @@ $translations = [
         'ascending' => 'По возрастанию',
         'descending' => 'По убыванию',
         'apply_filters' => 'Применить',
+<<<<<<< HEAD
         'bank_title' => 'Банк грошей',
+=======
+        'bank_title' => 'Банк токенов',
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         'bank_subtitle' => 'Баланс, пополнения и покупки экскурсий',
         'bank_balance' => 'Баланс',
         'bank_total_deposited' => 'Всего пополнено',
         'bank_total_spent' => 'Всего потрачено',
         'bank_total_transferred' => 'Всего переведено',
         'bank_purchases' => 'Покупки',
+<<<<<<< HEAD
         'bank_bot_hint' => 'Пополнить баланс, перевести гроши и купить экскурсии можно в боте:',
         'currency_groshi' => 'грошей',
         'duration_min' => 'мин',
@@ -221,6 +236,9 @@ $translations = [
         'welcome_guest' => 'Привет, гость! 👋',
         'sign_in_to_see_stats' => 'Войдите, чтобы видеть статистику и достижения.',
         'sign_in_to_see_balance' => 'Войдите, чтобы видеть баланс и историю покупок.',
+=======
+        'bank_bot_hint' => 'Пополнить баланс, перевести токены и купить экскурсии можно в боте:',
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     ],
     'en' => [
         'site_name' => 'QuestGuideRF',
@@ -239,8 +257,11 @@ $translations = [
         'create_certificate' => 'Create certificate',
         'creating' => 'Creating',
         'created' => 'Created',
+<<<<<<< HEAD
         'download_album' => 'Download Album',
         'download_certificate' => 'Download certificate',
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         'settings' => 'Settings',
         'about' => 'About',
         'contact' => 'Contact',
@@ -368,6 +389,13 @@ $translations = [
         'min_people' => 'Min People',
         'started' => 'Started',
         'photos_button' => 'Photos',
+<<<<<<< HEAD
+=======
+        'pose_required' => 'Pose Required',
+        'pose_hands_up' => 'Hands Up',
+        'pose_heart' => 'Heart',
+        'pose_point' => 'Point',
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         'points' => 'points',
         'all_routes' => 'All Available Routes',
         'view_details' => 'View Details',
@@ -401,12 +429,15 @@ $translations = [
         'bank_total_transferred' => 'Total transferred',
         'bank_purchases' => 'Purchases',
         'bank_bot_hint' => 'Top up, transfer tokens and buy tours in the Telegram bot:',
+<<<<<<< HEAD
         'currency_groshi' => 'groshi',
         'duration_min' => 'min',
         'duration_h' => 'h',
         'welcome_guest' => 'Welcome, Guest! 👋',
         'sign_in_to_see_stats' => 'Sign in to see your statistics and achievements.',
         'sign_in_to_see_balance' => 'Sign in to view your balance and purchase history.',
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     ]
 ];
 function t($key, $lang = null) {

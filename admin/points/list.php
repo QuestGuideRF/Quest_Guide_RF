@@ -2,7 +2,10 @@
 $page_title = 'Управление точками';
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../../includes/db.php';
+<<<<<<< HEAD
 require_once __DIR__ . '/../includes/auth.php';
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $pdo = getDB()->getConnection();
 $route_id = isset($_GET['route_id']) ? (int)$_GET['route_id'] : null;
 $route = null;
@@ -10,6 +13,7 @@ if ($route_id) {
     $stmt = $pdo->prepare("SELECT * FROM routes WHERE id = ?");
     $stmt->execute([$route_id]);
     $route = $stmt->fetch();
+<<<<<<< HEAD
     if ($route && isModerator() && (empty($route['creator_id']) || (int)$route['creator_id'] !== (int)$_SESSION['admin_id'])) {
         http_response_code(403);
         $page_title = 'Доступ запрещён';
@@ -23,6 +27,10 @@ $where = $route_id ? "WHERE p.route_id = $route_id" : "";
 if (isModerator() && !$where) {
     $where = "WHERE r.creator_id = " . (int)$_SESSION['admin_id'];
 }
+=======
+}
+$where = $route_id ? "WHERE p.route_id = $route_id" : "";
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $stmt = $pdo->prepare("
     SELECT p.*, r.name as route_name, r.id as route_id,
            COUNT(DISTINCT h.id) as hints_count,
@@ -37,6 +45,7 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute();
 $points = $stmt->fetchAll();
+<<<<<<< HEAD
 if (isModerator()) {
     $routes_stmt = $pdo->prepare("SELECT id, name FROM routes WHERE creator_id = ? ORDER BY name");
     $routes_stmt->execute([$_SESSION['admin_id']]);
@@ -44,6 +53,9 @@ if (isModerator()) {
 } else {
     $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
 }
+=======
+$routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 ?>
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
@@ -64,6 +76,10 @@ if (isModerator()) {
         </a>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <?php if (!$route_id): ?>
     <div class="card mb-4">
         <div class="card-body">
@@ -83,6 +99,10 @@ if (isModerator()) {
         </div>
     </div>
 <?php endif; ?>
+<<<<<<< HEAD
+=======
+<!-- Таблица точек -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">

@@ -30,7 +30,10 @@ define('BOT_USERNAME', $_ENV['BOT_USERNAME'] ?? '');
 define('SITE_URL', $_ENV['SITE_URL'] ?? 'http://localhost');
 define('SITE_NAME', 'QuestGuideRF');
 define('ADMIN_IDS', $_ENV['ADMIN_IDS'] ?? '');
+<<<<<<< HEAD
 define('YANDEX_MAPS_API_KEY', $_ENV['YANDEX_MAPS_API_KEY'] ?? '');
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 define('UPLOAD_PATH', __DIR__ . '/../uploads/');
 define('PHOTO_PATH', __DIR__ . '/../photos/');
 define('SESSION_LIFETIME', 60 * 60 * 24 * 90);

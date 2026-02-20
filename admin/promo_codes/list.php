@@ -40,6 +40,10 @@ $promo_codes = $stmt->fetchAll();
         <i class="fas fa-plus me-2"></i>Создать промокод
     </a>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры и поиск -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -64,6 +68,10 @@ $promo_codes = $stmt->fetchAll();
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Массовые действия -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form id="bulkActionsForm">
@@ -88,6 +96,10 @@ $promo_codes = $stmt->fetchAll();
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Таблица промокодов -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <?php if (empty($promo_codes)): ?>
@@ -142,7 +154,11 @@ $promo_codes = $stmt->fetchAll();
                                     <?php if ($promo['discount_type'] === 'percentage'): ?>
                                         <?= number_format($promo['discount_value'], 0) ?>%
                                     <?php elseif ($promo['discount_type'] === 'fixed'): ?>
+<<<<<<< HEAD
                                         <?= number_format($promo['discount_value'], 2) ?> грошей
+=======
+                                        <?= number_format($promo['discount_value'], 2) ?>₽
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <?php elseif ($promo['discount_type'] === 'free_route'): ?>
                                         <span class="badge bg-success">Бесплатно</span>
                                     <?php endif; ?>

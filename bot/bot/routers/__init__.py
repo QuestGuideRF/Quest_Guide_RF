@@ -8,5 +8,9 @@ from bot.routers.admin_bans import router as admin_bans_router
 from bot.routers.audio import router as audio_router
 from bot.routers.filters import router as filters_router
 from bot.routers.bank import router as bank_router
+<<<<<<< HEAD
 from bot.routers.moderator import router as moderator_router
 __all__ = ["admin_router", "user_router", "payment_router", "web_auth_router", "hints_router", "admin_hints_router", "admin_bans_router", "audio_router", "filters_router", "bank_router", "moderator_router"]
+=======
+__all__ = ["admin_router", "user_router", "payment_router", "web_auth_router", "hints_router", "admin_hints_router", "admin_bans_router", "audio_router", "filters_router", "bank_router"]
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

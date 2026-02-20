@@ -104,6 +104,10 @@ $point['task_text_en'] = $first_task['task_text_en'] ?? '';
                 </small>
             </div>
             <div class="card-body">
+<<<<<<< HEAD
+=======
+                <!-- Русский аудио -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <div class="mb-4">
                     <h6 class="mb-3">🇷🇺 Русский аудио</h6>
                     <?php
@@ -145,6 +149,10 @@ $point['task_text_en'] = $first_task['task_text_en'] ?? '';
                     </form>
                 </div>
                 <hr>
+<<<<<<< HEAD
+=======
+                <!-- Английский аудио -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <div class="mb-4">
                     <h6 class="mb-3">🇬🇧 English Audio</h6>
                     <?php

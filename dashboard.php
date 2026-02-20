@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /** Личный кабинет */
 require_once __DIR__ . '/includes/init.php';
 require_once __DIR__ . '/includes/i18n.php';
@@ -39,6 +40,41 @@ if ($user) {
     $active_quests = [];
     $recent_achievements = [];
 }
+=======
+require_once __DIR__ . '/includes/init.php';
+require_once __DIR__ . '/includes/i18n.php';
+requireAuth();
+$user = getCurrentUser();
+$current_lang = getCurrentLanguage();
+$page_title = t('home');
+$page_description = $current_lang === 'en'
+    ? "QuestGuideRF main page - your personal dashboard with statistics, active quests and achievements. Track your progress on quest-excursions."
+    : "Главная страница QuestGuideRF - ваш личный кабинет с статистикой, активными квестами и достижениями. Отслеживайте прогресс по экскурсиям-квестам.";
+$page_keywords = $current_lang === 'en'
+    ? "dashboard, statistics, quests, excursions, achievements, progress, QuestGuideRF"
+    : "личный кабинет, статистика, квесты, экскурсии, достижения, прогресс, QuestGuideRF";
+$stats = getUserStats($user['id']);
+$level_info = getUserLevel($stats['total_points']);
+$active_quests = getDB()->fetchAll(
+    'SELECT up.*, r.name as route_name, r.name_en as route_name_en, r.price, c.name as city_name, c.name_en as city_name_en
+     FROM user_progress up
+     JOIN routes r ON up.route_id = r.id
+     JOIN cities c ON r.city_id = c.id
+     WHERE up.user_id = ? AND up.status = "in_progress"
+     ORDER BY up.started_at DESC
+     LIMIT 5',
+    [$user['id']]
+);
+$recent_achievements = getDB()->fetchAll(
+    'SELECT ua.*, a.name, a.description, a.icon
+     FROM user_achievements ua
+     JOIN achievements a ON ua.achievement_id = a.id
+     WHERE ua.user_id = ?
+     ORDER BY ua.earned_at DESC
+     LIMIT 3',
+    [$user['id']]
+);
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 require_once __DIR__ . '/includes/header.php';
 ?>
 <style>
@@ -74,8 +110,13 @@ require_once __DIR__ . '/includes/header.php';
 </style>
 <main class="main-content">
 <div class="container">
+<<<<<<< HEAD
     <div class="welcome-section">
         <?php if ($user): ?>
+=======
+    <!-- Приветствие -->
+    <div class="welcome-section">
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <div class="user-avatar">
             <img src="<?= e($user['photo_url'] ?: getDefaultAvatar($user['first_name'])) ?>"
                  alt="<?= e($user['first_name']) ?>">
@@ -89,6 +130,7 @@ require_once __DIR__ . '/includes/header.php';
                 </span>
             </p>
         </div>
+<<<<<<< HEAD
         <?php else: ?>
         <div class="user-avatar">
             <img src="<?= e(getDefaultAvatar('')) ?>" alt="">
@@ -104,6 +146,10 @@ require_once __DIR__ . '/includes/header.php';
         </div>
         <?php endif; ?>
     </div>
+=======
+    </div>
+    <!-- Статистика -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-icon">🗺️</div>
@@ -134,6 +180,10 @@ require_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+    <!-- Активные квесты -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php if (count($active_quests) > 0): ?>
     <section class="section">
         <div class="section-header">
@@ -168,6 +218,10 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </section>
     <?php endif; ?>
+<<<<<<< HEAD
+=======
+    <!-- Последние достижения -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php if (count($recent_achievements) > 0): ?>
     <section class="section">
         <div class="section-header">
@@ -175,6 +229,7 @@ require_once __DIR__ . '/includes/header.php';
             <a href="/achievements.php" class="btn btn-outline btn-sm"><?= t('all_achievements') ?></a>
         </div>
         <div class="achievements-grid">
+<<<<<<< HEAD
             <?php foreach ($recent_achievements as $achievement):
                 $ach_name = ($current_lang === 'en' && !empty($achievement['name_en'])) ? $achievement['name_en'] : $achievement['name'];
                 $ach_desc = ($current_lang === 'en' && !empty($achievement['description_en'])) ? $achievement['description_en'] : $achievement['description'];
@@ -191,6 +246,14 @@ require_once __DIR__ . '/includes/header.php';
                 <div class="achievement-info">
                     <h3><?= e($ach_name) ?></h3>
                     <p class="text-muted text-small"><?= e($ach_desc) ?></p>
+=======
+            <?php foreach ($recent_achievements as $achievement): ?>
+            <div class="achievement-card">
+                <div class="achievement-icon"><?= e($achievement['icon']) ?></div>
+                <div class="achievement-info">
+                    <h3><?= e($achievement['name']) ?></h3>
+                    <p class="text-muted text-small"><?= e($achievement['description']) ?></p>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <p class="text-muted text-small">
                         <?= formatDate($achievement['earned_at']) ?>
                     </p>
@@ -200,6 +263,10 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </section>
     <?php endif; ?>
+<<<<<<< HEAD
+=======
+    <!-- Быстрые действия -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <section class="section">
         <h2><?= t('quick_actions') ?></h2>
         <div class="quick-actions">

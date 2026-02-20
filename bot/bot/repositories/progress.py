@@ -1,6 +1,11 @@
 from datetime import datetime
+<<<<<<< HEAD
 from typing import Optional, List
 from sqlalchemy import select, or_
+=======
+from typing import Optional
+from sqlalchemy import select
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from sqlalchemy.ext.asyncio import AsyncSession
 from bot.models.user_progress import UserProgress, ProgressStatus
 from bot.repositories.base import BaseRepository
@@ -20,6 +25,7 @@ class ProgressRepository(BaseRepository[UserProgress]):
             ).order_by(UserProgress.started_at.desc()).limit(1)
         )
         return result.scalar_one_or_none()
+<<<<<<< HEAD
     async def get_active_or_paused_progress(
         self,
         user_id: int,
@@ -56,6 +62,8 @@ class ProgressRepository(BaseRepository[UserProgress]):
             ).order_by(UserProgress.started_at.desc())
         )
         return list(result.scalars().all())
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     async def start_route(
         self,
         user_id: int,
@@ -88,6 +96,7 @@ class ProgressRepository(BaseRepository[UserProgress]):
         await self.session.commit()
         await self.session.refresh(progress)
         return progress
+<<<<<<< HEAD
     async def pause_quest(self, progress: UserProgress) -> UserProgress:
         if progress.status != ProgressStatus.IN_PROGRESS:
             return progress
@@ -109,6 +118,8 @@ class ProgressRepository(BaseRepository[UserProgress]):
         await self.session.commit()
         await self.session.refresh(progress)
         return progress
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     async def get_user_stats(self, user_id: int) -> dict:
         from sqlalchemy import text, func
         result = await self.session.execute(
@@ -158,6 +169,7 @@ class ProgressRepository(BaseRepository[UserProgress]):
         user_rank = 1
         completed_count = sum(1 for p in progresses if p.status == ProgressStatus.COMPLETED)
         if completed_count > 0:
+<<<<<<< HEAD
             try:
                 rank_result = await self.session.execute(
                     text("""
@@ -175,6 +187,13 @@ class ProgressRepository(BaseRepository[UserProgress]):
                 user_rank = rank_result.scalar() or 1
             except Exception:
                 user_rank = 1
+=======
+            rank_result = await self.session.execute(
+                text(),
+                {"completed_count": completed_count}
+            )
+            user_rank = rank_result.scalar() or 1
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         return {
             "total_routes": len(progresses),
             "completed": sum(1 for p in progresses if p.status == ProgressStatus.COMPLETED),

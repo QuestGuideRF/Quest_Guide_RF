@@ -10,7 +10,10 @@ def get_admin_main_menu() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text="👥 Пользователи", callback_data="admin:users")],
         [InlineKeyboardButton(text="🚫 Блокировки", callback_data="admin:bans")],
         [InlineKeyboardButton(text="📊 Статистика", callback_data="admin:stats")],
+<<<<<<< HEAD
         [InlineKeyboardButton(text="🤝 Партнерка", callback_data="admin:referral")],
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         [InlineKeyboardButton(text="⚙️ Настройки", callback_data="admin:settings")],
     ])
     return keyboard
@@ -94,6 +97,10 @@ def get_point_edit_menu(point_id: int, route_id: int) -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text="✏️ Название", callback_data=f"admin:point:edit_field:name:{point_id}")],
         [InlineKeyboardButton(text="✏️ Задание", callback_data=f"admin:point:edit_field:task:{point_id}")],
         [InlineKeyboardButton(text="✏️ Факт", callback_data=f"admin:point:edit_field:fact:{point_id}")],
+<<<<<<< HEAD
+=======
+        [InlineKeyboardButton(text="✏️ Поза", callback_data=f"admin:point:edit_field:pose:{point_id}")],
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         [InlineKeyboardButton(text="✏️ Мин. людей", callback_data=f"admin:point:edit_field:people:{point_id}")],
         [InlineKeyboardButton(text="« Назад", callback_data=f"admin:point:view:{point_id}")],
     ])
@@ -215,6 +222,7 @@ def back_to_bans_menu() -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="« Назад", callback_data="admin:bans")]
     ])
+<<<<<<< HEAD
     return keyboard
 def moderator_request_actions(user_id: int, request_id: int) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
@@ -241,4 +249,6 @@ def reply_to_moderator(moderator_telegram_id: int) -> InlineKeyboardMarkup:
             InlineKeyboardButton(text="✉️ Ответить", callback_data=f"admin:reply_mod:{moderator_telegram_id}")
         ]
     ])
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     return keyboard

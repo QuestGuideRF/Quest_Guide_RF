@@ -1,7 +1,11 @@
 import logging
 from aiogram import Router, F
+<<<<<<< HEAD
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, Message, InputFile, FSInputFile
+=======
+from aiogram.types import CallbackQuery, InputFile, FSInputFile
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from aiogram.fsm.context import FSMContext
 from pathlib import Path
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,6 +15,7 @@ from bot.keyboards.user import UserKeyboards
 from bot.models.user import User
 logger = logging.getLogger(__name__)
 router = Router()
+<<<<<<< HEAD
 @router.message(Command("hint", "hints"))
 async def cmd_hint(message: Message, user: User, session: AsyncSession, state: FSMContext):
     from bot.utils.i18n import i18n
@@ -60,6 +65,8 @@ async def cmd_hint(message: Message, user: User, session: AsyncSession, state: F
     hint_msg = f"💡 <b>{i18n.get('hints_title', user_lang, default='Подсказки')}</b>\n\n"
     hint_msg += i18n.get("hint_used_stats", user_lang, used=stats['used'], max=stats['max'])
     await message.answer(hint_msg, reply_markup=builder.as_markup(), parse_mode="HTML")
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data.startswith("hint:request:"))
 async def hint_request(
     callback: CallbackQuery,
@@ -125,7 +132,11 @@ async def hint_request(
     except Exception as e:
         logger.error(f"Error in hint_request: {e}", exc_info=True)
         await callback.answer("❌ Ошибка при получении подсказки", show_alert=True)
+<<<<<<< HEAD
 @router.callback_query(F.data.regexp(r"^hint:(show|use):"))
+=======
+@router.callback_query(F.data.startswith("hint:show:"))
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 async def hint_show(
     callback: CallbackQuery,
     session: AsyncSession,
@@ -138,7 +149,11 @@ async def hint_show(
         user_lang = getattr(user, 'language', 'ru') if hasattr(user, 'language') else 'ru'
         parts = callback.data.split(":")
         point_id = int(parts[2])
+<<<<<<< HEAD
         hint_level = int(parts[3]) if len(parts) > 3 else 1
+=======
+        hint_level = int(parts[3])
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         from bot.repositories.point import PointRepository
         point_repo = PointRepository(session)
         point = await point_repo.get(point_id)
@@ -238,6 +253,10 @@ async def hint_cancel(callback: CallbackQuery, session: AsyncSession, user: User
     from bot.utils.i18n import i18n, get_localized_field
     from aiogram.utils.keyboard import InlineKeyboardBuilder
     from aiogram.types import InlineKeyboardButton
+<<<<<<< HEAD
+=======
+    from bot.services.hints import HintService
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     try:
         progress_repo = ProgressRepository(session)
         point_repo = PointRepository(session)
@@ -268,6 +287,16 @@ async def hint_cancel(callback: CallbackQuery, session: AsyncSession, user: User
             if point_text_answer_hint:
                 task_text += f"\n💡 {i18n.get('hint', user.language)}: {point_text_answer_hint}"
         else:
+<<<<<<< HEAD
+=======
+            if current_point.require_pose:
+                pose_names = {
+                    "hands_up": i18n.get("pose_hands_up", user.language, default="hands up"),
+                    "heart": i18n.get("pose_heart", user.language, default="heart with hands"),
+                    "point": i18n.get("pose_point", user.language, default="point with finger"),
+                }
+                task_text += f"🤸 {i18n.get('pose_required', user.language)}: {pose_names.get(current_point.require_pose, current_point.require_pose)}\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             task_text += f"\n{i18n.get('send_photo', user.language)}"
         keyboard_builder = InlineKeyboardBuilder()
         if current_point.audio_enabled:
@@ -290,6 +319,23 @@ async def hint_cancel(callback: CallbackQuery, session: AsyncSession, user: User
                     )
                 )
             keyboard_builder.row(*audio_buttons)
+<<<<<<< HEAD
+=======
+        hint_service = HintService(session)
+        can_use, _, hints_used, max_hints = await hint_service.check_hint_availability(
+            user.id, progress.route_id, current_point.id
+        )
+        if can_use:
+            hint_button_text = i18n.get("hint", user.language, default="💡 Подсказка")
+            if hints_used < max_hints:
+                hint_button_text += f" ({max_hints - hints_used} {i18n.get('hints_left', user.language, default='осталось')})"
+            keyboard_builder.row(
+                InlineKeyboardButton(
+                    text=hint_button_text,
+                    callback_data=f"hint:request:{current_point.id}",
+                )
+            )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         keyboard_builder.row(
             InlineKeyboardButton(
                 text=i18n.get("cancel_quest", user.language),
@@ -318,6 +364,10 @@ async def hint_back_to_task(callback: CallbackQuery, session: AsyncSession, user
     from bot.utils.i18n import i18n, get_localized_field
     from aiogram.utils.keyboard import InlineKeyboardBuilder
     from aiogram.types import InlineKeyboardButton
+<<<<<<< HEAD
+=======
+    from bot.services.hints import HintService
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     try:
         point_id = int(callback.data.split(":")[-1])
         point_repo = PointRepository(session)
@@ -343,6 +393,16 @@ async def hint_back_to_task(callback: CallbackQuery, session: AsyncSession, user
             if point_text_answer_hint:
                 task_text += f"\n💡 {i18n.get('hint', user.language)}: {point_text_answer_hint}"
         else:
+<<<<<<< HEAD
+=======
+            if current_point.require_pose:
+                pose_names = {
+                    "hands_up": i18n.get("pose_hands_up", user.language, default="hands up"),
+                    "heart": i18n.get("pose_heart", user.language, default="heart with hands"),
+                    "point": i18n.get("pose_point", user.language, default="point with finger"),
+                }
+                task_text += f"🤸 {i18n.get('pose_required', user.language)}: {pose_names.get(current_point.require_pose, current_point.require_pose)}\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             task_text += f"\n{i18n.get('send_photo', user.language)}"
         keyboard_builder = InlineKeyboardBuilder()
         if current_point.audio_enabled:
@@ -365,6 +425,23 @@ async def hint_back_to_task(callback: CallbackQuery, session: AsyncSession, user
                     )
                 )
             keyboard_builder.row(*audio_buttons)
+<<<<<<< HEAD
+=======
+        hint_service = HintService(session)
+        can_use, _, hints_used, max_hints = await hint_service.check_hint_availability(
+            user.id, progress.route_id, current_point.id
+        )
+        if can_use:
+            hint_button_text = i18n.get("hint", user.language, default="💡 Подсказка")
+            if hints_used < max_hints:
+                hint_button_text += f" ({max_hints - hints_used} {i18n.get('hints_left', user.language, default='осталось')})"
+            keyboard_builder.row(
+                InlineKeyboardButton(
+                    text=hint_button_text,
+                    callback_data=f"hint:request:{current_point.id}",
+                )
+            )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         keyboard_builder.row(
             InlineKeyboardButton(
                 text=i18n.get("cancel_quest", user.language),

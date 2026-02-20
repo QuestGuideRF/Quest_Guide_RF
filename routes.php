@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 /** Список маршрутов */
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 require_once __DIR__ . '/includes/init.php';
 require_once __DIR__ . '/includes/i18n.php';
 $user = getCurrentUser();
@@ -131,8 +134,11 @@ try {
     $all_routes = getDB()->fetchAll(
         "SELECT r.*, c.name as city_name, c.name_en as city_name_en,
                 COUNT(DISTINCT p.id) as points_count,
+<<<<<<< HEAD
                 AVG(rev.rating) as avg_rating,
                 COUNT(DISTINCT rev.id) as reviews_count,
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 GROUP_CONCAT(DISTINCT t.id) as tag_ids,
                 GROUP_CONCAT(DISTINCT t.name) as tag_names,
                 GROUP_CONCAT(DISTINCT t.name_en) as tag_names_en,
@@ -140,7 +146,10 @@ try {
          FROM routes r
          JOIN cities c ON r.city_id = c.id
          LEFT JOIN points p ON r.id = p.route_id
+<<<<<<< HEAD
          LEFT JOIN reviews rev ON r.id = rev.route_id AND rev.is_approved = 1 AND rev.is_hidden = 0
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
          LEFT JOIN route_tags rt ON r.id = rt.route_id
          LEFT JOIN tags t ON rt.tag_id = t.id
          $where_clause
@@ -279,6 +288,10 @@ require_once __DIR__ . '/includes/header.php';
         <h1>🗺️ <?= $user ? t('my_routes_title') : t('available_routes') ?></h1>
         <p class="text-muted"><?= $user ? t('my_routes_subtitle') : ($current_lang === 'en' ? 'Discover amazing quest-excursions' : 'Откройте для себя удивительные квест-экскурсии') ?></p>
     </div>
+<<<<<<< HEAD
+=======
+    <!-- Раздел: Мои экскурсии -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php if ($user && !empty($user_routes)): ?>
     <div class="section-divider">
         <h2 class="section-title"><?= t('my_routes_title') ?></h2>
@@ -294,6 +307,10 @@ require_once __DIR__ . '/includes/header.php';
     </div>
     <?php endif; ?>
     <?php if ($user && !empty($user_routes)): ?>
+<<<<<<< HEAD
+=======
+    <!-- Активные маршруты -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php if (!empty($routes_by_status['in_progress'])): ?>
     <section class="section">
         <h2><?= t('in_progress') ?> (<?= count($routes_by_status['in_progress']) ?>)</h2>
@@ -329,6 +346,10 @@ require_once __DIR__ . '/includes/header.php';
                         <div class="progress-fill" style="width: <?= $route['progress_percent'] ?>%"></div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+                <!-- Детальная информация о точках -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <div class="route-details" id="route-details-<?= $route['route_id'] ?>" style="display: none;">
                     <div class="points-list">
                         <?php foreach ($route['points'] as $point): ?>
@@ -345,6 +366,22 @@ require_once __DIR__ . '/includes/header.php';
                                 </div>
                                 <div class="point-info">
                                     <h4><?= $point['order'] ?>. <?= e($point['name']) ?></h4>
+<<<<<<< HEAD
+=======
+                                    <p class="text-muted"><?= e($point['description'] ?? '') ?></p>
+                                    <?php if ($point['require_pose']): ?>
+                                    <span class="point-requirement">
+                                        🤸 <?= t('pose_required') ?>: <?php
+                                            $poses = [
+                                                'hands_up' => t('pose_hands_up'),
+                                                'heart' => t('pose_heart'),
+                                                'point' => t('pose_point')
+                                            ];
+                                            echo $poses[$point['require_pose']] ?? $point['require_pose'];
+                                        ?>
+                                    </span>
+                                    <?php endif; ?>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                 </div>
                             </div>
                             <?php if ($point['point_status'] == 'completed' && $point['photo_path']): ?>
@@ -355,11 +392,23 @@ require_once __DIR__ . '/includes/header.php';
                                      onerror="this.src='/assets/img/no-photo.png';">
                                 <div class="photo-info">
                                     <span class="text-muted text-small">
+<<<<<<< HEAD
                                         📅 <?= formatDateTime($point['photo_taken_at']) ?>
+=======
+                                        📅 <?= formatDate($point['photo_taken_at']) ?>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     </span>
                                 </div>
                             </div>
                             <?php endif; ?>
+<<<<<<< HEAD
+=======
+                            <?php if ($point['task_text']): ?>
+                            <div class="point-task">
+                                <strong><?= t('task') ?>:</strong> <?= nl2br(e($point['task_text'])) ?>
+                            </div>
+                            <?php endif; ?>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         </div>
                         <?php endforeach; ?>
                     </div>
@@ -377,6 +426,10 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </section>
     <?php endif; ?>
+<<<<<<< HEAD
+=======
+    <!-- Завершенные маршруты -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php if (!empty($routes_by_status['completed'])): ?>
     <section class="section">
         <h2><?= t('completed') ?> (<?= count($routes_by_status['completed']) ?>)</h2>
@@ -406,6 +459,10 @@ require_once __DIR__ . '/includes/header.php';
                     <span>⏱️ <?= formatDuration($duration) ?></span>
                     <?php endif; ?>
                 </div>
+<<<<<<< HEAD
+=======
+                <!-- Детальная информация о точках -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <div class="route-details" id="route-details-<?= $route['route_id'] ?>" style="display: none;">
                     <div class="points-list">
                         <?php foreach ($route['points'] as $point): ?>
@@ -414,6 +471,10 @@ require_once __DIR__ . '/includes/header.php';
                                 <div class="point-status-icon">✅</div>
                                 <div class="point-info">
                                     <h4><?= $point['order'] ?>. <?= e($point['name']) ?></h4>
+<<<<<<< HEAD
+=======
+                                    <p class="text-muted"><?= e($point['description']) ?></p>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                 </div>
                             </div>
                             <?php if ($point['photo_path']): ?>
@@ -424,7 +485,11 @@ require_once __DIR__ . '/includes/header.php';
                                      onerror="this.src='/assets/img/no-photo.png';">
                                 <div class="photo-info">
                                     <span class="text-muted text-small">
+<<<<<<< HEAD
                                         📅 <?= formatDateTime($point['photo_taken_at']) ?>
+=======
+                                        📅 <?= formatDate($point['photo_taken_at']) ?>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     </span>
                                 </div>
                             </div>
@@ -446,6 +511,10 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </section>
     <?php endif; ?>
+<<<<<<< HEAD
+=======
+    <!-- Прерванные маршруты -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php if (!empty($routes_by_status['abandoned'])): ?>
     <section class="section">
         <h2><?= t('abandoned') ?> (<?= count($routes_by_status['abandoned']) ?>)</h2>
@@ -484,6 +553,10 @@ require_once __DIR__ . '/includes/header.php';
     </section>
     <?php endif; ?>
     <?php endif; ?>
+<<<<<<< HEAD
+=======
+    <!-- Раздел: Все экскурсии -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php if (!empty($all_routes)): ?>
     <div class="section-divider" style="<?= $user && !empty($user_routes) ? 'margin-top: 3rem; padding-top: 2rem;' : '' ?>">
         <h2 class="section-title"><?= t('all_routes') ?></h2>
@@ -491,6 +564,10 @@ require_once __DIR__ . '/includes/header.php';
             <?= $current_lang === 'en' ? 'Discover all available quest-excursions and start your adventure' : 'Откройте для себя все доступные квест-экскурсии и начните приключение' ?>
         </p>
     </div>
+<<<<<<< HEAD
+=======
+    <!-- Фильтры и сортировка -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="filter-card" style="margin-bottom: 2rem;">
         <form method="get" class="filter-form">
             <?php if (isset($_GET['lang'])): ?>
@@ -571,11 +648,15 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
                     <div class="route-info">
                         <h3><?= getLocalizedName(['name' => $route['name'], 'name_en' => $route['name_en'] ?? null]) ?></h3>
+<<<<<<< HEAD
                         <p class="text-muted"><?= getLocalizedName(['name' => $route['city_name'], 'name_en' => $route['city_name_en'] ?? null]) ?>
                             <?php if (!empty($route['avg_rating']) && $route['avg_rating'] > 0): ?>
                             <span class="route-rating" style="margin-left: 0.5rem; color: #ffc107; font-weight: 500;">⭐ <?= number_format($route['avg_rating'], 2) ?>/5</span>
                             <?php endif; ?>
                         </p>
+=======
+                        <p class="text-muted"><?= getLocalizedName(['name' => $route['city_name'], 'name_en' => $route['city_name_en'] ?? null]) ?></p>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <?php if ($route['description']):
                             $description = getLocalizedName(['name' => $route['description'], 'name_en' => $route['description_en'] ?? null]);
                             $description_short = mb_strlen($description) > 150 ? mb_substr($description, 0, 150) . '...' : $description;

@@ -16,12 +16,20 @@ class AdminPointStates(StatesGroup):
     task_text = State()
     fact_text = State()
     order = State()
+<<<<<<< HEAD
+=======
+    require_pose = State()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     min_people = State()
     reference_photos = State()
     edit_menu = State()
     edit_name = State()
     edit_task = State()
     edit_fact = State()
+<<<<<<< HEAD
+=======
+    edit_pose = State()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     edit_people = State()
 class AdminUserStates(StatesGroup):
     search = State()
@@ -29,7 +37,10 @@ class AdminUserStates(StatesGroup):
 class AdminSettingsStates(StatesGroup):
     similarity_threshold = State()
     max_photos_per_hour = State()
+<<<<<<< HEAD
     channel_stats_time = State()
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 class AdminHintStates(StatesGroup):
     level = State()
     text = State()
@@ -43,9 +54,13 @@ class AdminPromoCodeStates(StatesGroup):
     max_uses = State()
     valid_from = State()
     valid_until = State()
+<<<<<<< HEAD
     is_active = State()
 class AdminModeratorStates(StatesGroup):
     reply_message = State()
     reject_reason = State()
 class AdminReferralStates(StatesGroup):
     reward_amount = State()
+=======
+    is_active = State()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

@@ -1,7 +1,11 @@
 from enum import Enum
 from datetime import datetime
+<<<<<<< HEAD
 from decimal import Decimal
 from sqlalchemy import BigInteger, String, Enum as SQLEnum, Boolean, DateTime, ForeignKey, Integer, Numeric
+=======
+from sqlalchemy import BigInteger, String, Enum as SQLEnum, Boolean, DateTime
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import List, Optional, TYPE_CHECKING
 from bot.models.base import Base, TimestampMixin
@@ -11,9 +15,12 @@ if TYPE_CHECKING:
     from bot.models.token_transaction import TokenTransaction
     from bot.models.token_deposit import TokenDeposit
     from bot.models.user_search_limit import UserSearchLimit
+<<<<<<< HEAD
     from bot.models.moderator_request import ModeratorRequest
     from bot.models.moderator_balance import ModeratorBalance
     from bot.models.referral_reward import ReferralReward
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 class UserRole(str, Enum):
     USER = "user"
     MODERATOR = "moderator"
@@ -36,6 +43,7 @@ class User(Base, TimestampMixin):
     banned_by: Mapped[Optional[int]] = mapped_column(BigInteger, nullable=True)
     banned_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
     language: Mapped[str] = mapped_column(String(5), default="ru", server_default="ru")
+<<<<<<< HEAD
     show_map: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0", comment="Показывать кнопку Яндекс.Карты в блоке «Как добраться»")
     referred_by_id: Mapped[Optional[int]] = mapped_column(
         BigInteger,
@@ -46,6 +54,8 @@ class User(Base, TimestampMixin):
     paid_referrals_count: Mapped[int] = mapped_column(Integer, default=0)
     referral_earnings: Mapped[Decimal] = mapped_column(Numeric(10, 2), default=Decimal("0.00"))
     is_partner: Mapped[bool] = mapped_column(Boolean, default=False)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     progresses: Mapped[List["UserProgress"]] = relationship(
         "UserProgress",
         back_populates="user",
@@ -84,6 +94,7 @@ class User(Base, TimestampMixin):
         back_populates="user",
         uselist=False,
         cascade="all, delete-orphan",
+<<<<<<< HEAD
     )
     moderator_requests: Mapped[List["ModeratorRequest"]] = relationship(
         "ModeratorRequest",
@@ -102,4 +113,6 @@ class User(Base, TimestampMixin):
         back_populates="user",
         foreign_keys="ReferralReward.user_id",
         cascade="all, delete-orphan",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     )

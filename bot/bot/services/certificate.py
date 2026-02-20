@@ -1,6 +1,9 @@
 import os
 import logging
+<<<<<<< HEAD
 from typing import Optional
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -30,6 +33,7 @@ class CertificateService:
         x = cx - (tw / 2)
         draw.text((x, y), text, font=font, fill=color)
     async def get_progress_data(self, progress_id: int):
+<<<<<<< HEAD
         query = text("""
             SELECT
                 up.id as progress_id,
@@ -48,6 +52,9 @@ class CertificateService:
             JOIN routes r ON up.route_id = r.id
             WHERE up.id = :progress_id AND up.status = 'COMPLETED'
         """)
+=======
+        query = text()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         result = await self.session.execute(query, {"progress_id": progress_id})
         row = result.fetchone()
         if row:
@@ -57,7 +64,11 @@ class CertificateService:
         query = text("SELECT id FROM certificates WHERE progress_id = :progress_id LIMIT 1")
         result = await self.session.execute(query, {"progress_id": progress_id})
         return result.fetchone() is not None
+<<<<<<< HEAD
     def generate_certificate(self, data: dict, language: str = 'ru') -> Optional[str]:
+=======
+    def generate_certificate(self, data: dict, language: str = 'ru') -> str | None:
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         try:
             template_path = os.path.abspath(CERTIFICATE_TEMPLATE)
             if not os.path.exists(template_path):
@@ -116,10 +127,14 @@ class CertificateService:
             logger.error(f"Failed to generate certificate: {e}", exc_info=True)
             return None
     async def save_certificate(self, user_id: int, route_id: int, progress_id: int, language: str, file_path: str):
+<<<<<<< HEAD
         query = text("""
             INSERT INTO certificates (user_id, route_id, progress_id, language, file_path)
             VALUES (:user_id, :route_id, :progress_id, :language, :file_path)
         """)
+=======
+        query = text()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         await self.session.execute(query, {
             "user_id": user_id,
             "route_id": route_id,

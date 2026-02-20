@@ -1,12 +1,19 @@
 from typing import List, Optional
+<<<<<<< HEAD
 from collections import namedtuple
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from bot.models.point import Point
+<<<<<<< HEAD
 from bot.models.task import Task
 from bot.repositories.base import BaseRepository
 NextPointData = namedtuple("NextPointData", ["id", "order", "name", "name_en"])
+=======
+from bot.repositories.base import BaseRepository
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 class PointRepository(BaseRepository[Point]):
     def __init__(self, session: AsyncSession):
         super().__init__(Point, session)
@@ -23,6 +30,7 @@ class PointRepository(BaseRepository[Point]):
             .options(selectinload(Point.tasks))
             .where(Point.id == point_id)
         )
+<<<<<<< HEAD
         point = result.scalar_one_or_none()
         if point and (not point.tasks or len(point.tasks) == 0):
             task_result = await self.session.execute(
@@ -30,6 +38,9 @@ class PointRepository(BaseRepository[Point]):
             )
             point.tasks = list(task_result.scalars().all())
         return point
+=======
+        return result.scalar_one_or_none()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     async def get_with_tasks_and_images(self, point_id: int) -> Optional[Point]:
         result = await self.session.execute(
             select(Point)
@@ -39,6 +50,7 @@ class PointRepository(BaseRepository[Point]):
             )
             .where(Point.id == point_id)
         )
+<<<<<<< HEAD
         point = result.scalar_one_or_none()
         if point and (not point.tasks or len(point.tasks) == 0):
             task_result = await self.session.execute(
@@ -46,6 +58,9 @@ class PointRepository(BaseRepository[Point]):
             )
             point.tasks = list(task_result.scalars().all())
         return point
+=======
+        return result.scalar_one_or_none()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     async def get_by_route(self, route_id: int) -> List[Point]:
         result = await self.session.execute(
             select(Point)
@@ -60,6 +75,7 @@ class PointRepository(BaseRepository[Point]):
             .order_by(Point.order)
             .limit(1)
         )
+<<<<<<< HEAD
         return result.scalar_one_or_none()
     async def get_next_point_data(
         self, route_id: int, current_order: int
@@ -72,3 +88,6 @@ class PointRepository(BaseRepository[Point]):
         )
         row = result.one_or_none()
         return NextPointData(row.id, row.order, row.name, row.name_en) if row else None
+=======
+        return result.scalar_one_or_none()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

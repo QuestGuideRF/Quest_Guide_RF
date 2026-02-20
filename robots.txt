@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 # Правила для поисковых роботов
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 User-agent: *
 Allow: /
 
@@ -28,6 +31,7 @@ Disallow: /.env
 Disallow: /composer.json
 Disallow: /package.json
 
+<<<<<<< HEAD
 # Публичные страницы для индексации (2026-01-20: добавлен profile)
 Allow: /certificates.php
 Allow: /reviews.php
@@ -35,6 +39,9 @@ Allow: /profile.php
 # Публичные профили: /username (rewrite на profile.php)
 
 # Карта сайта (актуально на 2026-02-05)
+=======
+# Карта сайта
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 Sitemap: https://questguiderf.ru/sitemap.xml
 
 # Директивы для основных поисковых систем
@@ -45,4 +52,8 @@ User-agent: Googlebot
 Allow: /
 
 # Задержка между запросами (секунды)
+<<<<<<< HEAD
 Crawl-delay: 1
+=======
+Crawl-delay: 1
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

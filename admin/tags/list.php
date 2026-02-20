@@ -32,6 +32,10 @@ $type_names = [
         <i class="fas fa-plus me-2"></i>Создать тег
     </a>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтр по типу -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <div class="d-flex flex-wrap gap-2">
@@ -44,6 +48,10 @@ $type_names = [
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Теги по типам -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <?php foreach ($tags_by_type as $tag_type => $type_tags): ?>
     <div class="card mb-4">
         <div class="card-header">

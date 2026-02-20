@@ -16,6 +16,7 @@ if (!$route_id || !$new_name) {
     echo json_encode(['error' => 'Route ID and new name required']);
     exit;
 }
+<<<<<<< HEAD
 if (isModerator()) {
     $check = $pdo->prepare("SELECT id FROM routes WHERE id = ? AND creator_id = ?");
     $check->execute([$route_id, $_SESSION['admin_id']]);
@@ -25,6 +26,8 @@ if (isModerator()) {
         exit;
     }
 }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 try {
     $pdo->beginTransaction();
     $stmt = $pdo->prepare("
@@ -38,9 +41,12 @@ try {
     ");
     $stmt->execute([$new_name, $route_id]);
     $new_route_id = $pdo->lastInsertId();
+<<<<<<< HEAD
     if (isModerator()) {
         $pdo->prepare("UPDATE routes SET creator_id = ? WHERE id = ?")->execute([$_SESSION['admin_id'], $new_route_id]);
     }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     $stmt = $pdo->prepare("
         INSERT INTO route_tags (route_id, tag_id)
         SELECT ?, tag_id FROM route_tags WHERE route_id = ?

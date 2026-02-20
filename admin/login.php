@@ -15,6 +15,7 @@ if (isset($_GET['token'])) {
         error_log("ADMIN LOGIN FAILED: Invalid token");
     }
 }
+<<<<<<< HEAD
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -25,4 +26,12 @@ if (ini_get('session.use_cookies')) {
 }
 session_destroy();
 header('Location: /dashboard.php');
+=======
+if (isAdminLoggedIn()) {
+    header('Location: /admin/dashboard.php');
+    exit;
+}
+http_response_code(403);
+require_once __DIR__ . '/../403.php';
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 exit;

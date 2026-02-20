@@ -9,7 +9,10 @@ if (!isAdminLoggedIn()) {
     exit;
 }
 $admin = getCurrentAdmin();
+<<<<<<< HEAD
 $pdo = getDB()->getConnection();
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $page_title = $page_title ?? 'Админ-панель';
 ?>
 <!DOCTYPE html>
@@ -18,16 +21,32 @@ $page_title = $page_title ?? 'Админ-панель';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($page_title) ?> - QuestGuideRF Admin</title>
+<<<<<<< HEAD
+=======
+    <!-- Favicons -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     <link rel="manifest" href="/favicons/site.webmanifest">
     <link rel="shortcut icon" href="/favicons/favicon.ico">
     <meta name="theme-color" content="#1a1d29">
+<<<<<<< HEAD
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="/admin/assets/css/admin.css">
+=======
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/admin/assets/css/admin.css">
+    <!-- Chart.js Dark Theme Configuration -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <script>
         (function() {
             function initChartTheme() {
@@ -296,10 +315,20 @@ $page_title = $page_title ?? 'Админ-панель';
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <button class="mobile-menu-toggle" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
     </button>
     <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+=======
+    <!-- Кнопка меню для мобильных -->
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <!-- Overlay для закрытия меню -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <!-- Sidebar -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="sidebar" id="sidebar">
         <div class="logo">
             <i class="fas fa-map-marked-alt"></i> QuestGuideRF
@@ -311,6 +340,15 @@ $page_title = $page_title ?? 'Админ-панель';
             <a href="/admin/dashboard.php" class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : '' ?>">
                 <i class="fas fa-chart-line me-2"></i> Дашборд
             </a>
+<<<<<<< HEAD
+=======
+            <a href="/admin/search/global.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/search/') !== false ? 'active' : '' ?>">
+                <i class="fas fa-search me-2"></i> Поиск
+            </a>
+            <a href="/admin/cities/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/cities/') !== false ? 'active' : '' ?>">
+                <i class="fas fa-city me-2"></i> Города
+            </a>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             <a href="/admin/routes/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/routes/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-route me-2"></i> Маршруты
             </a>
@@ -320,6 +358,7 @@ $page_title = $page_title ?? 'Админ-панель';
             <a href="/admin/hints/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/hints/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-lightbulb me-2"></i> Подсказки
             </a>
+<<<<<<< HEAD
             <a href="/admin/quiz/index.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/quiz/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-question-circle me-2"></i> Квизы
             </a>
@@ -330,6 +369,8 @@ $page_title = $page_title ?? 'Админ-панель';
                 <i class="fas fa-city me-2"></i> Города
             </a>
             <?php if (!isModerator()): ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             <a href="/admin/tags/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/tags/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-tags me-2"></i> Теги
             </a>
@@ -339,12 +380,24 @@ $page_title = $page_title ?? 'Админ-панель';
             <a href="/admin/reviews/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/reviews/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-star me-2"></i> Отзывы
             </a>
+<<<<<<< HEAD
+=======
+            <a href="/admin/audio/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/audio/') !== false ? 'active' : '' ?>">
+                <i class="fas fa-headphones me-2"></i> Аудиогид
+            </a>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             <a href="/admin/analytics/overview.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/analytics/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-chart-bar me-2"></i> Аналитика
             </a>
             <a href="/admin/media/library.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/media/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-folder-open me-2"></i> Медиабиблиотека
             </a>
+<<<<<<< HEAD
+=======
+            <a href="/admin/tasks/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/tasks/') !== false ? 'active' : '' ?>">
+                <i class="fas fa-tasks me-2"></i> Задачи
+            </a>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             <a href="/admin/audit/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/audit/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-history me-2"></i> История
             </a>
@@ -352,6 +405,7 @@ $page_title = $page_title ?? 'Админ-панель';
                 <i class="fas fa-users me-2"></i> Пользователи
             </a>
             <a href="/admin/bank/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/bank/') !== false ? 'active' : '' ?>">
+<<<<<<< HEAD
                 <i class="fas fa-coins me-2"></i> Банк грошей
             </a>
             <a href="/admin/moderators/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/moderators/') !== false ? 'active' : '' ?>">
@@ -365,10 +419,14 @@ $page_title = $page_title ?? 'Админ-панель';
                 ?>
                     <span class="badge bg-danger ms-1"><?= $total_pending ?></span>
                 <?php endif; } catch (Exception $e) {} ?>
+=======
+                <i class="fas fa-coins me-2"></i> Банк токенов
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             </a>
             <a href="/admin/promo_codes/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/promo_codes/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-ticket-alt me-2"></i> Промокоды
             </a>
+<<<<<<< HEAD
             <a href="/admin/referral/index.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/referral/') !== false ? 'active' : '' ?>">
                 <i class="fas fa-handshake me-2"></i> Партнерка
             </a>
@@ -385,12 +443,27 @@ $page_title = $page_title ?? 'Админ-панель';
                 <i class="fas fa-cog me-2"></i> Настройки
             </a>
             <?php endif; ?>
+=======
+            <a href="/admin/certificates/list.php" class="nav-link <?= strpos($_SERVER['PHP_SELF'], '/certificates/') !== false ? 'active' : '' ?>">
+                <i class="fas fa-certificate me-2"></i> Сертификаты
+            </a>
+            <hr style="border-color: rgba(255,255,255,0.1);">
+            <a href="/admin/settings.php" class="nav-link">
+                <i class="fas fa-cog me-2"></i> Настройки
+            </a>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             <a href="/admin/logout.php" class="nav-link">
                 <i class="fas fa-sign-out-alt me-2"></i> Выход
             </a>
         </nav>
     </div>
+<<<<<<< HEAD
     <div class="main-content">
+=======
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <div class="top-bar">
             <div>
                 <h4 class="mb-0"><?= htmlspecialchars($page_title) ?></h4>
@@ -409,4 +482,8 @@ $page_title = $page_title ?? 'Админ-панель';
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+        <!-- Content -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <div class="content">

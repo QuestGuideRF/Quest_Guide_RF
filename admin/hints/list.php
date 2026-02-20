@@ -2,19 +2,27 @@
 $page_title = 'Управление подсказками';
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../../includes/db.php';
+<<<<<<< HEAD
 require_once __DIR__ . '/../includes/auth.php';
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $pdo = getDB()->getConnection();
 $point_id = isset($_GET['point_id']) ? (int)$_GET['point_id'] : null;
 $point = null;
 if ($point_id) {
     $stmt = $pdo->prepare("
+<<<<<<< HEAD
         SELECT p.*, r.name as route_name, r.id as route_id, r.creator_id
+=======
+        SELECT p.*, r.name as route_name, r.id as route_id
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         FROM points p
         JOIN routes r ON p.route_id = r.id
         WHERE p.id = ?
     ");
     $stmt->execute([$point_id]);
     $point = $stmt->fetch();
+<<<<<<< HEAD
     if ($point && isModerator() && (empty($point['creator_id']) || $point['creator_id'] != $_SESSION['admin_id'])) {
         http_response_code(403);
         echo '<div class="alert alert-danger">Доступ запрещён.</div>';
@@ -30,6 +38,10 @@ if (isModerator()) {
     $where_conditions[] = "r.creator_id = " . (int)$_SESSION['admin_id'];
 }
 $where = $where_conditions ? "WHERE " . implode(' AND ', $where_conditions) : "";
+=======
+}
+$where = $point_id ? "WHERE h.point_id = $point_id" : "";
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $stmt = $pdo->query("
     SELECT h.*, p.name as point_name, p.id as point_id,
            r.name as route_name, r.id as route_id
@@ -92,6 +104,10 @@ $level_names = [1 => '💡 Легкая', 2 => '🔦 Средняя', 3 => '🎯
     <strong>Все 3 уровня подсказок созданы!</strong>
 </div>
 <?php endif; ?>
+<<<<<<< HEAD
+=======
+<!-- Таблица подсказок -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">

@@ -1,12 +1,18 @@
 from typing import List, Optional
+<<<<<<< HEAD
 from collections import namedtuple
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from bot.models.route import Route
 from bot.repositories.base import BaseRepository
 from bot.repositories.route_filter_mixin import RouteFilterMixin
+<<<<<<< HEAD
 RouteNames = namedtuple("RouteNames", ["name", "name_en"])
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 class RouteRepository(BaseRepository[Route], RouteFilterMixin):
     def __init__(self, session: AsyncSession):
         super().__init__(Route, session)
@@ -36,12 +42,15 @@ class RouteRepository(BaseRepository[Route], RouteFilterMixin):
         )
         avg_time = result.scalar()
         return int(avg_time) if avg_time else None
+<<<<<<< HEAD
     async def get_route_names(self, route_id: int) -> Optional[RouteNames]:
         result = await self.session.execute(
             select(Route.name, Route.name_en).where(Route.id == route_id)
         )
         row = result.one_or_none()
         return RouteNames(row.name, row.name_en) if row else None
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     async def get_route_with_tags(self, route_id: int) -> tuple:
         from bot.models.route_tag import RouteTag
         result = await self.session.execute(

@@ -6,6 +6,7 @@ from aiogram.types import PhotoSize
 from bot.models.point import Point
 from bot.models.task import Task
 async def download_photo(bot: Bot, photo: PhotoSize, download_dir: str = "photos") -> str:
+<<<<<<< HEAD
     return await download_photo_by_file_id(bot, photo.file_id, download_dir)
 async def download_photo_by_file_id(bot: Bot, file_id: str, download_dir: str = "photos") -> str:
     project_root = Path(__file__).parent.parent.parent.parent
@@ -13,6 +14,13 @@ async def download_photo_by_file_id(bot: Bot, file_id: str, download_dir: str = 
     photos_path.mkdir(parents=True, exist_ok=True)
     file = await bot.get_file(file_id)
     file_path = photos_path / f"{file_id}.jpg"
+=======
+    project_root = Path(__file__).parent.parent.parent.parent
+    photos_path = project_root / download_dir
+    photos_path.mkdir(parents=True, exist_ok=True)
+    file = await bot.get_file(photo.file_id)
+    file_path = photos_path / f"{photo.file_id}.jpg"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     await bot.download_file(file.file_path, str(file_path))
     return str(file_path)
 def format_duration(minutes: int) -> str:
@@ -27,6 +35,7 @@ def format_distance(km: float) -> str:
     if km < 1:
         return f"{int(km * 1000)} м"
     return f"{km:.1f} км"
+<<<<<<< HEAD
 def yandex_maps_url(latitude: float, longitude: float, zoom: int = 17) -> str:
     return f"https://yandex.ru/maps/?pt={longitude},{latitude}&z={zoom}"
 def _task_to_dict(task) -> Dict:
@@ -43,12 +52,29 @@ def _task_to_dict(task) -> Dict:
     }
 def tasks_from_models(task_list: List) -> List[Dict]:
     return [_task_to_dict(t) for t in sorted(task_list, key=lambda x: getattr(x, 'order', 0))]
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 def get_point_tasks(point: Point) -> List[Dict]:
     tasks = []
     if hasattr(point, 'tasks') and point.tasks:
         for task in point.tasks:
+<<<<<<< HEAD
             tasks.append(_task_to_dict(task))
     return sorted(tasks, key=lambda t: t.get('order', 0))
+=======
+            tasks.append({
+                'id': task.id,
+                'task_text': task.task_text,
+                'task_text_en': task.task_text_en,
+                'task_type': task.task_type,
+                'text_answer': task.text_answer,
+                'text_answer_hint': task.text_answer_hint,
+                'accept_partial_match': task.accept_partial_match,
+                'max_attempts': task.max_attempts,
+                'order': task.order,
+            })
+    return tasks
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 def get_first_task_text(point, language: str = 'ru') -> str:
     tasks = get_point_tasks(point)
     if not tasks:

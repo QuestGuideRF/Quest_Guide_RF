@@ -56,17 +56,29 @@ async def show_bank_menu(
     token_repo = TokenRepository(session)
     balance = await token_repo.get_balance(user.id)
     text = f"{i18n.get('bank_menu_title', user.language)}\n\n"
+<<<<<<< HEAD
     text += f"{i18n.get('bank_balance', user.language)}: <b>{balance.balance:.0f} грошей</b>\n\n"
     text += f"{i18n.get('bank_total_deposited', user.language)}: {balance.total_deposited:.0f} грошей\n"
     text += f"{i18n.get('bank_total_spent', user.language)}: {balance.total_spent:.0f} грошей\n"
     text += f"{i18n.get('bank_total_transferred', user.language)}: {balance.total_transferred_out:.0f} грошей\n"
     text += f"{i18n.get('bank_total_received', user.language)}: {balance.total_transferred_in:.0f} грошей\n"
+=======
+    text += f"{i18n.get('bank_balance', user.language)}: <b>{balance.balance:.0f}₽</b>\n\n"
+    text += f"{i18n.get('bank_total_deposited', user.language)}: {balance.total_deposited:.0f}₽\n"
+    text += f"{i18n.get('bank_total_spent', user.language)}: {balance.total_spent:.0f}₽\n"
+    text += f"{i18n.get('bank_total_transferred', user.language)}: {balance.total_transferred_out:.0f}₽\n"
+    text += f"{i18n.get('bank_total_received', user.language)}: {balance.total_transferred_in:.0f}₽\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     keyboard = BankKeyboards.main_menu(user.language)
     if edit:
         try:
             await message.edit_text(text, reply_markup=keyboard, parse_mode="HTML")
+<<<<<<< HEAD
         except Exception as e:
             logger.warning("bank: не удалось отредактировать сообщение, отправляем новое: %s", e)
+=======
+        except:
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             await message.answer(text, reply_markup=keyboard, parse_mode="HTML")
     else:
         await message.answer(text, reply_markup=keyboard, parse_mode="HTML")
@@ -196,8 +208,14 @@ async def cb_confirm_deposit(
     amount = int(parts[3])
     token_repo = TokenRepository(session)
     if payment_method == "yookassa":
+<<<<<<< HEAD
         from bot.loader import config
         from bot.services.payments import PaymentService
+=======
+        from bot.config import load_config
+        from bot.services.payments import PaymentService
+        config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         payment_service = PaymentService(config.payment)
         if not config.payment.provider_token:
             await token_repo.deposit(
@@ -333,8 +351,12 @@ async def process_transfer_amount(
                 reply_markup=BankKeyboards.cancel_transfer(user.language)
             )
             return
+<<<<<<< HEAD
     except Exception as e:
         logger.debug("bank transfer: неверная сумма '%s': %s", message.text, e)
+=======
+    except:
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         await message.answer(
             i18n.get("bank_invalid_amount", user.language),
             reply_markup=BankKeyboards.cancel_transfer(user.language)
@@ -491,6 +513,7 @@ async def cb_select_route_for_purchase(
         return
     balance = await token_repo.get_balance(user.id)
     if balance.balance < route.price:
+<<<<<<< HEAD
         needed = int(route.price - balance.balance)
         text = i18n.get("bank_insufficient_for_route", user.language).format(
             balance=f"{balance.balance:.0f}",
@@ -503,6 +526,14 @@ async def cb_select_route_for_purchase(
             parse_mode="HTML"
         )
         await callback.answer()
+=======
+        await callback.answer(
+            i18n.get("bank_insufficient_balance", user.language).format(
+                balance=f"{balance.balance:.0f}"
+            ),
+            show_alert=True
+        )
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         return
     route_name = get_localized_field(route, 'name', user.language)
     balance_after = balance.balance - route.price
@@ -557,6 +588,7 @@ async def cb_confirm_purchase(
     )
     if payment:
         await payment_repo.mark_success(payment.id, "token_purchase", f"tx_{transaction.id}")
+<<<<<<< HEAD
     if getattr(user, "referred_by_id", None):
         try:
             from bot.services.referral_service import ReferralService
@@ -604,6 +636,8 @@ async def cb_confirm_purchase(
         except Exception as e:
             import logging
             logging.getLogger(__name__).error(f"Error processing moderator payment: {e}")
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     route_name = get_localized_field(route, 'name', user.language)
     await callback.message.edit_text(
         i18n.get("bank_purchase_success", user.language).format(route_name=route_name),
@@ -611,6 +645,7 @@ async def cb_confirm_purchase(
         parse_mode="HTML"
     )
     await callback.answer()
+<<<<<<< HEAD
 @router.callback_query(F.data.startswith("bank:topup_for_route:"))
 async def cb_topup_for_route(
     callback: CallbackQuery,
@@ -630,6 +665,8 @@ async def cb_topup_for_route(
         parse_mode="HTML"
     )
     await callback.answer()
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data == "bank:history")
 async def cb_history(
     callback: CallbackQuery,
@@ -649,13 +686,20 @@ async def cb_history(
             TransactionType.TRANSFER_OUT: "bank_tx_transfer_out",
             TransactionType.TRANSFER_IN: "bank_tx_transfer_in",
             TransactionType.REFUND: "bank_tx_refund",
+<<<<<<< HEAD
             TransactionType.ADJUSTMENT: "bank_tx_adjustment",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         }
         for tx in transactions:
             type_label = i18n.get(type_labels.get(tx.type, "bank_tx_deposit"), user.language)
             sign = "+" if tx.type in [TransactionType.DEPOSIT, TransactionType.TRANSFER_IN, TransactionType.REFUND] else "-"
             date_str = tx.created_at.strftime("%d.%m.%Y %H:%M")
+<<<<<<< HEAD
             text += f"{type_label}: {sign}{tx.amount:.0f} грошей\n"
+=======
+            text += f"{type_label}: {sign}{tx.amount:.0f}₽\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             text += f"<i>{date_str}</i>\n\n"
     await callback.message.edit_text(
         text,

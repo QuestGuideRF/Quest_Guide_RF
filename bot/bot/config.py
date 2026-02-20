@@ -28,6 +28,10 @@ class PaymentConfig:
 class VisionConfig:
     google_credentials_path: Optional[str] = None
     similarity_threshold: float = 0.75
+<<<<<<< HEAD
+=======
+    pose_confidence: float = 0.5
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @dataclass
 class WebConfig:
     site_url: str
@@ -69,6 +73,10 @@ def load_config() -> Config:
         vision=VisionConfig(
             google_credentials_path=getenv("GOOGLE_CREDENTIALS_PATH"),
             similarity_threshold=float(getenv("SIMILARITY_THRESHOLD", "0.30")),
+<<<<<<< HEAD
+=======
+            pose_confidence=float(getenv("POSE_CONFIDENCE", "0.5")),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         ),
         web=WebConfig(
             site_url=getenv("SITE_URL", "https://questguiderf.ru"),

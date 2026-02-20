@@ -1,17 +1,27 @@
 <?php
+<<<<<<< HEAD
 $page_title = 'Изменить баланс грошей';
+=======
+$page_title = 'Начислить токены';
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../../includes/db.php';
 $pdo = getDB()->getConnection();
 $error = '';
 $success = '';
 $preset_user_id = isset($_GET['user_id']) ? (int)$_GET['user_id'] : 0;
+<<<<<<< HEAD
 $preset_action = isset($_GET['action']) && $_GET['action'] === 'subtract' ? 'subtract' : 'add';
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = isset($_POST['user_id']) ? (int)$_POST['user_id'] : 0;
     $amount = isset($_POST['amount']) ? (float)$_POST['amount'] : 0;
     $description = isset($_POST['description']) ? trim($_POST['description']) : '';
+<<<<<<< HEAD
     $action = isset($_POST['action']) && $_POST['action'] === 'subtract' ? 'subtract' : 'add';
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     if (!$user_id) {
         $error = 'Выберите пользователя';
     } elseif ($amount <= 0 || $amount > 1000000) {
@@ -36,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $balance = ['balance' => 0];
                 }
                 $balance_before = (float)$balance['balance'];
+<<<<<<< HEAD
                 if ($action === 'subtract') {
                     if ($amount > $balance_before) {
                         $pdo->rollBack();
@@ -85,6 +96,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'description' => $desc
                     ], "Начислено {$amount} грошей пользователю {$user_name}");
                 }
+=======
+                $balance_after = $balance_before + $amount;
+                $pdo->prepare("
+                    UPDATE token_balances
+                    SET balance = balance + ?,
+                        total_deposited = total_deposited + ?
+                    WHERE user_id = ?
+                ")->execute([$amount, $amount, $user_id]);
+                $desc = $description ?: 'Начисление администратором';
+                $pdo->prepare("
+                    INSERT INTO token_transactions
+                    (user_id, type, amount, balance_before, balance_after, description, payment_method, status, created_at)
+                    VALUES (?, 'deposit', ?, ?, ?, ?, 'system', 'completed', NOW())
+                ")->execute([$user_id, $amount, $balance_before, $balance_after, $desc]);
+                $pdo->commit();
+                $user_name = $target_user['first_name'] ?: $target_user['username'] ?: "ID: $user_id";
+                $success = "Успешно начислено {$amount}₽ пользователю {$user_name}";
+                require_once __DIR__ . '/../includes/audit_log.php';
+                logAudit('token_balance', $user_id, 'token_add', ['balance_before' => $balance_before], [
+                    'amount' => $amount,
+                    'balance_after' => $balance_after,
+                    'description' => $desc
+                ], "Начислено {$amount} токенов пользователю {$user_name}");
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             } catch (Exception $e) {
                 $pdo->rollBack();
                 $error = 'Ошибка: ' . $e->getMessage();
@@ -111,7 +146,11 @@ if ($preset_user_id) {
 }
 ?>
 <div class="d-flex justify-content-between align-items-center mb-4">
+<<<<<<< HEAD
     <h2><i class="fas fa-coins me-2"></i>Изменить баланс грошей</h2>
+=======
+    <h2><i class="fas fa-plus-circle me-2"></i>Начислить токены</h2>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <a href="list.php" class="btn btn-outline-secondary">
         <i class="fas fa-arrow-left me-2"></i>Назад к банку
     </a>
@@ -130,11 +169,16 @@ if ($preset_user_id) {
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
+<<<<<<< HEAD
                 <h5 class="mb-0">Начислить или списать</h5>
+=======
+                <h5 class="mb-0">Форма начисления</h5>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             </div>
             <div class="card-body">
                 <form method="POST">
                     <div class="mb-3">
+<<<<<<< HEAD
                         <label class="form-label">Действие *</label>
                         <div class="d-flex gap-3">
                             <label class="form-check">
@@ -148,6 +192,8 @@ if ($preset_user_id) {
                         </div>
                     </div>
                     <div class="mb-3">
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <label class="form-label">Пользователь *</label>
                         <select name="user_id" class="form-select" required id="userSelect">
                             <option value="">Выберите пользователя...</option>
@@ -159,7 +205,11 @@ if ($preset_user_id) {
                                 <?php if ($u['username']): ?>
                                     (@<?= htmlspecialchars($u['username']) ?>)
                                 <?php endif; ?>
+<<<<<<< HEAD
                                 - Баланс: <?= number_format($u['balance'], 0) ?> грошей
+=======
+                                - Баланс: <?= number_format($u['balance'], 0) ?> ₽
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             </option>
                             <?php endforeach; ?>
                         </select>
@@ -172,6 +222,7 @@ if ($preset_user_id) {
                             (@<?= htmlspecialchars($preset_user['username']) ?>)
                         <?php endif; ?>
                         <br>
+<<<<<<< HEAD
                         <strong>Текущий баланс:</strong> <?= number_format($preset_user['balance'], 0) ?> грошей
                     </div>
                     <?php endif; ?>
@@ -181,24 +232,51 @@ if ($preset_user_id) {
                                min="1" max="1000000" step="1" required
                                placeholder="Введите сумму">
                         <div class="form-text" id="amountHint">От 1 до 1 000 000 грошей</div>
+=======
+                        <strong>Текущий баланс:</strong> <?= number_format($preset_user['balance'], 0) ?> ₽
+                    </div>
+                    <?php endif; ?>
+                    <div class="mb-3">
+                        <label class="form-label">Сумма (₽) *</label>
+                        <input type="number" name="amount" class="form-control"
+                               min="1" max="1000000" step="1" required
+                               placeholder="Введите сумму">
+                        <div class="form-text">От 1 до 1 000 000 ₽</div>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Быстрый выбор суммы</label>
                         <div class="btn-group w-100">
+<<<<<<< HEAD
                             <button type="button" class="btn btn-outline-secondary quick-amount" data-amount="100">100 грошей</button>
                             <button type="button" class="btn btn-outline-secondary quick-amount" data-amount="500">500 грошей</button>
                             <button type="button" class="btn btn-outline-secondary quick-amount" data-amount="1000">1000 грошей</button>
                             <button type="button" class="btn btn-outline-secondary quick-amount" data-amount="5000">5000 грошей</button>
+=======
+                            <button type="button" class="btn btn-outline-secondary quick-amount" data-amount="100">100 ₽</button>
+                            <button type="button" class="btn btn-outline-secondary quick-amount" data-amount="500">500 ₽</button>
+                            <button type="button" class="btn btn-outline-secondary quick-amount" data-amount="1000">1000 ₽</button>
+                            <button type="button" class="btn btn-outline-secondary quick-amount" data-amount="5000">5000 ₽</button>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         </div>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Описание (опционально)</label>
+<<<<<<< HEAD
                         <input type="text" name="description" class="form-control" id="descInput"
                                placeholder="Причина операции" maxlength="200">
                         <div class="form-text">Например: "Бонус за отзыв" или "Корректировка"</div>
                     </div>
                     <button type="submit" class="btn btn-success btn-lg w-100" id="submitBtn">
                         <i class="fas fa-plus-circle me-2"></i>Начислить гроши
+=======
+                        <input type="text" name="description" class="form-control"
+                               placeholder="Причина начисления" maxlength="200">
+                        <div class="form-text">Например: "Бонус за отзыв", "Компенсация"</div>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg w-100">
+                        <i class="fas fa-plus-circle me-2"></i>Начислить токены
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     </button>
                 </form>
             </div>
@@ -212,19 +290,35 @@ if ($preset_user_id) {
             <div class="card-body">
                 <h6>Как это работает:</h6>
                 <ul>
+<<<<<<< HEAD
                     <li>Выберите действие: <strong>Начислить</strong> или <strong>Списать</strong></li>
                     <li>Выберите пользователя и укажите сумму (1 грош = 1 руб при пополнении)</li>
                     <li>При списании сумма не может превышать текущий баланс</li>
                     <li>Операция сразу отражается в балансе и в истории</li>
+=======
+                    <li>Выберите пользователя из списка</li>
+                    <li>Укажите сумму начисления в токенах (1 токен = 1 ₽)</li>
+                    <li>Опционально укажите причину начисления</li>
+                    <li>Токены будут немедленно зачислены на баланс</li>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 </ul>
                 <h6 class="mt-4">Важно:</h6>
                 <ul>
                     <li>Действие записывается в журнал аудита</li>
+<<<<<<< HEAD
                     <li>Пользователь увидит операцию в истории в боте</li>
                 </ul>
                 <div class="alert alert-warning mt-4 mb-0">
                     <i class="fas fa-exclamation-triangle me-2"></i>
                     <strong>Внимание:</strong> Используйте начисление для бонусов и компенсаций; списание — для корректировок и санкций.
+=======
+                    <li>Пользователь увидит начисление в истории операций</li>
+                    <li>Отменить начисление нельзя (только создать списание)</li>
+                </ul>
+                <div class="alert alert-warning mt-4 mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Внимание:</strong> Используйте эту функцию только для легитимных начислений: бонусы, компенсации, акции.
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 </div>
             </div>
         </div>
@@ -233,6 +327,7 @@ if ($preset_user_id) {
 <script>
 document.querySelectorAll('.quick-amount').forEach(btn => {
     btn.addEventListener('click', function() {
+<<<<<<< HEAD
         document.getElementById('amountInput').value = this.dataset.amount;
     });
 });
@@ -261,5 +356,15 @@ document.getElementById('userSelect').addEventListener('change', function() {
     if (option.dataset.balance !== undefined) { }
 });
 updateSubmitButton();
+=======
+        document.querySelector('input[name="amount"]').value = this.dataset.amount;
+    });
+});
+document.getElementById('userSelect').addEventListener('change', function() {
+    const option = this.options[this.selectedIndex];
+    if (option.dataset.balance !== undefined) {
+    }
+});
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 </script>
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

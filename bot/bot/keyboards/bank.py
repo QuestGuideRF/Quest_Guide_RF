@@ -73,7 +73,11 @@ class BankKeyboards:
             for amount in amounts[i:i+2]:
                 row_buttons.append(
                     InlineKeyboardButton(
+<<<<<<< HEAD
                         text=f"💰 {amount} грошей",
+=======
+                        text=f"💰 {amount} ₽",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         callback_data=f"bank:deposit:{payment_method}:{amount}"
                     )
                 )
@@ -170,7 +174,11 @@ class BankKeyboards:
                 suffix = ""
             builder.row(
                 InlineKeyboardButton(
+<<<<<<< HEAD
                     text=f"{icon} {route_name} - {price} грошей{suffix}",
+=======
+                    text=f"{icon} {route_name} - {price}₽{suffix}",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     callback_data=f"bank:route:{route.id}"
                 )
             )
@@ -219,6 +227,7 @@ class BankKeyboards:
                 callback_data="bank:menu"
             )
         )
+<<<<<<< HEAD
         return builder.as_markup()
     @staticmethod
     def deposit_amounts_with_recommended(payment_method: str, recommended: int, lang: str = "ru") -> InlineKeyboardMarkup:
@@ -271,4 +280,6 @@ class BankKeyboards:
                 callback_data="bank:buy_tour"
             )
         )
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         return builder.as_markup()

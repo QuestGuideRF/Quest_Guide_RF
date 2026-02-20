@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /** Сертификаты о прохождении */
 $page_title = 'Мои сертификаты';
 require_once __DIR__ . '/includes/init.php';
@@ -18,6 +19,29 @@ if ($user) {
     ", [$user['id']]);
 } else {
     $certificates = [];
+=======
+$page_title = 'Мои сертификаты';
+require_once __DIR__ . '/includes/init.php';
+requireAuth();
+$user = getCurrentUser();
+$db = getDB();
+$certificates = $db->fetchAll("
+    SELECT c.*, r.name as route_name, r.name_en as route_name_en,
+           up.completed_at
+    FROM certificates c
+    JOIN routes r ON c.route_id = r.id
+    JOIN user_progress up ON c.progress_id = up.id
+    WHERE c.user_id = ?
+    ORDER BY c.created_at DESC
+", [$user['id']]);
+if (empty($certificates)) {
+    error_log("No certificates found for user_id: " . $user['id']);
+} else {
+    error_log("Found " . count($certificates) . " certificates for user_id: " . $user['id']);
+    foreach ($certificates as $cert) {
+        error_log("Certificate ID: " . $cert['id'] . ", Path: " . $cert['file_path']);
+    }
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 }
 $grouped = [];
 foreach ($certificates as $cert) {
@@ -40,7 +64,11 @@ foreach ($certificates as $cert) {
     $grouped[$cert['progress_id']][$cert['language']] = $cert;
     $grouped[$cert['progress_id']][$cert['language']]['file_exists'] = $file_exists;
 }
+<<<<<<< HEAD
 $completed_without_certs = $user ? $db->fetchAll("
+=======
+$completed_without_certs = $db->fetchAll("
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     SELECT up.id as progress_id, up.completed_at,
            r.id as route_id, r.name as route_name, r.name_en as route_name_en,
            r.distance
@@ -49,7 +77,11 @@ $completed_without_certs = $user ? $db->fetchAll("
     LEFT JOIN certificates c ON c.progress_id = up.id
     WHERE up.user_id = ? AND up.status = 'COMPLETED' AND c.id IS NULL
     ORDER BY up.completed_at DESC
+<<<<<<< HEAD
 ", [$user['id']]) : [];
+=======
+", [$user['id']]);
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $unique_progress_ids = [];
 $completed_without_certs = array_filter($completed_without_certs, function($quest) use (&$unique_progress_ids) {
     if (in_array($quest['progress_id'], $unique_progress_ids)) {
@@ -79,6 +111,7 @@ require_once __DIR__ . '/includes/header.php';
 </style>
 <div class="container py-4">
     <h1 class="mb-4">🏆 <?= t('certificates') ?></h1>
+<<<<<<< HEAD
     <?php if (!$user): ?>
     <div class="card">
         <div class="card-body text-center py-5">
@@ -87,6 +120,8 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </div>
     <?php else: ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php
     if (isset($_GET['debug'])) {
         echo "<div class='alert alert-info'>";
@@ -146,6 +181,7 @@ require_once __DIR__ . '/includes/header.php';
                                     <?= t('completed') ?>: <?= date('d.m.Y', strtotime($quest['completed_at'])) ?>
                                 </small>
                             </div>
+<<<<<<< HEAD
                             <div class="d-flex gap-2">
                                 <button class="btn btn-primary btn-sm"
                                         onclick="createCertificates(<?= $quest['progress_id'] ?>, this)">
@@ -157,6 +193,13 @@ require_once __DIR__ . '/includes/header.php';
                                     📖 <?= t('download_album') ?>
                                 </a>
                             </div>
+=======
+                            <button class="btn btn-primary btn-sm"
+                                    onclick="createCertificates(<?= $quest['progress_id'] ?>, this)">
+                                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                                <span class="btn-text"><?= t('create_certificate') ?></span>
+                            </button>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -201,6 +244,7 @@ require_once __DIR__ . '/includes/header.php';
                     }
                 }
                 ?>
+<<<<<<< HEAD
                 <?php
                 $cert_lang = isset($certs[$current_lang]) && ($current_lang === 'ru' ? $ru_exists : $en_exists) ? $current_lang : (isset($certs['ru']) && $ru_exists ? 'ru' : 'en');
                 $cert_for_display = $certs[$cert_lang] ?? $cert;
@@ -220,17 +264,42 @@ require_once __DIR__ . '/includes/header.php';
                             <?php else: ?>
                                 <div class="d-flex align-items-center justify-content-center text-muted p-4">
                                     📜 <?= $current_lang === 'en' ? 'Certificate' : 'Сертификат' ?>
+=======
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 certificate-card">
+                        <div class="card-img-top position-relative certificate-image-container" style="min-height: 200px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; padding: 15px;">
+                            <?php if ($ru_exists): ?>
+                                <img src="<?= htmlspecialchars($certs['ru']['file_path']) ?>"
+                                     alt="Certificate"
+                                     class="w-100"
+                                     style="object-fit: contain; max-height: 400px; height: auto;"
+                                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'d-flex align-items-center justify-content-center text-muted p-4\'>📜 Сертификат</div>'">
+                            <?php elseif ($en_exists): ?>
+                                <img src="<?= htmlspecialchars($certs['en']['file_path']) ?>"
+                                     alt="Certificate"
+                                     class="w-100"
+                                     style="object-fit: contain; max-height: 400px; height: auto;"
+                                     onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'d-flex align-items-center justify-content-center text-muted p-4\'>📜 Сертификат</div>'">
+                            <?php else: ?>
+                                <div class="d-flex align-items-center justify-content-center text-muted p-4">
+                                    📜 Сертификат
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                 </div>
                             <?php endif; ?>
                         </div>
                         <div class="card-body">
+<<<<<<< HEAD
                             <h5 class="card-title"><?= htmlspecialchars($current_lang === 'en' && !empty($cert['route_name_en']) ? $cert['route_name_en'] : $cert['route_name']) ?></h5>
+=======
+                            <h5 class="card-title"><?= htmlspecialchars($cert['route_name']) ?></h5>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             <p class="card-text text-muted">
                                 <small>
                                     📅 <?= date('d.m.Y', strtotime($cert['completed_at'])) ?>
                                 </small>
                             </p>
                         </div>
+<<<<<<< HEAD
                         <div class="card-footer bg-transparent border-0 pt-0">
                             <div class="d-flex gap-2 flex-wrap">
                                 <a href="<?= htmlspecialchars($download_cert_href) ?>"
@@ -247,6 +316,26 @@ require_once __DIR__ . '/includes/header.php';
                                     <i class="fas fa-book"></i>
                                     <span><?= t('download_album') ?></span>
                                 </a>
+=======
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex gap-2">
+                                <?php if (isset($certs['ru'])): ?>
+                                    <a href="<?= htmlspecialchars($certs['ru']['file_path']) ?>"
+                                       class="btn btn-outline-primary btn-sm flex-grow-1"
+                                       download
+                                       title="Скачать сертификат на русском">
+                                        <span style="font-size: 1.2em;">🇷🇺</span> <span class="d-none d-md-inline">RU</span>
+                                    </a>
+                                <?php endif; ?>
+                                <?php if (isset($certs['en'])): ?>
+                                    <a href="<?= htmlspecialchars($certs['en']['file_path']) ?>"
+                                       class="btn btn-outline-primary btn-sm flex-grow-1"
+                                       download
+                                       title="Download certificate in English">
+                                        <span style="font-size: 1.2em;">🇬🇧</span> <span class="d-none d-md-inline">EN</span>
+                                    </a>
+                                <?php endif; ?>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             </div>
                         </div>
                     </div>
@@ -255,7 +344,10 @@ require_once __DIR__ . '/includes/header.php';
         </div>
         <?php endif; ?>
     <?php endif; ?>
+<<<<<<< HEAD
     <?php endif; ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 </div>
 <script>
 async function createCertificates(progressId, button) {

@@ -1,10 +1,16 @@
 from typing import Optional
+<<<<<<< HEAD
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from bot.models.payment import Payment, PaymentStatus
 from bot.models.user_progress import UserProgress, ProgressStatus
 from bot.models.user import User
 from bot.models.promo_code_use import PromoCodeUse
+=======
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+from bot.models.payment import Payment, PaymentStatus
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from bot.repositories.base import BaseRepository
 class PaymentRepository(BaseRepository[Payment]):
     def __init__(self, session: AsyncSession):
@@ -37,6 +43,7 @@ class PaymentRepository(BaseRepository[Payment]):
             await self.session.refresh(payment)
         return payment
     async def has_paid_for_route(self, user_id: int, route_id: int) -> bool:
+<<<<<<< HEAD
         pay_result = await self.session.execute(
             select(Payment.id).where(
                 Payment.user_id == user_id,
@@ -71,3 +78,13 @@ class PaymentRepository(BaseRepository[Payment]):
             )
         )
         return result.scalar() or 0
+=======
+        result = await self.session.execute(
+            select(Payment).where(
+                Payment.user_id == user_id,
+                Payment.route_id == route_id,
+                Payment.status == PaymentStatus.SUCCESS,
+            )
+        )
+        return result.scalar_one_or_none() is not None
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

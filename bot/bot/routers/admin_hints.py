@@ -13,9 +13,16 @@ from bot.repositories.hint import HintRepository
 from bot.repositories.point import PointRepository
 from bot.keyboards.admin import get_hints_menu
 from bot.fsm.admin_states import AdminHintStates
+<<<<<<< HEAD
 from bot.loader import config
 logger = logging.getLogger(__name__)
 router = Router()
+=======
+from bot.config import load_config
+logger = logging.getLogger(__name__)
+router = Router()
+config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 def is_admin(user_id: int) -> bool:
     return user_id in config.bot.admin_ids
 @router.callback_query(F.data.startswith("admin:point:hints:"))

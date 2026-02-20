@@ -7,18 +7,28 @@ $pdo = getDB()->getConnection();
 $error = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+<<<<<<< HEAD
         $creator_id = (isModerator() && isset($_SESSION['admin_id'])) ? $_SESSION['admin_id'] : null;
         $stmt = $pdo->prepare("
             INSERT INTO cities (name, name_en, description, description_en, is_active, creator_id, created_at)
             VALUES (?, ?, ?, ?, ?, ?, NOW())
+=======
+        $stmt = $pdo->prepare("
+            INSERT INTO cities (name, name_en, description, description_en, is_active, created_at)
+            VALUES (?, ?, ?, ?, ?, NOW())
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         ");
         $stmt->execute([
             $_POST['name'],
             $_POST['name_en'] ?? null,
             $_POST['description'] ?? null,
             $_POST['description_en'] ?? null,
+<<<<<<< HEAD
             isset($_POST['is_active']) ? 1 : 0,
             $creator_id
+=======
+            isset($_POST['is_active']) ? 1 : 0
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         ]);
         $city_id = $pdo->lastInsertId();
         logAudit('city', $city_id, 'create', null, $_POST, 'Город создан');

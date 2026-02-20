@@ -16,18 +16,29 @@ function formatDateTime($datetime, $format = 'd.m.Y H:i') {
     return date($format, strtotime($datetime));
 }
 function formatDuration($minutes) {
+<<<<<<< HEAD
     $minLabel = function_exists('t') ? t('duration_min') : 'мин';
     $hLabel = function_exists('t') ? t('duration_h') : 'ч';
     if ($minutes < 60) {
         return (int)$minutes . ' ' . $minLabel;
+=======
+    if ($minutes < 60) {
+        return (int)$minutes . ' мин';
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     }
     $minutes = (int)$minutes;
     $hours = floor($minutes / 60);
     $mins = $minutes % 60;
     if ($mins == 0) {
+<<<<<<< HEAD
         return $hours . ' ' . $hLabel;
     }
     return $hours . ' ' . $hLabel . ' ' . $mins . ' ' . $minLabel;
+=======
+        return $hours . ' ч';
+    }
+    return $hours . ' ч ' . $mins . ' мин';
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 }
 function formatDistance($km) {
     if ($km < 1) {
@@ -36,8 +47,12 @@ function formatDistance($km) {
     return number_format($km, 1) . ' км';
 }
 function formatPrice($amount) {
+<<<<<<< HEAD
     $suffix = function_exists('t') ? t('currency_groshi') : 'грошей';
     return number_format($amount, 0, ',', ' ') . ' ' . $suffix;
+=======
+    return number_format($amount, 0, ',', ' ') . ' ₽';
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 }
 function getUserStats($user_id) {
     $db = getDB();
@@ -133,6 +148,7 @@ function getDefaultAvatar($name) {
     $initial = mb_substr($name, 0, 1);
     return 'https://ui-avatars.com/api/?name=' . urlencode($initial) . '&background=random';
 }
+<<<<<<< HEAD
 function getAchievementImageUrl($achievement_id) {
     $id = (int) $achievement_id;
     if ($id <= 0) return null;
@@ -216,6 +232,8 @@ function syncUserAchievements($user_id) {
     }
     return $granted;
 }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 function getStatusBadge($status) {
     $status = strtolower($status);
     $badges = [

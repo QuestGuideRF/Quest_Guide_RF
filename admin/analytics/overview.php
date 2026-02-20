@@ -65,6 +65,10 @@ $activity_by_hour = $stmt->fetchAll();
         <a href="?days=90" class="btn btn-<?= $days == 90 ? 'primary' : 'outline-primary' ?>">90 дней</a>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Ключевые метрики -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="row g-3 mb-4">
     <div class="col-md-3">
         <div class="stat-card">
@@ -89,11 +93,19 @@ $activity_by_hour = $stmt->fetchAll();
     <div class="col-md-3">
         <div class="stat-card">
             <div class="icon" style="background: rgba(255, 152, 0, 0.2); color: #ff9800;">
+<<<<<<< HEAD
                 <i class="fas fa-coins"></i>
             </div>
             <h3><?= number_format((float)($stats['total_revenue'] ?? 0)) ?> грошей</h3>
             <p class="text-muted mb-0">Общая выручка</p>
             <small>Средний чек: <?= number_format((float)($avg_check ?? 0)) ?> грошей</small>
+=======
+                <i class="fas fa-ruble-sign"></i>
+            </div>
+            <h3><?= number_format((float)($stats['total_revenue'] ?? 0)) ?>₽</h3>
+            <p class="text-muted mb-0">Общая выручка</p>
+            <small>Средний чек: <?= number_format((float)($avg_check ?? 0)) ?>₽</small>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         </div>
     </div>
     <div class="col-md-3">
@@ -107,6 +119,10 @@ $activity_by_hour = $stmt->fetchAll();
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Графики -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="row g-4 mb-4">
     <div class="col-md-6">
         <div class="card">
@@ -129,6 +145,10 @@ $activity_by_hour = $stmt->fetchAll();
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Топ маршрутов -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-header">
         <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Топ-10 маршрутов по выручке</h5>
@@ -151,8 +171,13 @@ $activity_by_hour = $stmt->fetchAll();
                             <td><?= $i++ ?></td>
                             <td><?= htmlspecialchars($route['name']) ?></td>
                             <td><?= $route['payments'] ?></td>
+<<<<<<< HEAD
                             <td><strong><?= number_format((float)($route['revenue'] ?? 0)) ?> грошей</strong></td>
                             <td><?= number_format((float)(($route['revenue'] ?? 0) / max(1, $route['payments'] ?? 1))) ?> грошей</td>
+=======
+                            <td><strong><?= number_format((float)($route['revenue'] ?? 0)) ?>₽</strong></td>
+                            <td><?= number_format((float)(($route['revenue'] ?? 0) / max(1, $route['payments'] ?? 1))) ?>₽</td>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

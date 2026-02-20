@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 $page_title = 'Банк грошей';
+=======
+$page_title = 'Банк токенов';
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../../includes/db.php';
 $pdo = getDB()->getConnection();
@@ -77,11 +81,16 @@ $recent_transactions = $pdo->query("
 ")->fetchAll();
 ?>
 <div class="d-flex justify-content-between align-items-center mb-4">
+<<<<<<< HEAD
     <h2><i class="fas fa-coins me-2"></i>Банк грошей</h2>
+=======
+    <h2><i class="fas fa-coins me-2"></i>Банк токенов</h2>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div>
         <a href="transactions.php" class="btn btn-outline-primary">
             <i class="fas fa-history me-2"></i>Все транзакции
         </a>
+<<<<<<< HEAD
         <a href="add_tokens.php?action=subtract" class="btn btn-outline-danger me-2">
             <i class="fas fa-minus me-2"></i>Списать гроши
         </a>
@@ -90,19 +99,36 @@ $recent_transactions = $pdo->query("
         </a>
     </div>
 </div>
+=======
+        <a href="add_tokens.php" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Начислить токены
+        </a>
+    </div>
+</div>
+<!-- Статистика -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="row g-3 mb-4">
     <div class="col-md-3">
         <div class="card">
             <div class="card-body text-center">
+<<<<<<< HEAD
                 <h4 class="text-primary"><?= number_format($stats['total_balance'], 0, ',', ' ') ?> грошей</h4>
                 <p class="text-muted mb-0">Всего грошей в системе</p>
+=======
+                <h4 class="text-primary"><?= number_format($stats['total_balance'], 0, ',', ' ') ?> ₽</h4>
+                <p class="text-muted mb-0">Всего токенов в системе</p>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card">
             <div class="card-body text-center">
+<<<<<<< HEAD
                 <h4 class="text-success"><?= number_format($stats['total_deposited'], 0, ',', ' ') ?> грошей</h4>
+=======
+                <h4 class="text-success"><?= number_format($stats['total_deposited'], 0, ',', ' ') ?> ₽</h4>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <p class="text-muted mb-0">Всего пополнено</p>
             </div>
         </div>
@@ -110,7 +136,11 @@ $recent_transactions = $pdo->query("
     <div class="col-md-3">
         <div class="card">
             <div class="card-body text-center">
+<<<<<<< HEAD
                 <h4 class="text-warning"><?= number_format($stats['total_spent'], 0, ',', ' ') ?> грошей</h4>
+=======
+                <h4 class="text-warning"><?= number_format($stats['total_spent'], 0, ',', ' ') ?> ₽</h4>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <p class="text-muted mb-0">Всего потрачено</p>
             </div>
         </div>
@@ -125,12 +155,20 @@ $recent_transactions = $pdo->query("
     </div>
 </div>
 <div class="row">
+<<<<<<< HEAD
+=======
+    <!-- Список пользователей -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="col-lg-8">
         <div class="card mb-4">
             <div class="card-header">
                 <h5 class="mb-0"><i class="fas fa-users me-2"></i>Балансы пользователей</h5>
             </div>
             <div class="card-body">
+<<<<<<< HEAD
+=======
+                <!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <form method="GET" class="row g-3 mb-4">
                     <div class="col-md-6">
                         <input type="text" name="search" class="form-control"
@@ -187,6 +225,7 @@ $recent_transactions = $pdo->query("
                                 </td>
                                 <td class="text-end">
                                     <span class="badge bg-<?= $user['balance'] > 0 ? 'success' : 'secondary' ?> fs-6">
+<<<<<<< HEAD
                                         <?= number_format($user['balance'], 0, ',', ' ') ?> грошей
                                     </span>
                                 </td>
@@ -195,6 +234,16 @@ $recent_transactions = $pdo->query("
                                 </td>
                                 <td class="text-end text-warning">
                                     -<?= number_format($user['total_spent'], 0, ',', ' ') ?> грошей
+=======
+                                        <?= number_format($user['balance'], 0, ',', ' ') ?> ₽
+                                    </span>
+                                </td>
+                                <td class="text-end text-success">
+                                    +<?= number_format($user['total_deposited'], 0, ',', ' ') ?> ₽
+                                </td>
+                                <td class="text-end text-warning">
+                                    -<?= number_format($user['total_spent'], 0, ',', ' ') ?> ₽
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                 </td>
                                 <td class="text-center">
                                     <a href="user.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-outline-primary" title="Подробнее">
@@ -203,9 +252,12 @@ $recent_transactions = $pdo->query("
                                     <a href="add_tokens.php?user_id=<?= $user['id'] ?>" class="btn btn-sm btn-outline-success" title="Начислить">
                                         <i class="fas fa-plus"></i>
                                     </a>
+<<<<<<< HEAD
                                     <a href="add_tokens.php?user_id=<?= $user['id'] ?>&action=subtract" class="btn btn-sm btn-outline-danger" title="Списать">
                                         <i class="fas fa-minus"></i>
                                     </a>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -222,6 +274,10 @@ $recent_transactions = $pdo->query("
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+    <!-- Последние транзакции -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="col-lg-4">
         <div class="card">
             <div class="card-header">
@@ -263,11 +319,14 @@ $recent_transactions = $pdo->query("
                                         $badge_class = 'secondary';
                                         $sign = '+';
                                         break;
+<<<<<<< HEAD
                                     case 'adjustment':
                                         $icon = 'fas fa-minus-circle';
                                         $badge_class = 'danger';
                                         $sign = '-';
                                         break;
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                 }
                                 ?>
                                 <i class="<?= $icon ?> text-<?= $badge_class ?> me-2"></i>
@@ -281,7 +340,11 @@ $recent_transactions = $pdo->query("
                             </div>
                             <div class="text-end">
                                 <span class="badge bg-<?= $badge_class ?>">
+<<<<<<< HEAD
                                     <?= $sign ?><?= number_format($tx['amount'], 0) ?> грошей
+=======
+                                    <?= $sign ?><?= number_format($tx['amount'], 0) ?> ₽
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                 </span>
                                 <br>
                                 <small class="text-muted">

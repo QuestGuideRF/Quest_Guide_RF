@@ -1,5 +1,9 @@
 from typing import Optional
+<<<<<<< HEAD
 from sqlalchemy import select, func
+=======
+from sqlalchemy import select
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from sqlalchemy.ext.asyncio import AsyncSession
 from bot.models.user import User, UserRole
 from bot.repositories.base import BaseRepository
@@ -40,9 +44,13 @@ class UserRepository(BaseRepository[User]):
         return user and user.role == UserRole.ADMIN
     async def is_moderator_or_admin(self, telegram_id: int) -> bool:
         user = await self.get_by_telegram_id(telegram_id)
+<<<<<<< HEAD
         return user and user.role in (UserRole.MODERATOR, UserRole.ADMIN)
     async def count_referred(self, referrer_user_id: int) -> int:
         result = await self.session.execute(
             select(func.count(User.id)).where(User.referred_by_id == referrer_user_id)
         )
         return result.scalar() or 0
+=======
+        return user and user.role in (UserRole.MODERATOR, UserRole.ADMIN)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

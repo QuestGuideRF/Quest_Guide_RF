@@ -16,7 +16,11 @@ function isAdminLoggedIn() {
         $stmt = $pdo->prepare("
             SELECT u.id, u.telegram_id, u.username, u.first_name, u.role
             FROM users u
+<<<<<<< HEAD
             WHERE u.id = ? AND (u.role IN ('ADMIN', 'admin', 'MODERATOR', 'moderator'))
+=======
+            WHERE u.id = ? AND (u.role = 'ADMIN' OR u.role = 'admin')
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         ");
         $stmt->execute([$_SESSION['admin_id']]);
         $admin = $stmt->fetch();
@@ -143,9 +147,17 @@ function loginAdminByToken($token) {
                 error_log("ADMIN_IDS is empty in config");
             }
         }
+<<<<<<< HEAD
         $is_moderator = ($role === 'MODERATOR');
         if (!$is_admin && !$is_moderator) {
             error_log("ADMIN LOGIN ERROR: User is not admin or moderator. Role: " . $user['role'] . ", Telegram ID: " . $user['telegram_id']);
+=======
+        if (!$is_admin) {
+            error_log("ADMIN LOGIN ERROR: User is not admin. Role: " . $user['role'] . ", Telegram ID: " . $user['telegram_id']);
+            error_log("ADMIN LOGIN DEBUG: Checking ADMIN_IDS from config...");
+            error_log("ADMIN LOGIN DEBUG: ADMIN_IDS constant: " . (defined('ADMIN_IDS') ? ADMIN_IDS : 'NOT DEFINED'));
+            error_log("ADMIN LOGIN DEBUG: ADMIN_IDS from ENV: " . ($_ENV['ADMIN_IDS'] ?? 'NOT SET'));
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             return false;
         }
         error_log("ADMIN LOGIN SUCCESS: User is admin. ID: " . $user['id'] . ", Telegram ID: " . $user['telegram_id'] . ", Role: " . $user['role']);
@@ -186,6 +198,7 @@ function isSuperAdmin() {
     }
     $superAdminIds = explode(',', getenv('SUPER_ADMIN_IDS') ?: '');
     return in_array($admin['telegram_id'], $superAdminIds);
+<<<<<<< HEAD
 }
 function isModerator() {
     $admin = getCurrentAdmin();
@@ -194,4 +207,6 @@ function isModerator() {
     }
     $role = strtoupper(trim($admin['role'] ?? ''));
     return $role === 'MODERATOR';
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 }

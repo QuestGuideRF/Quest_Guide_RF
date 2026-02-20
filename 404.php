@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 /** Страница ошибки 404 */
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 http_response_code(404);
 $page_title = 'Страница не найдена';
 require_once __DIR__ . '/includes/init.php';
@@ -14,9 +17,13 @@ if ($is_logged_in) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>404 - Страница не найдена | QuestGuideRF — квесты и экскурсии по Москве</title>
     <meta name="description" content="Страница не найдена. QuestGuideRF (квестгидрф) — интерактивные квесты и экскурсии по Москве. Перейдите на главную или откройте бота в Telegram.">
     <meta name="keywords" content="questguiderf, QuestGuideRF, квестгидрф, квесты Москва, экскурсии по Москве">
+=======
+    <title>404 - Страница не найдена | QuestGuideRF</title>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <link rel="stylesheet" href="/assets/css/style.css">
     <script>
         (function() {

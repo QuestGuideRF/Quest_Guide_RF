@@ -14,8 +14,11 @@ class TransactionType(str, Enum):
     TRANSFER_OUT = "transfer_out"
     TRANSFER_IN = "transfer_in"
     REFUND = "refund"
+<<<<<<< HEAD
     ADJUSTMENT = "adjustment"
     REFERRAL_REWARD = "referral_reward"
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 class PaymentMethod(str, Enum):
     YOOKASSA = "yookassa"
     TELEGRAM_STARS = "telegram_stars"

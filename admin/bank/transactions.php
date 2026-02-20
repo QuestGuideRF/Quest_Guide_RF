@@ -71,7 +71,10 @@ $type_labels = [
     'transfer_out' => ['label' => 'Исх. перевод', 'icon' => 'fas fa-arrow-right', 'class' => 'danger'],
     'transfer_in' => ['label' => 'Вх. перевод', 'icon' => 'fas fa-arrow-left', 'class' => 'info'],
     'refund' => ['label' => 'Возврат', 'icon' => 'fas fa-undo', 'class' => 'secondary'],
+<<<<<<< HEAD
     'adjustment' => ['label' => 'Списание админом', 'icon' => 'fas fa-minus-circle', 'class' => 'danger'],
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 ];
 ?>
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -80,11 +83,19 @@ $type_labels = [
         <i class="fas fa-arrow-left me-2"></i>Назад к банку
     </a>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Статистика -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="row g-3 mb-4">
     <div class="col-md-3">
         <div class="card bg-success bg-opacity-10">
             <div class="card-body text-center">
+<<<<<<< HEAD
                 <h4 class="text-success"><?= number_format($stats['deposits'], 0, ',', ' ') ?> грошей</h4>
+=======
+                <h4 class="text-success"><?= number_format($stats['deposits'], 0, ',', ' ') ?> ₽</h4>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <p class="text-muted mb-0">Пополнений</p>
             </div>
         </div>
@@ -92,7 +103,11 @@ $type_labels = [
     <div class="col-md-3">
         <div class="card bg-warning bg-opacity-10">
             <div class="card-body text-center">
+<<<<<<< HEAD
                 <h4 class="text-warning"><?= number_format($stats['purchases'], 0, ',', ' ') ?> грошей</h4>
+=======
+                <h4 class="text-warning"><?= number_format($stats['purchases'], 0, ',', ' ') ?> ₽</h4>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <p class="text-muted mb-0">Покупок</p>
             </div>
         </div>
@@ -100,7 +115,11 @@ $type_labels = [
     <div class="col-md-3">
         <div class="card bg-info bg-opacity-10">
             <div class="card-body text-center">
+<<<<<<< HEAD
                 <h4 class="text-info"><?= number_format($stats['transfers'], 0, ',', ' ') ?> грошей</h4>
+=======
+                <h4 class="text-info"><?= number_format($stats['transfers'], 0, ',', ' ') ?> ₽</h4>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <p class="text-muted mb-0">Переводов</p>
             </div>
         </div>
@@ -114,6 +133,10 @@ $type_labels = [
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -147,6 +170,10 @@ $type_labels = [
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Таблица транзакций -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -201,12 +228,20 @@ $type_labels = [
                         </td>
                         <td class="text-end">
                             <span class="text-<?= $is_income ? 'success' : 'danger' ?> fw-bold">
+<<<<<<< HEAD
                                 <?= $is_income ? '+' : '-' ?><?= number_format($tx['amount'], 0, ',', ' ') ?> грошей
+=======
+                                <?= $is_income ? '+' : '-' ?><?= number_format($tx['amount'], 0, ',', ' ') ?> ₽
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             </span>
                         </td>
                         <td class="text-end">
                             <span class="text-muted">
+<<<<<<< HEAD
                                 <?= number_format($tx['balance_after'], 0, ',', ' ') ?> грошей
+=======
+                                <?= number_format($tx['balance_after'], 0, ',', ' ') ?> ₽
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             </span>
                         </td>
                     </tr>
@@ -221,6 +256,10 @@ $type_labels = [
                 </tbody>
             </table>
         </div>
+<<<<<<< HEAD
+=======
+        <!-- Пагинация -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <?php if ($total_pages > 1): ?>
         <nav class="mt-4">
             <ul class="pagination justify-content-center">

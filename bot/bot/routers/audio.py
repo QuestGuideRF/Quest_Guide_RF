@@ -17,14 +17,22 @@ async def play_audio(callback: CallbackQuery, session: AsyncSession, user: User)
         logger.info(f"[AUDIO] Запрос аудио для точки {point_id}, язык: {language}, пользователь: {user.telegram_id}")
         await callback.answer("🎧 Генерация аудио...")
         point_repo = PointRepository(session)
+<<<<<<< HEAD
         point = await point_repo.get_with_tasks(point_id)
+=======
+        point = await point_repo.get(point_id)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         if not point:
             logger.warning(f"[AUDIO] Точка {point_id} не найдена")
             await callback.message.answer("Точка не найдена")
             return
+<<<<<<< HEAD
         from bot.utils.helpers import get_first_task_text
         first_task_len = len(get_first_task_text(point, language)) if point else 0
         logger.info(f"[AUDIO] Точка найдена: {point.name}, audio_enabled={point.audio_enabled}, audio_text length={len(point.audio_text) if point.audio_text else 0}, task_text length={first_task_len}")
+=======
+        logger.info(f"[AUDIO] Точка найдена: {point.name}, audio_enabled={point.audio_enabled}, audio_text length={len(point.audio_text) if point.audio_text else 0}, task_text length={len(point.task_text) if point.task_text else 0}")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         from sqlalchemy import select
         result = await session.execute(
             select(UserAudioSettings).where(UserAudioSettings.user_id == user.id)
@@ -59,8 +67,13 @@ async def play_audio(callback: CallbackQuery, session: AsyncSession, user: User)
         logger.error(f"[AUDIO] Ошибка воспроизведения аудио: {e}", exc_info=True)
         try:
             await callback.message.answer(f"Ошибка воспроизведения: {str(e)[:100]}")
+<<<<<<< HEAD
         except Exception as send_err:
             logger.warning("[AUDIO] Не удалось отправить сообщение об ошибке пользователю: %s", send_err)
+=======
+        except:
+            pass
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data.startswith("audio:toggle_autoplay"))
 async def toggle_autoplay(callback: CallbackQuery, session: AsyncSession, user: User):
     try:

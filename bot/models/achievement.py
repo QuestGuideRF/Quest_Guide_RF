@@ -22,6 +22,10 @@ class Achievement(Base, TimestampMixin):
 class UserAchievement(Base):
     __tablename__ = "user_achievements"
     id: Mapped[int] = mapped_column(primary_key=True)
+<<<<<<< HEAD
     user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id", ondelete="CASCADE"))
+=======
+    user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.telegram_id", ondelete="CASCADE"))
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     achievement_id: Mapped[int] = mapped_column(ForeignKey("achievements.id", ondelete="CASCADE"))
     earned_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)

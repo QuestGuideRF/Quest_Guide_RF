@@ -13,6 +13,7 @@ if (!$old_city) {
     header('Location: /admin/cities/list.php');
     exit;
 }
+<<<<<<< HEAD
 if (isModerator()) {
     $creator_id = isset($old_city['creator_id']) ? (int)$old_city['creator_id'] : null;
     if ($creator_id !== (int)$_SESSION['admin_id']) {
@@ -20,6 +21,8 @@ if (isModerator()) {
         exit;
     }
 }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt = $pdo->prepare("

@@ -6,13 +6,17 @@ class UserStates(StatesGroup):
     waiting_payment = State()
     waiting_promo_code = State()
     in_quest = State()
+<<<<<<< HEAD
     confirming_photo = State()
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     waiting_photo = State()
     waiting_text_answer = State()
     in_settings = State()
 class ReviewStates(StatesGroup):
     rating = State()
     text = State()
+<<<<<<< HEAD
 class QuizStates(StatesGroup):
     answering = State()
 class SurveyStates(StatesGroup):
@@ -22,6 +26,8 @@ class SurveyStates(StatesGroup):
     question_problems = State()
     question_problems_text = State()
     question_improve = State()
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 class BankStates(StatesGroup):
     main_menu = State()
     waiting_deposit_amount = State()

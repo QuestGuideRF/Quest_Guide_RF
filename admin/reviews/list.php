@@ -47,6 +47,10 @@ $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="fas fa-star me-2"></i>Отзывы</h2>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -93,6 +97,10 @@ $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Таблица отзывов -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -121,6 +129,7 @@ $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
                             </td>
                             <td><?= htmlspecialchars($review['route_name']) ?></td>
                             <td>
+<<<<<<< HEAD
                                 <?php
                                 $ratingVal = (int)($review['rating'] ?? 0);
                                 $ratingVal = max(1, min(5, $ratingVal));
@@ -130,6 +139,11 @@ $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
                                     <i class="fa-star <?= $filled ? 'fas text-warning' : 'far text-muted' ?>"></i>
                                 <?php endfor; ?>
                                 <small class="text-muted ms-1"><?= $ratingVal ?>/5</small>
+=======
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <i class="fas fa-star <?= $i <= $review['rating'] ? 'text-warning' : 'text-muted' ?>"></i>
+                                <?php endfor; ?>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             </td>
                             <td>
                                 <small><?= htmlspecialchars(mb_substr($review['text'] ?? '', 0, 100)) ?>

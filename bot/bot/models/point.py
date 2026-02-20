@@ -15,6 +15,10 @@ class Point(Base, TimestampMixin):
     address: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
     fact_text: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     fact_text_en: Mapped[Optional[str]] = mapped_column(Text, nullable=True, comment="Факт на английском")
+<<<<<<< HEAD
+=======
+    require_pose: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     min_people: Mapped[int] = mapped_column(Integer, default=1)
     latitude: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     longitude: Mapped[Optional[float]] = mapped_column(Float, nullable=True)

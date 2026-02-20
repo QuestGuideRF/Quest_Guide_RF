@@ -2,16 +2,22 @@
 $page_title = 'Управление аудиогидом';
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../../includes/db.php';
+<<<<<<< HEAD
 require_once __DIR__ . '/../includes/auth.php';
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $pdo = getDB()->getConnection();
 $route_id = isset($_GET['route_id']) ? (int)$_GET['route_id'] : null;
 $audio_enabled = isset($_GET['audio_enabled']) ? $_GET['audio_enabled'] : '';
 $where = [];
 $params = [];
+<<<<<<< HEAD
 if (isModerator()) {
     $where[] = "r.creator_id = ?";
     $params[] = $_SESSION['admin_id'];
 }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 if ($route_id) {
     $where[] = "p.route_id = ?";
     $params[] = $route_id;
@@ -25,8 +31,12 @@ $whereClause = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 $stmt = $pdo->prepare("
     SELECT p.*, r.name as route_name, r.id as route_id,
            r.name_en as route_name_en,
+<<<<<<< HEAD
            (SELECT t.task_text FROM tasks t WHERE t.point_id = p.id ORDER BY t.`order` ASC LIMIT 1) AS first_task_text,
            (SELECT t.task_text_en FROM tasks t WHERE t.point_id = p.id ORDER BY t.`order` ASC LIMIT 1) AS first_task_text_en
+=======
+           (SELECT t.task_text FROM tasks t WHERE t.point_id = p.id ORDER BY t.`order` ASC LIMIT 1) AS first_task_text
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     FROM points p
     JOIN routes r ON p.route_id = r.id
     $whereClause
@@ -34,6 +44,7 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute($params);
 $points = $stmt->fetchAll();
+<<<<<<< HEAD
 if (isModerator()) {
     $routes_stmt = $pdo->prepare("SELECT id, name FROM routes WHERE creator_id = ? ORDER BY name");
     $routes_stmt->execute([$_SESSION['admin_id']]);
@@ -41,6 +52,9 @@ if (isModerator()) {
 } else {
     $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
 }
+=======
+$routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 ?>
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="fas fa-headphones me-2"></i>Управление аудиогидом</h2>
@@ -53,6 +67,10 @@ if (isModerator()) {
         </button>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -83,6 +101,10 @@ if (isModerator()) {
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Таблица точек -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -92,7 +114,11 @@ if (isModerator()) {
                         <th><input type="checkbox" id="selectAll"></th>
                         <th>Точка</th>
                         <th>Маршрут</th>
+<<<<<<< HEAD
                         <th>Текст для озвучки (как в боте)</th>
+=======
+                        <th>Аудио текст</th>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <th>Аудио файлы</th>
                         <th>Статус</th>
                         <th>Действия</th>
@@ -108,6 +134,7 @@ if (isModerator()) {
                             </td>
                             <td><?= htmlspecialchars($point['route_name']) ?></td>
                             <td>
+<<<<<<< HEAD
                                 <?php
                                 $textRu = $point['fact_text'] ?? $point['audio_text'] ?? $point['first_task_text'] ?? '';
                                 $textEn = $point['fact_text_en'] ?? $point['audio_text_en'] ?? $point['first_task_text_en'] ?? '';
@@ -118,6 +145,11 @@ if (isModerator()) {
                                 </small>
                                 <small class="d-block text-muted mt-1">
                                     <strong>EN:</strong> <?= htmlspecialchars(mb_substr($textEn, 0, $len)) ?><?= mb_strlen($textEn) > $len ? '...' : '' ?>
+=======
+                                <small>
+                                    <?= htmlspecialchars(mb_substr($point['audio_text'] ?? ($point['first_task_text'] ?? ''), 0, 100)) ?>
+                                    <?= mb_strlen($point['audio_text'] ?? ($point['first_task_text'] ?? '')) > 100 ? '...' : '' ?>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                 </small>
                             </td>
                             <td>
@@ -196,6 +228,10 @@ if (isModerator()) {
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Модальное окно для прослушивания и загрузки аудио -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="modal fade" id="audioModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

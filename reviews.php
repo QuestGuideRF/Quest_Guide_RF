@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 /** Страница отзывов */
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 require_once __DIR__ . '/includes/init.php';
 require_once __DIR__ . '/includes/i18n.php';
 $current_lang = getCurrentLanguage();
@@ -22,7 +25,11 @@ if ($rating) {
 $where_clause = !empty($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 $reviews = getDB()->fetchAll(
     "SELECT r.*,
+<<<<<<< HEAD
             u.first_name, u.username, u.is_profile_public,
+=======
+            u.first_name, u.username,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             rt.name as route_name, rt.name_en as route_name_en,
             c.name as city_name, c.name_en as city_name_en
      FROM reviews r
@@ -319,6 +326,10 @@ require_once __DIR__ . '/includes/header.php';
             <p class="text-muted"><?= t('reviews_subtitle') ?></p>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+    <!-- Статистика -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="row mb-4">
         <div class="col-md-4 mb-3">
             <div class="stats-card">
@@ -335,7 +346,11 @@ require_once __DIR__ . '/includes/header.php';
                         <?= $i <= round($avg_rating) ? '★' : '☆' ?>
                     <?php endfor; ?>
                 </h3>
+<<<<<<< HEAD
                 <p><?= number_format($avg_rating, 2) ?> / 5</p>
+=======
+                <p><?= number_format($avg_rating, 1) ?> / 5</p>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             </div>
         </div>
         <div class="col-md-4 mb-3">
@@ -345,6 +360,10 @@ require_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+    <!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="filter-card">
             <form method="get">
                 <?php if (isset($_GET['lang'])): ?>
@@ -382,6 +401,10 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             </form>
     </div>
+<<<<<<< HEAD
+=======
+    <!-- Отзывы -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php if (empty($reviews)): ?>
     <div class="text-center py-5">
         <p class="text-muted"><?= t('no_reviews') ?></p>
@@ -394,6 +417,7 @@ require_once __DIR__ . '/includes/header.php';
                             <div class="review-header">
                                 <div class="review-user">
                                     <div>
+<<<<<<< HEAD
                                         <?php if ($review['is_profile_public'] ?? true): ?>
                                         <h5 class="mb-0">
                                             <a href="/<?= e($review['username'] ?: $review['user_id']) ?>" style="color: inherit; text-decoration: none;">
@@ -406,6 +430,11 @@ require_once __DIR__ . '/includes/header.php';
                                         <?php else: ?>
                                         <h5 class="mb-0"><?= $current_lang === 'en' ? 'User' : 'Пользователь' ?></h5>
                                         <small class="text-muted"><?= $current_lang === 'en' ? 'profile hidden' : 'профиль скрыт' ?></small>
+=======
+                                        <h5 class="mb-0"><?= htmlspecialchars($review['first_name']) ?></h5>
+                                        <?php if ($review['username']): ?>
+                                            <small class="text-muted">@<?= htmlspecialchars($review['username']) ?></small>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                         <?php endif; ?>
                                     </div>
                                 </div>

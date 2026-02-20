@@ -86,8 +86,13 @@ class VisionService:
             user_img_color = cv2.resize(user_img_color, (int(w * scale), int(h * scale)))
         try:
             user_kp, user_desc = self.akaze.detectAndCompute(user_img_gray, None)
+<<<<<<< HEAD
         except Exception as e:
             logger.warning("[VISION] AKAZE failed (%s), using ORB", e)
+=======
+        except:
+            logger.warning("[VISION] AKAZE failed, using ORB")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             user_kp, user_desc = self.orb.detectAndCompute(user_img_gray, None)
         if user_desc is None or len(user_kp) == 0:
             logger.warning("[VISION] Не найдено ключевых точек на фото пользователя")
@@ -133,8 +138,12 @@ class VisionService:
     async def _compare_keypoints(self, user_kp, user_desc, ref_img_gray) -> float:
         try:
             ref_kp, ref_desc = self.akaze.detectAndCompute(ref_img_gray, None)
+<<<<<<< HEAD
         except Exception as e:
             logger.debug("[VISION] AKAZE fallback on ref: %s", e)
+=======
+        except:
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             ref_kp, ref_desc = self.orb.detectAndCompute(ref_img_gray, None)
         if ref_desc is None or len(ref_kp) == 0:
             return 0.0

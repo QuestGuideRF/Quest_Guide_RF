@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /** Страница достижений */
 require_once __DIR__ . '/includes/init.php';
 require_once __DIR__ . '/includes/i18n.php';
@@ -12,10 +13,23 @@ $user_achievements_ids = $user ? getDB()->fetchAll(
     'SELECT achievement_id, earned_at FROM user_achievements WHERE user_id = ?',
     [$user['id']]
 ) : [];
+=======
+require_once __DIR__ . '/includes/init.php';
+require_once __DIR__ . '/includes/i18n.php';
+requireAuth();
+$user = getCurrentUser();
+$current_lang = getCurrentLanguage();
+$all_achievements = getDB()->fetchAll('SELECT * FROM achievements ORDER BY category, `order`');
+$user_achievements_ids = getDB()->fetchAll(
+    'SELECT achievement_id, earned_at FROM user_achievements WHERE user_id = ?',
+    [$user['id']]
+);
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $earned_map = [];
 foreach ($user_achievements_ids as $ua) {
     $earned_map[$ua['achievement_id']] = $ua['earned_at'];
 }
+<<<<<<< HEAD
 $user_progress_data = ['routes_completed' => 0, 'points_completed' => 0, 'photos_taken' => 0, 'total_achievements' => 0, 'referrals_paid' => 0];
 if ($user) {
     $routes_completed = getDB()->fetch(
@@ -93,6 +107,16 @@ foreach ($all_achievements as $achievement) {
         $achievement['progress_target'] = null;
         $achievement['progress_percent'] = $achievement['earned'] ? 100 : 0;
     }
+=======
+$achievements_by_category = [];
+foreach ($all_achievements as $achievement) {
+    $category = $achievement['category'] ?? ($current_lang === 'en' ? 'General' : 'Общие');
+    if (!isset($achievements_by_category[$category])) {
+        $achievements_by_category[$category] = [];
+    }
+    $achievement['earned'] = isset($earned_map[$achievement['id']]);
+    $achievement['earned_at'] = $earned_map[$achievement['id']] ?? null;
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     $achievements_by_category[$category][] = $achievement;
 }
 $total_achievements = count($all_achievements);
@@ -112,10 +136,13 @@ require_once __DIR__ . '/includes/header.php';
     <div class="page-header">
         <h1>🏆 <?= t('achievements_title') ?></h1>
         <p class="text-muted"><?= t('achievements_subtitle') ?></p>
+<<<<<<< HEAD
         <?php if (!$user): ?>
         <p class="text-muted"><?= $current_lang === 'en' ? 'Sign in to see your earned achievements.' : 'Войдите, чтобы видеть полученные достижения.' ?></p>
         <a href="/pages/login.php" class="btn btn-primary"><?= t('login') ?></a>
         <?php endif; ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     </div>
     <div class="achievements-progress">
         <div class="progress-header">
@@ -127,6 +154,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
         <p class="text-muted text-center"><?= $progress_percent ?>% <?= t('achievements_earned') ?></p>
     </div>
+<<<<<<< HEAD
     <?php if ($user):
         $referral_levels = getDB()->fetchAll('SELECT * FROM referral_levels WHERE is_active = 1 ORDER BY level');
         $user_referral_data = getDB()->fetch('SELECT referral_level, paid_referrals_count, is_partner FROM users WHERE id = ?', [$user['id']]);
@@ -209,6 +237,8 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </section>
     <?php endif; ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <?php foreach ($achievements_by_category as $category => $achievements): ?>
     <section class="section">
         <h2><?= e($category) ?></h2>
@@ -216,6 +246,7 @@ require_once __DIR__ . '/includes/header.php';
             <?php foreach ($achievements as $achievement): ?>
             <div class="achievement-card <?= $achievement['earned'] ? 'earned' : 'locked' ?>">
                 <div class="achievement-icon">
+<<<<<<< HEAD
                     <?php
                     $img_url = getAchievementImageUrl($achievement['id']);
                     if ($img_url): ?>
@@ -228,11 +259,20 @@ require_once __DIR__ . '/includes/header.php';
                     <h3><?= $achievement['earned'] || !$achievement['is_hidden'] ? e($achievement['display_name']) : '???' ?></h3>
                     <p class="text-muted">
                         <?= $achievement['earned'] || !$achievement['is_hidden'] ? e($achievement['display_description']) : t('hidden_achievement') ?>
+=======
+                    <?= $achievement['earned'] ? e($achievement['icon']) : '🔒' ?>
+                </div>
+                <div class="achievement-content">
+                    <h3><?= $achievement['earned'] || !$achievement['is_hidden'] ? e($achievement['name']) : '???' ?></h3>
+                    <p class="text-muted">
+                        <?= $achievement['earned'] || !$achievement['is_hidden'] ? e($achievement['description']) : t('hidden_achievement') ?>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     </p>
                     <?php if ($achievement['earned']): ?>
                     <p class="achievement-date text-small text-muted">
                         <?= t('earned') ?>: <?= formatDate($achievement['earned_at']) ?>
                     </p>
+<<<<<<< HEAD
                     <?php elseif ($user && !$achievement['is_hidden'] && $achievement['progress_target'] !== null): ?>
                     <div class="achievement-progress-bar" style="margin-top: 0.5rem;">
                         <div class="progress-bar-mini">
@@ -242,6 +282,8 @@ require_once __DIR__ . '/includes/header.php';
                             <?= $achievement['progress_current'] ?> / <?= $achievement['progress_target'] ?>
                         </span>
                     </div>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <?php endif; ?>
                 </div>
             </div>

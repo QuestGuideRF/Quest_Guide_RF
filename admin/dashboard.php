@@ -59,6 +59,10 @@ $stmt = $pdo->query("
 ");
 $top_routes = $stmt->fetchAll();
 ?>
+<<<<<<< HEAD
+=======
+<!-- Быстрые действия -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="row g-4 mb-4">
     <div class="col-12">
         <div class="card">
@@ -78,6 +82,7 @@ $top_routes = $stmt->fetchAll();
                         </a>
                     </div>
                     <div class="col-md-3">
+<<<<<<< HEAD
                         <a href="/admin/points/list.php" class="btn btn-outline-primary w-100">
                             <i class="fas fa-map-pin me-2"></i>Управление точками
                         </a>
@@ -94,6 +99,13 @@ $top_routes = $stmt->fetchAll();
                     </div>
                     <?php if (!isModerator()): ?>
                     <div class="col-md-3">
+=======
+                        <a href="/admin/points/create.php" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-map-pin me-2"></i>Добавить точку
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <a href="/admin/moderation/photos.php" class="btn btn-outline-warning w-100">
                             <i class="fas fa-images me-2"></i>Модерация фото
                         </a>
@@ -104,6 +116,14 @@ $top_routes = $stmt->fetchAll();
                         </a>
                     </div>
                     <div class="col-md-3">
+<<<<<<< HEAD
+=======
+                        <a href="/admin/audio/list.php" class="btn btn-outline-info w-100">
+                            <i class="fas fa-headphones me-2"></i>Управление аудио
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <a href="/admin/analytics/overview.php" class="btn btn-outline-info w-100">
                             <i class="fas fa-chart-bar me-2"></i>Аналитика
                         </a>
@@ -113,13 +133,20 @@ $top_routes = $stmt->fetchAll();
                             <i class="fas fa-cog me-2"></i>Настройки
                         </a>
                     </div>
+<<<<<<< HEAD
                     <?php endif; ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div class="row g-4">
+<<<<<<< HEAD
+=======
+    <!-- Статистика карточки -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="col-md-3">
         <div class="stat-card">
             <div class="icon" style="background: rgba(102, 126, 234, 0.2); color: #667eea;">
@@ -152,15 +179,27 @@ $top_routes = $stmt->fetchAll();
     <div class="col-md-3">
         <div class="stat-card">
             <div class="icon" style="background: rgba(255, 152, 0, 0.2); color: #ff9800;">
+<<<<<<< HEAD
                 <i class="fas fa-coins"></i>
             </div>
             <h3><?= number_format($stats['revenue_month']) ?> грошей</h3>
             <p class="text-muted mb-0">Выручка за месяц</p>
             <small>Сегодня: <?= number_format($stats['revenue_today']) ?> грошей | Неделя: <?= number_format($stats['revenue_week']) ?> грошей</small>
+=======
+                <i class="fas fa-ruble-sign"></i>
+            </div>
+            <h3><?= number_format($stats['revenue_month']) ?>₽</h3>
+            <p class="text-muted mb-0">Выручка за месяц</p>
+            <small>Сегодня: <?= number_format($stats['revenue_today']) ?>₽ | Неделя: <?= number_format($stats['revenue_week']) ?>₽</small>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         </div>
     </div>
 </div>
 <div class="row g-4 mt-4">
+<<<<<<< HEAD
+=======
+    <!-- График регистраций -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
@@ -171,6 +210,10 @@ $top_routes = $stmt->fetchAll();
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+    <!-- График выручки -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
@@ -183,6 +226,10 @@ $top_routes = $stmt->fetchAll();
     </div>
 </div>
 <div class="row g-4 mt-4">
+<<<<<<< HEAD
+=======
+    <!-- Топ маршрутов -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
@@ -193,6 +240,10 @@ $top_routes = $stmt->fetchAll();
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+    <!-- Последние события -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
@@ -209,6 +260,10 @@ $top_routes = $stmt->fetchAll();
                     </li>
                 </ul>
                 <div class="tab-content mt-3">
+<<<<<<< HEAD
+=======
+                    <!-- Последние регистрации -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="tab-pane fade show active" id="recent-users">
                         <div class="list-group list-group-flush">
                             <?php foreach ($recent_users as $user): ?>
@@ -227,6 +282,10 @@ $top_routes = $stmt->fetchAll();
                             <?php endforeach; ?>
                         </div>
                     </div>
+<<<<<<< HEAD
+=======
+                    <!-- Последние прохождения -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="tab-pane fade" id="recent-completions">
                         <div class="list-group list-group-flush">
                             <?php foreach ($recent_completions as $completion): ?>
@@ -244,16 +303,27 @@ $top_routes = $stmt->fetchAll();
                             <?php endforeach; ?>
                         </div>
                     </div>
+<<<<<<< HEAD
+=======
+                    <!-- Последние платежи -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="tab-pane fade" id="recent-payments">
                         <div class="list-group list-group-flush">
                             <?php foreach ($recent_payments as $payment): ?>
                                 <div class="list-group-item">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
+<<<<<<< HEAD
                                             <i class="fas fa-coins text-warning me-2"></i>
                                             <strong><?= htmlspecialchars($payment['first_name']) ?></strong>
                                             оплатил
                                             <span class="badge bg-success"><?= $payment['amount'] ?> грошей</span>
+=======
+                                            <i class="fas fa-ruble-sign text-warning me-2"></i>
+                                            <strong><?= htmlspecialchars($payment['first_name']) ?></strong>
+                                            оплатил
+                                            <span class="badge bg-success"><?= $payment['amount'] ?>₽</span>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                             <small class="text-muted"><?= htmlspecialchars($payment['route_name']) ?></small>
                                         </div>
                                         <small class="text-muted"><?= date('d.m.Y H:i', strtotime($payment['created_at'])) ?></small>
@@ -321,7 +391,11 @@ fetch('/admin/api/stats.php?type=revenue&days=7')
             data: {
                 labels: data.labels,
                 datasets: [{
+<<<<<<< HEAD
                     label: 'Выручка (грошей)',
+=======
+                    label: 'Выручка (₽)',
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     data: data.values,
                     backgroundColor: '#ff9800',
                     borderColor: '#ff9800',

@@ -29,14 +29,18 @@ class UserKeyboards:
             InlineKeyboardButton(text=i18n.get("my_stats", lang), callback_data="my_stats"),
         )
         builder.row(
+<<<<<<< HEAD
             InlineKeyboardButton(text=i18n.get("partner", lang), callback_data="open_partner"),
         )
         builder.row(
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             InlineKeyboardButton(text=i18n.get("settings", lang), callback_data="settings"),
         )
         builder.row(
             InlineKeyboardButton(text=i18n.get("about", lang), callback_data="about"),
         )
+<<<<<<< HEAD
         builder.row(
             InlineKeyboardButton(text=i18n.get("become_creator", lang), callback_data="become_creator"),
         )
@@ -154,15 +158,23 @@ class UserKeyboards:
         return builder.as_markup()
     @staticmethod
     def settings_menu(lang: str = "ru", show_map: bool = False) -> InlineKeyboardMarkup:
+=======
+        return builder.as_markup()
+    @staticmethod
+    def settings_menu(lang: str = "ru") -> InlineKeyboardMarkup:
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         from bot.utils.i18n import i18n
         builder = InlineKeyboardBuilder()
         builder.row(
             InlineKeyboardButton(text=i18n.get("change_language", lang), callback_data="settings:language"),
         )
+<<<<<<< HEAD
         show_map_text = i18n.get("show_map_on", lang) if show_map else i18n.get("show_map_off", lang)
         builder.row(
             InlineKeyboardButton(text=show_map_text, callback_data="settings:show_map"),
         )
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         builder.row(
             InlineKeyboardButton(text=i18n.get("audio_settings", lang), callback_data="settings:audio"),
         )
@@ -193,7 +205,11 @@ class UserKeyboards:
         for route in routes:
             icon = "🚶" if route.route_type.value == "walking" else "🚴"
             route_name = get_localized_field(route, 'name', language)
+<<<<<<< HEAD
             text = f"{icon} {route_name} - {route.price} грошей"
+=======
+            text = f"{icon} {route_name} - {route.price}₽"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             builder.row(
                 InlineKeyboardButton(
                     text=text,
@@ -241,6 +257,7 @@ class UserKeyboards:
         )
         return builder.as_markup()
     @staticmethod
+<<<<<<< HEAD
     def quest_menu(route_id: int, language: str = 'ru', is_paused: bool = False) -> InlineKeyboardMarkup:
         from bot.utils.i18n import i18n
         builder = InlineKeyboardBuilder()
@@ -258,6 +275,11 @@ class UserKeyboards:
                     callback_data=f"pause_quest:{route_id}",
                 )
             )
+=======
+    def quest_menu(route_id: int, language: str = 'ru') -> InlineKeyboardMarkup:
+        from bot.utils.i18n import i18n
+        builder = InlineKeyboardBuilder()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         builder.row(
             InlineKeyboardButton(
                 text=i18n.get("cancel_quest", language),
@@ -266,6 +288,7 @@ class UserKeyboards:
         )
         return builder.as_markup()
     @staticmethod
+<<<<<<< HEAD
     def paused_quest_menu(route_id: int, language: str = 'ru') -> InlineKeyboardMarkup:
         from bot.utils.i18n import i18n
         builder = InlineKeyboardBuilder()
@@ -419,6 +442,15 @@ class UserKeyboards:
                 text=i18n.get("view_certificate", lang, default="📜 Посмотреть сертификат"),
                 callback_data="from_review:web",
             ),
+=======
+    def quest_completed() -> InlineKeyboardMarkup:
+        builder = InlineKeyboardBuilder()
+        builder.row(
+            InlineKeyboardButton(text="🏠 Главное меню", callback_data="back_to_main"),
+        )
+        builder.row(
+            InlineKeyboardButton(text="🔄 Выбрать другой маршрут", callback_data="select_city"),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         )
         return builder.as_markup()
     @staticmethod
@@ -431,6 +463,7 @@ class UserKeyboards:
             resize_keyboard=True,
         )
     @staticmethod
+<<<<<<< HEAD
     def cancel_inline(lang: str = "ru") -> InlineKeyboardMarkup:
         from bot.utils.i18n import i18n
         builder = InlineKeyboardBuilder()
@@ -448,6 +481,8 @@ class UserKeyboards:
         )
         return builder.as_markup()
     @staticmethod
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     def point_hint_keyboard(point_id: int, hints_used: int, max_hints: int, can_use_hint: bool = True, language: str = "ru") -> InlineKeyboardMarkup:
         from bot.utils.i18n import i18n
         builder = InlineKeyboardBuilder()

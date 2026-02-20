@@ -2,11 +2,19 @@ import logging
 from typing import Callable, Dict, Any, Awaitable
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+<<<<<<< HEAD
 from bot.loader import config
 logger = logging.getLogger(__name__)
 class ChannelCheckMiddleware(BaseMiddleware):
     def __init__(self):
         self.config = config
+=======
+from bot.config import load_config
+logger = logging.getLogger(__name__)
+class ChannelCheckMiddleware(BaseMiddleware):
+    def __init__(self):
+        self.config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         super().__init__()
     async def __call__(
         self,
@@ -145,8 +153,12 @@ class ChannelCheckMiddleware(BaseMiddleware):
             else:
                 logger.warning("Канал не настроен: нет ни ID, ни username")
                 return await handler(event, data)
+<<<<<<< HEAD
             status_val = getattr(member.status, 'value', str(member.status)).lower() if member.status else ''
             is_subscribed = status_val in ('member', 'administrator', 'creator')
+=======
+            is_subscribed = member.status in ['member', 'administrator', 'creator']
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             if not is_subscribed:
                 channel_username = self.config.channel.channel_username or "questguiderf"
                 channel_link = f"https://t.me/{channel_username}"

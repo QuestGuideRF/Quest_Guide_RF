@@ -1,7 +1,11 @@
 from typing import Optional, List, Tuple
 from decimal import Decimal
 from datetime import datetime, timedelta
+<<<<<<< HEAD
 from sqlalchemy import select, and_, or_, func
+=======
+from sqlalchemy import select, and_, or_
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from sqlalchemy.ext.asyncio import AsyncSession
 from bot.models.user import User
 from bot.models.token_balance import TokenBalance
@@ -245,6 +249,7 @@ class TokenRepository(BaseRepository[TokenBalance]):
                 )
             ).order_by(TokenDeposit.created_at.desc())
         )
+<<<<<<< HEAD
         return result.scalar_one_or_none()
     async def add_referral_reward(
         self,
@@ -284,3 +289,6 @@ class TokenRepository(BaseRepository[TokenBalance]):
             )
         )
         return result.scalar() or Decimal("0")
+=======
+        return result.scalar_one_or_none()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

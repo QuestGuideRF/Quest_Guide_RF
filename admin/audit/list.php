@@ -12,6 +12,10 @@ $entity_types = ['route', 'point', 'city', 'hint', 'tag', 'user', 'review'];
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="fas fa-history me-2"></i>История изменений</h2>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -42,6 +46,10 @@ $entity_types = ['route', 'point', 'city', 'hint', 'tag', 'user', 'review'];
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Таблица логов -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -99,6 +107,10 @@ $entity_types = ['route', 'point', 'city', 'hint', 'tag', 'user', 'review'];
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Модальное окно для деталей -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="modal fade" id="logDetailsModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -107,6 +119,10 @@ $entity_types = ['route', 'point', 'city', 'hint', 'tag', 'user', 'review'];
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="logDetailsContent">
+<<<<<<< HEAD
+=======
+                <!-- Детали будут загружены через AJAX -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             </div>
         </div>
     </div>

@@ -70,6 +70,10 @@ $all_media = array_merge($user_photos, $reference_images);
         <span class="badge bg-info"><?= count($all_media) ?> файлов</span>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -93,6 +97,10 @@ $all_media = array_merge($user_photos, $reference_images);
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Галерея -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="row g-4">
     <?php foreach ($all_media as $media): ?>
         <div class="col-md-3">

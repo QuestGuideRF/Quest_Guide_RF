@@ -218,8 +218,13 @@ document.getElementById('discount_type').addEventListener('change', function() {
             valueSuffix.textContent = '%';
             valueInput.max = 100;
         } else {
+<<<<<<< HEAD
             valueLabel.textContent = 'Сумма скидки (гроши) *';
             valueSuffix.textContent = ' грошей';
+=======
+            valueLabel.textContent = 'Сумма скидки (₽) *';
+            valueSuffix.textContent = '₽';
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             valueInput.max = null;
         }
     }

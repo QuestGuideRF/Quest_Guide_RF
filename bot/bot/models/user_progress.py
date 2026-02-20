@@ -8,7 +8,10 @@ class ProgressStatus(str, Enum):
     IN_PROGRESS = "in_progress"
     COMPLETED = "completed"
     ABANDONED = "abandoned"
+<<<<<<< HEAD
     PAUSED = "paused"
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 class UserProgress(Base, TimestampMixin):
     __tablename__ = "user_progress"
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -25,9 +28,12 @@ class UserProgress(Base, TimestampMixin):
     )
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+<<<<<<< HEAD
     paused_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
     total_paused_seconds: Mapped[int] = mapped_column(Integer, default=0)
     is_paused: Mapped[bool] = mapped_column(Boolean, default=False)
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     points_completed: Mapped[int] = mapped_column(Integer, default=0)
     photo_hashes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     user: Mapped["User"] = relationship("User", back_populates="progresses")

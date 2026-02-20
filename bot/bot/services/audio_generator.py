@@ -177,9 +177,14 @@ class AudioGenerator:
         voice_id: int = 0
     ) -> Optional[str]:
         from bot.repositories.point import PointRepository
+<<<<<<< HEAD
         from bot.utils.helpers import get_first_task_text
         point_repo = PointRepository(self.session)
         point = await point_repo.get_with_tasks(point_id)
+=======
+        point_repo = PointRepository(self.session)
+        point = await point_repo.get(point_id)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         if not point:
             return None
         project_root = Path(__file__).parent.parent.parent.parent
@@ -206,6 +211,7 @@ class AudioGenerator:
                 return point.audio_file_path
         if not point.audio_enabled:
             return None
+<<<<<<< HEAD
         task_text_ru = get_first_task_text(point, "ru")
         task_text_en = get_first_task_text(point, "en")
         fact_ru = getattr(point, 'fact_text', None) or None
@@ -225,6 +231,23 @@ class AudioGenerator:
                          getattr(point, 'audio_text', None) or
                          point_description or
                          task_text_ru)
+=======
+        if language == "ru":
+            audio_text = (getattr(point, 'audio_text', None) or
+                         point_description or
+                         getattr(point, 'task_text', None) or
+                         getattr(point, 'fact_text', None))
+        elif language == "en":
+            audio_text = (getattr(point, 'audio_text_en', None) or
+                         getattr(point, 'task_text_en', None) or
+                         getattr(point, 'fact_text_en', None))
+            if not audio_text and point_description:
+                audio_text = point_description
+        else:
+            audio_text = (point_description or
+                         getattr(point, 'audio_text', None) or
+                         getattr(point, 'task_text', None))
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         if not audio_text:
             return None
         audio_path = await self.generate_audio(point_id, audio_text, language, voice_id)

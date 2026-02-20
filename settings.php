@@ -1,7 +1,13 @@
 <?php
+<<<<<<< HEAD
 /** Настройки пользователя */
 require_once __DIR__ . '/includes/init.php';
 require_once __DIR__ . '/includes/i18n.php';
+=======
+require_once __DIR__ . '/includes/init.php';
+require_once __DIR__ . '/includes/i18n.php';
+requireAuth();
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $user = getCurrentUser();
 $current_lang = getCurrentLanguage();
 $page_title = t('settings_title');
@@ -18,6 +24,7 @@ require_once __DIR__ . '/includes/header.php';
         <h1>⚙️ <?= t('settings_title') ?></h1>
         <p class="text-muted"><?= t('settings_subtitle') ?></p>
     </div>
+<<<<<<< HEAD
     <?php if (!$user): ?>
     <div class="settings-card" style="max-width: 400px; margin: 2rem auto; text-align: center; padding: 2rem;">
         <h2 style="margin-bottom: 1rem;"><?= $current_lang === 'en' ? 'Sign in to your account' : 'Войти в аккаунт' ?></h2>
@@ -28,6 +35,10 @@ require_once __DIR__ . '/includes/header.php';
     </div>
     <?php else: ?>
     <div class="settings-grid">
+=======
+    <div class="settings-grid">
+        <!-- Профиль -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <div class="settings-card">
             <h2>👤 <?= t('profile') ?></h2>
             <div class="profile-info">
@@ -56,6 +67,10 @@ require_once __DIR__ . '/includes/header.php';
             </p>
             <div id="upload-status" class="upload-status" style="display: none;"></div>
         </div>
+<<<<<<< HEAD
+=======
+        <!-- Язык -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <div class="settings-card">
             <h2>🌍 <?= t('language_setting') ?></h2>
             <div class="setting-item">
@@ -73,6 +88,10 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+        <!-- Внешний вид -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <div class="settings-card">
             <h2>🎨 <?= t('appearance') ?></h2>
             <div class="setting-item">
@@ -96,6 +115,7 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
         <div class="settings-card">
             <h2>🔒 <?= $current_lang === 'en' ? 'Privacy' : 'Приватность' ?></h2>
             <div class="setting-item privacy-setting">
@@ -122,6 +142,9 @@ require_once __DIR__ . '/includes/header.php';
                 </p>
             </div>
         </div>
+=======
+        <!-- Статистика аккаунта -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <div class="settings-card">
             <h2>📊 <?= t('statistics') ?></h2>
             <div class="account-stats">
@@ -135,6 +158,10 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+        <!-- Telegram бот -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <div class="settings-card">
             <h2>🤖 <?= t('telegram_bot') ?></h2>
             <p class="text-muted mb-3">
@@ -145,6 +172,10 @@ require_once __DIR__ . '/includes/header.php';
                 <?= t('open_bot') ?>
             </a>
         </div>
+<<<<<<< HEAD
+=======
+        <!-- Выход -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <div class="settings-card danger">
             <h2>🚪 <?= t('logout') ?></h2>
             <p class="text-muted mb-3">
@@ -155,9 +186,13 @@ require_once __DIR__ . '/includes/header.php';
             </a>
         </div>
     </div>
+<<<<<<< HEAD
     <?php endif; ?>
 </div>
 <?php if ($user): ?>
+=======
+</div>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <script>
 function applyTheme(theme) {
     let actualTheme = theme;
@@ -224,6 +259,7 @@ function showUploadStatus(message, type) {
         }, 3000);
     }
 }
+<<<<<<< HEAD
 document.querySelectorAll('input[name="profile_visibility"]').forEach(function(radio) {
     radio.addEventListener('change', async function() {
         const isPublic = this.value === '1';
@@ -258,4 +294,7 @@ document.querySelectorAll('input[name="profile_visibility"]').forEach(function(r
 });
 </script>
 <?php endif; ?>
+=======
+</script>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

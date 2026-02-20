@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import json
 import logging
 from typing import List, Tuple, Dict, Any, Optional
@@ -39,11 +40,24 @@ class AntiFraudService:
             if isinstance(stored, str) and self._hamming_hex(phash, stored) <= PERCEPTUAL_HASH_THRESHOLD:
                 return True
         return False
+=======
+from typing import List, Tuple, Dict
+import hashlib
+from datetime import datetime, timedelta
+from typing import Optional
+from PIL import Image
+from PIL.ExifTags import TAGS
+from bot.services.antifraud_fix import simple_cache
+class AntiFraudService:
+    def __init__(self):
+        self.redis = simple_cache
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     async def check_photo_hash(
         self,
         photo_path: str,
         user_id: int,
         route_id: int,
+<<<<<<< HEAD
         session: Any = None,
         progress: Any = None,
     ) -> Tuple[bool, str, Optional[str]]:
@@ -70,6 +84,16 @@ class AntiFraudService:
             if self._phash_matches_stored(phash, stored_list):
                 return False, "Это фото уже использовалось в данном маршруте", None
         return True, "Фото уникально", (phash or None)
+=======
+    ) -> Tuple[bool, str]:
+        photo_hash = self._calculate_photo_hash(photo_path)
+        key = f"photo_hash:{user_id}:{route_id}:{photo_hash}"
+        exists = await self.redis.exists(key)
+        if exists:
+            return False, "Это фото уже использовалось в данном маршруте"
+        await self.redis.setex(key, 86400, "1")
+        return True, "Фото уникально"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     def _calculate_photo_hash(self, photo_path: str) -> str:
         with open(photo_path, "rb") as f:
             return hashlib.sha256(f.read()).hexdigest()
@@ -89,8 +113,13 @@ class AntiFraudService:
                 if tag_name in ("DateTime", "DateTimeOriginal", "DateTimeDigitized"):
                     try:
                         date_taken = datetime.strptime(value, "%Y:%m:%d %H:%M:%S")
+<<<<<<< HEAD
                     except Exception as e:
                         logger.debug("antifraud EXIF: не удалось распарсить дату '%s': %s", value, e)
+=======
+                    except:
+                        pass
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     break
             if not date_taken:
                 return False, "❌ Фото не содержит даты съемки. Сделайте новое фото на телефон."
@@ -139,24 +168,37 @@ class AntiFraudService:
         user_id: int,
         route_id: int,
         point_order: int,
+<<<<<<< HEAD
         session: Any = None,
         progress: Any = None,
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     ) -> Tuple[bool, List[str]]:
         messages = []
         ok, msg = await self.check_global_rate_limit(user_id)
         messages.append(msg)
         if not ok:
             return False, messages
+<<<<<<< HEAD
         ok, msg, phash_to_store = await self.check_photo_hash(
             photo_path, user_id, route_id, session=session, progress=progress
         )
         messages.append(msg)
         if not ok:
             return False, messages
+=======
+        ok, msg = await self.check_photo_hash(photo_path, user_id, route_id)
+        messages.append(msg)
+        if not ok:
+            return False, messages
+        ok, msg = await self.check_exif_date(photo_path)
+        messages.append(msg)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         ok, msg = await self.check_timing(user_id, route_id, point_order)
         messages.append(msg)
         if not ok:
             return False, messages
+<<<<<<< HEAD
         if phash_to_store:
             if progress is not None:
                 stored_raw = getattr(progress, "photo_hashes", None) or "[]"
@@ -174,4 +216,6 @@ class AntiFraudService:
                 cached_list = []
             cached_list.append(phash_to_store)
             await self.redis.setex(key_phash_list, 86400, json.dumps(cached_list))
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         return True, messages

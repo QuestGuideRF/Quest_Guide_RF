@@ -11,11 +11,18 @@ if (!isAdminLoggedIn()) {
 $pdo = getDB()->getConnection();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+<<<<<<< HEAD
         $creator_id = isModerator() ? $_SESSION['admin_id'] : null;
         $stmt = $pdo->prepare("
             INSERT INTO routes (name, name_en, description, description_en, city_id, price, route_type, is_active,
                                difficulty, estimated_duration, max_hints_per_route, creator_id, created_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+=======
+        $stmt = $pdo->prepare("
+            INSERT INTO routes (name, name_en, description, description_en, city_id, price, route_type, is_active,
+                               difficulty, estimated_duration, max_hints_per_route, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         ");
         $stmt->execute([
             $_POST['name'],
@@ -28,8 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             isset($_POST['is_active']) ? 1 : 0,
             $_POST['difficulty'],
             $_POST['estimated_duration'],
+<<<<<<< HEAD
             $_POST['max_hints_per_route'],
             $creator_id
+=======
+            $_POST['max_hints_per_route']
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         ]);
         $route_id = $pdo->lastInsertId();
         logAudit('route', $route_id, 'create', null, $_POST, 'Маршрут создан');
@@ -100,7 +111,11 @@ require_once __DIR__ . '/../includes/header.php';
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
+<<<<<<< HEAD
                             <label class="form-label">Цена (гроши) *</label>
+=======
+                            <label class="form-label">Цена (₽) *</label>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             <input type="number" name="price" class="form-control"
                                    value="0" min="0" required>
                             <small class="text-muted">Укажите 0 для бесплатного маршрута</small>

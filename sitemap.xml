@@ -1,47 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <!-- Карта сайта для SEO -->
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
         <loc>https://questguiderf.ru/</loc>
+<<<<<<< HEAD
         <lastmod>2026-02-05</lastmod>
+=======
+        <lastmod>2026-01-04</lastmod>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://questguiderf.ru/dashboard.php</loc>
+<<<<<<< HEAD
         <lastmod>2026-02-05</lastmod>
+=======
+        <lastmod>2026-01-04</lastmod>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://questguiderf.ru/routes.php</loc>
+<<<<<<< HEAD
         <lastmod>2026-02-05</lastmod>
+=======
+        <lastmod>2026-01-04</lastmod>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://questguiderf.ru/photos.php</loc>
+<<<<<<< HEAD
         <lastmod>2026-02-05</lastmod>
+=======
+        <lastmod>2026-01-04</lastmod>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://questguiderf.ru/achievements.php</loc>
+<<<<<<< HEAD
         <lastmod>2026-02-05</lastmod>
+=======
+        <lastmod>2026-01-04</lastmod>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://questguiderf.ru/bank.php</loc>
+<<<<<<< HEAD
         <lastmod>2026-02-05</lastmod>
+=======
+        <lastmod>2026-01-04</lastmod>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
         <loc>https://questguiderf.ru/settings.php</loc>
+<<<<<<< HEAD
         <lastmod>2026-02-05</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
@@ -65,3 +93,10 @@
         <priority>0.5</priority>
     </url>
 </urlset>
+=======
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+</urlset>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

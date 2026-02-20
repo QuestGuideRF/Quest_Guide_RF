@@ -59,7 +59,10 @@ $type_labels = [
     'transfer_out' => ['label' => 'Исх. перевод', 'icon' => 'fas fa-arrow-right', 'class' => 'danger', 'sign' => '-'],
     'transfer_in' => ['label' => 'Вх. перевод', 'icon' => 'fas fa-arrow-left', 'class' => 'info', 'sign' => '+'],
     'refund' => ['label' => 'Возврат', 'icon' => 'fas fa-undo', 'class' => 'secondary', 'sign' => '+'],
+<<<<<<< HEAD
     'adjustment' => ['label' => 'Списание админом', 'icon' => 'fas fa-minus-circle', 'class' => 'danger', 'sign' => '-'],
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 ];
 ?>
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -71,17 +74,27 @@ $type_labels = [
         <?php endif; ?>
     </h2>
     <div>
+<<<<<<< HEAD
         <a href="add_tokens.php?user_id=<?= $user_id ?>" class="btn btn-success me-2">
             <i class="fas fa-plus me-2"></i>Начислить
         </a>
         <a href="add_tokens.php?user_id=<?= $user_id ?>&action=subtract" class="btn btn-danger me-2">
             <i class="fas fa-minus me-2"></i>Списать
         </a>
+=======
+        <a href="add_tokens.php?user_id=<?= $user_id ?>" class="btn btn-success">
+            <i class="fas fa-plus me-2"></i>Начислить
+        </a>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         <a href="list.php" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-2"></i>Назад
         </a>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Информация о пользователе -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="row g-4 mb-4">
     <div class="col-lg-4">
         <div class="card h-100">
@@ -107,7 +120,11 @@ $type_labels = [
             <div class="col-md-6">
                 <div class="card bg-primary text-white">
                     <div class="card-body text-center">
+<<<<<<< HEAD
                         <h2 class="mb-0"><?= number_format($user['balance'], 0, ',', ' ') ?> грошей</h2>
+=======
+                        <h2 class="mb-0"><?= number_format($user['balance'], 0, ',', ' ') ?> ₽</h2>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <p class="mb-0 opacity-75">Текущий баланс</p>
                     </div>
                 </div>
@@ -115,7 +132,11 @@ $type_labels = [
             <div class="col-md-6">
                 <div class="card bg-success bg-opacity-10">
                     <div class="card-body text-center">
+<<<<<<< HEAD
                         <h4 class="text-success mb-0">+<?= number_format($user['total_deposited'], 0, ',', ' ') ?> грошей</h4>
+=======
+                        <h4 class="text-success mb-0">+<?= number_format($user['total_deposited'], 0, ',', ' ') ?> ₽</h4>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <p class="text-muted mb-0">Всего пополнено</p>
                     </div>
                 </div>
@@ -123,7 +144,11 @@ $type_labels = [
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body text-center">
+<<<<<<< HEAD
                         <h5 class="text-warning mb-0">-<?= number_format($user['total_spent'], 0, ',', ' ') ?> грошей</h5>
+=======
+                        <h5 class="text-warning mb-0">-<?= number_format($user['total_spent'], 0, ',', ' ') ?> ₽</h5>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <small class="text-muted">Потрачено</small>
                     </div>
                 </div>
@@ -131,7 +156,11 @@ $type_labels = [
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body text-center">
+<<<<<<< HEAD
                         <h5 class="text-danger mb-0">-<?= number_format($user['total_transferred_out'], 0, ',', ' ') ?> грошей</h5>
+=======
+                        <h5 class="text-danger mb-0">-<?= number_format($user['total_transferred_out'], 0, ',', ' ') ?> ₽</h5>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <small class="text-muted">Переведено</small>
                     </div>
                 </div>
@@ -139,7 +168,11 @@ $type_labels = [
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body text-center">
+<<<<<<< HEAD
                         <h5 class="text-info mb-0">+<?= number_format($user['total_transferred_in'], 0, ',', ' ') ?> грошей</h5>
+=======
+                        <h5 class="text-info mb-0">+<?= number_format($user['total_transferred_in'], 0, ',', ' ') ?> ₽</h5>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <small class="text-muted">Получено</small>
                     </div>
                 </div>
@@ -147,6 +180,10 @@ $type_labels = [
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Статистика за месяц -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-header">
         <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Активность за 30 дней</h5>
@@ -154,6 +191,7 @@ $type_labels = [
     <div class="card-body">
         <div class="row text-center">
             <div class="col">
+<<<<<<< HEAD
                 <h5 class="text-success">+<?= number_format($stats['deposits'], 0) ?> грошей</h5>
                 <small class="text-muted">Пополнений</small>
             </div>
@@ -167,11 +205,30 @@ $type_labels = [
             </div>
             <div class="col">
                 <h5 class="text-info">+<?= number_format($stats['transfers_in'], 0) ?> грошей</h5>
+=======
+                <h5 class="text-success">+<?= number_format($stats['deposits'], 0) ?> ₽</h5>
+                <small class="text-muted">Пополнений</small>
+            </div>
+            <div class="col">
+                <h5 class="text-warning">-<?= number_format($stats['purchases'], 0) ?> ₽</h5>
+                <small class="text-muted">Покупок</small>
+            </div>
+            <div class="col">
+                <h5 class="text-danger">-<?= number_format($stats['transfers_out'], 0) ?> ₽</h5>
+                <small class="text-muted">Исх. переводов</small>
+            </div>
+            <div class="col">
+                <h5 class="text-info">+<?= number_format($stats['transfers_in'], 0) ?> ₽</h5>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 <small class="text-muted">Вх. переводов</small>
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- История транзакций -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0"><i class="fas fa-history me-2"></i>История операций</h5>
@@ -223,11 +280,19 @@ $type_labels = [
                         </td>
                         <td class="text-end">
                             <span class="fw-bold text-<?= $type_info['sign'] === '+' ? 'success' : 'danger' ?>">
+<<<<<<< HEAD
                                 <?= $type_info['sign'] ?><?= number_format($tx['amount'], 0, ',', ' ') ?> грошей
                             </span>
                         </td>
                         <td class="text-end text-muted">
                             <?= number_format($tx['balance_after'], 0, ',', ' ') ?> грошей
+=======
+                                <?= $type_info['sign'] ?><?= number_format($tx['amount'], 0, ',', ' ') ?> ₽
+                            </span>
+                        </td>
+                        <td class="text-end text-muted">
+                            <?= number_format($tx['balance_after'], 0, ',', ' ') ?> ₽
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         </td>
                     </tr>
                     <?php endforeach; ?>

@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /** Банк токенов (баланс, история) */
 require_once __DIR__ . '/includes/init.php';
 require_once __DIR__ . '/includes/i18n.php';
@@ -36,6 +37,41 @@ $page_description = $current_lang === 'en'
 $page_keywords = $current_lang === 'en'
     ? "token bank, balance, purchases, payments, QuestGuideRF"
     : "банк грошей, баланс, покупки, платежи, QuestGuideRF";
+=======
+require_once __DIR__ . '/includes/init.php';
+require_once __DIR__ . '/includes/i18n.php';
+requireAuth();
+$user = getCurrentUser();
+$current_lang = getCurrentLanguage();
+$token_balance = null;
+try {
+    $pdo = getDB()->getConnection();
+    $stmt = $pdo->prepare('SELECT * FROM token_balances WHERE user_id = ?');
+    $stmt->execute([$user['id']]);
+    $token_balance = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+}
+$payments = getDB()->fetchAll(
+    'SELECT p.*, r.name as route_name, r.name_en as route_name_en, c.name as city_name, c.name_en as city_name_en
+     FROM payments p
+     JOIN routes r ON p.route_id = r.id
+     JOIN cities c ON r.city_id = c.id
+     WHERE p.user_id = ?
+     ORDER BY p.created_at DESC',
+    [$user['id']]
+);
+$total_spent = array_sum(array_column(
+    array_filter($payments, function($p) { return $p['status'] == 'success'; }),
+    'amount'
+));
+$page_title = t('bank_title');
+$page_description = $current_lang === 'en'
+    ? "QuestGuideRF token bank - balance, top-ups and purchase history of quest-excursions."
+    : "Банк токенов QuestGuideRF - баланс, пополнения и история покупок экскурсий-квестов.";
+$page_keywords = $current_lang === 'en'
+    ? "token bank, balance, purchases, payments, QuestGuideRF"
+    : "банк токенов, баланс, покупки, платежи, QuestGuideRF";
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 require_once __DIR__ . '/includes/header.php';
 ?>
 <main class="main-content">
@@ -44,12 +80,17 @@ require_once __DIR__ . '/includes/header.php';
         <h1>🏦 <?= t('bank_title') ?></h1>
         <p class="text-muted"><?= t('bank_subtitle') ?></p>
     </div>
+<<<<<<< HEAD
     <?php if (!$user): ?>
     <div class="empty-state" style="padding: 2rem; text-align: center;">
         <p class="text-muted"><?= t('sign_in_to_see_balance') ?></p>
         <a href="/pages/login.php" class="btn btn-primary"><?= t('login') ?></a>
     </div>
     <?php elseif ($token_balance !== null): ?>
+=======
+    <?php if ($token_balance !== null): ?>
+    <!-- Token balance stats -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <div class="stats-row" style="margin-bottom: 2rem;">
         <div class="stat-card">
             <div class="stat-icon">💰</div>
@@ -85,7 +126,11 @@ require_once __DIR__ . '/includes/header.php';
         <a href="https://t.me/<?= e(BOT_USERNAME) ?>?start=token" target="_blank">@<?= e(BOT_USERNAME) ?></a>
     </p>
     <?php endif; ?>
+<<<<<<< HEAD
     <?php if ($user): ?>
+=======
+    <!-- Purchases section (moved from Payments page) -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     <section class="section">
         <div class="section-header">
             <h2>💳 <?= t('bank_purchases') ?></h2>
@@ -149,7 +194,10 @@ require_once __DIR__ . '/includes/header.php';
         </div>
         <?php endif; ?>
     </section>
+<<<<<<< HEAD
     <?php endif; ?>
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 </div>
 </main>
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

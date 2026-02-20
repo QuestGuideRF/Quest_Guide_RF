@@ -2,17 +2,23 @@
 $page_title = 'Управление маршрутами';
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../../includes/db.php';
+<<<<<<< HEAD
 require_once __DIR__ . '/../includes/auth.php';
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 $pdo = getDB()->getConnection();
 $city_id = isset($_GET['city_id']) ? (int)$_GET['city_id'] : null;
 $status = isset($_GET['status']) ? $_GET['status'] : '';
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $where = [];
 $params = [];
+<<<<<<< HEAD
 if (isModerator()) {
     $where[] = "r.creator_id = ?";
     $params[] = $_SESSION['admin_id'];
 }
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 if ($city_id) {
     $where[] = "r.city_id = ?";
     $params[] = $city_id;
@@ -51,6 +57,10 @@ $cities = $pdo->query("SELECT * FROM cities ORDER BY name")->fetchAll();
         <i class="fas fa-plus me-2"></i>Создать маршрут
     </a>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фильтры и поиск -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -85,6 +95,10 @@ $cities = $pdo->query("SELECT * FROM cities ORDER BY name")->fetchAll();
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Массовые действия -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form id="bulkActionsForm">
@@ -112,6 +126,10 @@ $cities = $pdo->query("SELECT * FROM cities ORDER BY name")->fetchAll();
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Модальное окно для назначения тегов -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="modal fade" id="assignTagsModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -122,6 +140,10 @@ $cities = $pdo->query("SELECT * FROM cities ORDER BY name")->fetchAll();
             <div class="modal-body">
                 <p>Выберите теги для назначения выбранным маршрутам:</p>
                 <div id="tagsList" class="row g-2">
+<<<<<<< HEAD
+=======
+                    <!-- Теги будут загружены через AJAX -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 </div>
             </div>
             <div class="modal-footer">
@@ -131,6 +153,10 @@ $cities = $pdo->query("SELECT * FROM cities ORDER BY name")->fetchAll();
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Таблица маршрутов -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -162,7 +188,11 @@ $cities = $pdo->query("SELECT * FROM cities ORDER BY name")->fetchAll();
                                 <?php endif; ?>
                             </td>
                             <td><?= htmlspecialchars($route['city_name']) ?></td>
+<<<<<<< HEAD
                             <td><?= number_format($route['price']) ?> грошей</td>
+=======
+                            <td><?= number_format($route['price']) ?>₽</td>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                             <td>
                                 <span class="badge bg-info"><?= $route['points_count'] ?></span>
                             </td>
@@ -187,6 +217,15 @@ $cities = $pdo->query("SELECT * FROM cities ORDER BY name")->fetchAll();
                                         <i class="fas fa-map-pin"></i>
                                     </a>
                                     <button type="button"
+<<<<<<< HEAD
+=======
+                                            class="btn btn-sm btn-secondary"
+                                            onclick="cloneRoute(<?= $route['id'] ?>, '<?= htmlspecialchars(addslashes($route['name'])) ?>')"
+                                            title="Клонировать">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button type="button"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                             class="btn btn-sm btn-<?= $route['is_active'] ? 'warning' : 'success' ?>"
                                             onclick="toggleStatus(<?= $route['id'] ?>)"
                                             title="<?= $route['is_active'] ? 'Деактивировать' : 'Активировать' ?>">
@@ -337,5 +376,26 @@ function deleteRoute(id) {
         }).then(() => location.reload());
     }
 }
+<<<<<<< HEAD
+=======
+function cloneRoute(id, name) {
+    const newName = prompt('Введите название для клона:', name + ' (копия)');
+    if (!newName) return;
+    fetch('/admin/api/clone_route.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({route_id: id, new_name: newName})
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            alert('Маршрут успешно склонирован!');
+            location.reload();
+        } else {
+            alert('Ошибка: ' + (data.error || 'Неизвестная ошибка'));
+        }
+    });
+}
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 </script>
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

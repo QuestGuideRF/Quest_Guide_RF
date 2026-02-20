@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 /** Страница ошибки 403 */
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 if (!defined('APP_INIT')) {
     define('APP_INIT', true);
 }

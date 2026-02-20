@@ -26,19 +26,27 @@ RU_TEXTS = {
     "notes_for_audio": "Заметки",
     "i_am_here": "✅ Я на месте",
     "proceed_to_task": "▶️ Приступить к заданию",
+<<<<<<< HEAD
+=======
+    "pose_required": "🤸 Поза:",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "min_people": "👥 Людей на фото: минимум",
     "send_photo": "\n📸 Отправьте фото, когда будете на месте!",
     "audio_guide": "🎧 Аудиогид",
     "cancel_quest": "❌ Прервать квест",
     "quest_cancelled": "❌ Квест прерван.\n\nВы можете начать заново в любой момент.",
+<<<<<<< HEAD
     "no_active_quest": "У вас нет активного квеста.",
     "route_list": "🗺️ Список маршрутов",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "cancel": "❌ Отмена",
     "cancelled": "❌ Отменено",
     "photo_received": "📸 Фото получено! Начинаю проверку...",
     "photo_downloading": "📸 Фото получено! Скачиваю...",
     "photo_loading_data": "📸 Фото получено! Загружаю данные...",
     "checking": "🔍 Проверяю фото...",
+<<<<<<< HEAD
     "checking_antifraud": "🔍 Проверяю фото... (1/3 - Антифрод)",
     "checking_people": "🔍 Проверяю фото... (2/3 - Наличие человека)",
     "checking_location": "🔍 Проверяю фото... (3/3 - Проверка места 📍)",
@@ -46,6 +54,17 @@ RU_TEXTS = {
     "people_count": "2/3 - Наличие человека",
     "location_check": "3/3 - Проверка места 📍",
     "stickers_not_supported": "Бро, стикеры нельзя 😅 Не делай так, пожалуйста 🙏",
+=======
+    "checking_antifraud": "🔍 Проверяю фото... (1/4 - Антифрод)",
+    "checking_people": "🔍 Проверяю фото... (2/4 - Подсчёт людей)",
+    "checking_pose": "🔍 Проверяю фото... (3/4 - Анализ позы 🧘)",
+    "checking_location": "🔍 Проверяю фото... (4/4 - Проверка места 📍)",
+    "antifraud": "1/4 - Антифрод",
+    "people_count": "2/4 - Подсчёт людей",
+    "pose_check": "3/4 - Анализ позы 🧘",
+    "location_check": "4/4 - Проверка места 📍",
+    "stickers_not_supported": "❌ Мне похуй. нормально общайся",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "unknown_command": "❌ Команда не найдена. Используйте /start или меню.",
     "point_completed": "✅ Отлично! Точка засчитана!",
     "interesting_fact": "💡 Интересный факт:",
@@ -55,7 +74,10 @@ RU_TEXTS = {
     "completed_points": "• Пройдено точек:",
     "time_spent": "• Время:",
     "thanks": "\n\nСпасибо за участие! Надеемся, вам понравилось! 🌟",
+<<<<<<< HEAD
     "achievement_unlocked": "Новое достижение",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "your_stats": "📊 Ваша статистика:",
     "total_routes": "Всего маршрутов",
     "completed": "Завершено",
@@ -65,6 +87,7 @@ RU_TEXTS = {
     "longest_quest": "Самый длинный квест",
     "shortest_quest": "Самый быстрый квест",
     "user_rank": "Ваша позиция",
+<<<<<<< HEAD
     "about_bot": "ℹ️ О боте\n\nЯ — интерактивный экскурсовод-квест! 🎯\n\nКак это работает:\n1️⃣ Выбираешь город и маршрут\n2️⃣ Оплачиваешь (399 грошей)\n3️⃣ Получаешь задание найти локацию\n4️⃣ Доходишь до места\n5️⃣ Фотографируешься (иногда с условиями)\n6️⃣ Узнаешь крутой факт\n7️⃣ Переходишь к следующей точке\n\nПутешествуй в своем темпе, без скучных экскурсий! 🚀",
     "settings_menu": "⚙️ Настройки\n\nВыберите раздел:",
     "change_language": "🌍 Сменить язык",
@@ -72,6 +95,11 @@ RU_TEXTS = {
     "show_map_on": "🗺 Показывать карту: Вкл",
     "show_map_off": "🗺 Показывать карту: Выкл",
     "yandex_maps_button": "🗺 Открыть в Яндекс.Картах",
+=======
+    "about_bot": "ℹ️ О боте\n\nЯ — интерактивный экскурсовод-квест! 🎯\n\nКак это работает:\n1️⃣ Выбираешь город и маршрут\n2️⃣ Оплачиваешь (399₽)\n3️⃣ Получаешь задание найти локацию\n4️⃣ Доходишь до места\n5️⃣ Фотографируешься (иногда с условиями)\n6️⃣ Узнаешь крутой факт\n7️⃣ Переходишь к следующей точке\n\nПутешествуй в своем темпе, без скучных экскурсий! 🚀",
+    "settings_menu": "⚙️ Настройки\n\nВыберите раздел:",
+    "change_language": "🌍 Сменить язык",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "audio_settings": "🎧 Настройки аудио",
     "audio_settings_text": "🎧 Настройки аудио\n\nФункция в разработке. Скоро здесь появятся настройки:\n• Автовоспроизведение\n• Выбор голоса\n• Скорость речи",
     "language_changed": "✅ Язык изменен!",
@@ -99,6 +127,7 @@ RU_TEXTS = {
     "hint_map_caption": "🗺 Мини-карта с местоположением",
     "back_to_task": "◀️ Назад к заданию",
     "leave_review": "⭐ Оставить отзыв",
+<<<<<<< HEAD
     "take_quiz": "📝 Пройти квиз",
     "quiz_menu_description": "📝 <b>Квиз по маршруту</b>\n\nЗа каждый правильный ответ вы получите гроши на баланс. Ответьте на вопросы по пройденному маршруту — и получите награду!",
     "quiz_finished": "Квиз завершён!",
@@ -138,6 +167,8 @@ RU_TEXTS = {
     "back_to_main": "🏠 Главное меню",
     "view_certificate": "📜 Посмотреть сертификат",
     "select_another_route": "🔄 Выбрать другой маршрут",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "no_completed_routes": "У вас пока нет завершенных маршрутов для отзыва.",
     "choose_route_review": "Выберите маршрут для отзыва:",
     "rate_route": "Оцените маршрут от 1 до 5:",
@@ -207,6 +238,12 @@ RU_TEXTS = {
     "thanks_for_activity": "Спасибо за вашу активность! 🌟",
     "complete_quest_to_review": "Пройдите хотя бы один квест, чтобы оставить отзыв!",
     "send_answer_text": "Отправьте ответ текстом!",
+<<<<<<< HEAD
+=======
+    "pose_hands_up": "руки вверх",
+    "pose_heart": "сердечко руками",
+    "pose_point": "указать пальцем",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "photo_sent_to_admin": "⏳ Фото отправлено на проверку администратору.",
     "photo_checking": "🔍 Проверяю фото...",
     "people_count_error": "На фото {count} человек(а), нужно минимум {min}",
@@ -215,7 +252,10 @@ RU_TEXTS = {
     "try_closer_photo": "Попробуйте сделать фото ближе к объекту!",
     "next_point": "Следующая точка",
     "admin_approved_photo": "Администратор принял ваше фото!",
+<<<<<<< HEAD
     "admin_approved_photo_short": "Админ принял ваше фото.\n\n✅ Отлично! Точка засчитана!",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "photo_rejected": "❌ Фото не прошло проверку",
     "photo_rejected_try_again": "Пожалуйста, попробуйте сделать новое фото и отправьте его снова.",
     "admin_photo_rejected": "Администратор отклонил ваше фото",
@@ -230,6 +270,10 @@ RU_TEXTS = {
     "attempts_exhausted": "Попытки исчерпаны",
     "correct_answer_is": "Правильный ответ",
     "try_again_from_start": "Попробуйте снова с начала квеста или обратитесь к администратору",
+<<<<<<< HEAD
+=======
+    "pose_error": "❌ Ошибка проверки позы. Попробуйте сделать фото ещё раз.",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "memory_error": "Недостаточно памяти",
     "try_again": "Попробуйте ещё раз",
     "photo_error": "❌ Произошла ошибка при обработке фото.",
@@ -244,6 +288,7 @@ RU_TEXTS = {
     "promo_code_not_found": "❌ Промокод не найден",
     "promo_code_wrong_route": "❌ Промокод не применим к этому маршруту",
     "promo_code_enter_command": "🎫 Введите промокод:",
+<<<<<<< HEAD
     "promo_code_price_info": "💰 Цена: {original} грошей → {final} грошей",
     "promo_code_free": "Бесплатно",
     "for_route": "Для маршрута",
@@ -261,6 +306,30 @@ RU_TEXTS = {
     "photo_confirm_retake": "📸 Переснять",
     "photo_confirm_prompt": "📸 Это ваше фото. Отправить его или хотите переснять?",
     "photo_retake_prompt": "📸 Хорошо, отправьте новое фото.",
+=======
+    "promo_code_price_info": "💰 Цена: {original}₽ → {final}₽",
+    "promo_code_free": "Бесплатно",
+    "for_route": "Для маршрута",
+    "promo_code_info": "Промокод будет применен при оплате выбранного маршрута.",
+    "pose_person_not_recognized": "❌ Не удалось распознать человека на фото. Убедитесь, что вы полностью видны в кадре.",
+    "pose_hands_not_visible": "❌ Не вижу рук на фото. Поднимите руки выше!",
+    "pose_shoulders_not_visible": "❌ Не вижу плечи. Встаньте ближе к камере!",
+    "pose_hands_up_success": "✅ Руки подняты! Отлично!",
+    "pose_raise_both_hands": "❌ Поднимите обе руки выше над головой!",
+    "pose_raise_hands_higher": "❌ Поднимите руки выше над головой!",
+    "pose_hands_not_visible_heart": "❌ Не вижу рук. Покажите сердечко руками!",
+    "pose_face_not_visible": "❌ Не вижу лицо. Встаньте лицом к камере!",
+    "pose_heart_success": "✅ Сердечко получилось! ❤️",
+    "pose_raise_hands_for_heart": "❌ Поднимите руки над головой для сердечка!",
+    "pose_bring_hands_closer": "❌ Сведите руки ближе, чтобы получилось сердечко!",
+    "pose_hands_not_visible_point": "❌ Не вижу рук. Укажите пальцем на объект!",
+    "pose_point_success": "✅ Указываете пальцем! Супер! 👉",
+    "pose_extend_arm_point": "❌ Вытяните руку горизонтально и укажите пальцем!",
+    "pose_unknown": "❌ Неизвестная поза: {pose}. Обратитесь в поддержку.",
+    "pose_accepted": "✅ Поза принята!",
+    "pose_show_hands": "❌ Покажите руки на фото!",
+    "pose_check_failed": "❌ Не удалось проверить позу. Попробуйте сделать фото ещё раз.",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "photo_read_error": "❌ Не удалось прочитать фото",
     "photo_looks_like_cover": "❌ Фото выглядит как обложка или рисунок. Сделайте реальное фото на телефон.",
     "web_access_title": "🌐 Вход в личный кабинет",
@@ -269,9 +338,13 @@ RU_TEXTS = {
     "web_login_button": "🌐 Войти в личный кабинет",
     "web_open_browser_button": "🌐 Открыть в браузере",
     "web_admin_panel_button": "🔐 Войти в админ-панель",
+<<<<<<< HEAD
     "web_moderator_panel_button": "🎨 Войти в меню модератора",
     "web_access_message_moderator": "Нажмите кнопку ниже, чтобы открыть личный кабинет или войти в меню модератора (свои маршруты).\n\nВы также можете открыть сайт в браузере.",
     "bank_menu_title": "🏦 <b>Банк грошей</b>",
+=======
+    "bank_menu_title": "🏦 <b>Банк токенов</b>",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "bank_balance": "💰 Баланс",
     "bank_total_deposited": "📥 Всего пополнено",
     "bank_total_spent": "📤 Всего потрачено",
@@ -286,6 +359,7 @@ RU_TEXTS = {
     "bank_custom_amount": "✏️ Своя сумма",
     "bank_confirm_deposit": "✅ Подтвердить",
     "bank_confirm_transfer": "✅ Подтвердить перевод",
+<<<<<<< HEAD
     "bank_confirm_purchase": "✅ Купить за {price} грошей",
     "bank_deposit_title": "💳 <b>Пополнение баланса</b>\n\nВыберите способ оплаты:",
     "bank_deposit_amount_title": "💰 <b>Выберите сумму пополнения:</b>",
@@ -308,6 +382,28 @@ RU_TEXTS = {
     "bank_buy_city_title": "🏙 <b>Выберите город:</b>",
     "bank_buy_route_title": "🎫 <b>Выберите экскурсию:</b>\n\n💰 Ваш баланс: {balance} грошей\n\n✅ = хватает грошей\n❌ = не хватает грошей",
     "bank_purchase_confirm": "🎫 <b>Подтверждение покупки</b>\n\n📍 Маршрут: {route_name}\n💰 Цена: {price} грошей\n\n💰 Баланс после: {balance_after} грошей",
+=======
+    "bank_confirm_purchase": "✅ Купить за {price}₽",
+    "bank_deposit_title": "💳 <b>Пополнение баланса</b>\n\nВыберите способ оплаты:",
+    "bank_deposit_amount_title": "💰 <b>Выберите сумму пополнения:</b>",
+    "bank_enter_amount": "✏️ Введите сумму пополнения (минимум 50₽):",
+    "bank_invalid_amount": "❌ Некорректная сумма. Введите число от 50 до 100000.",
+    "bank_deposit_confirm": "💳 <b>Подтверждение пополнения</b>\n\n💰 Сумма: {amount}₽\n📱 Способ: {method}",
+    "bank_deposit_success": "✅ Баланс пополнен на {amount} токенов!",
+    "bank_transfer_title": "💸 <b>Перевод токенов</b>\n\nВведите username получателя (без @):",
+    "bank_transfer_instruction": "⚠️ Внимание:\n• Пользователь должен быть зарегистрирован в боте\n• Перевод нельзя отменить\n• Лимит: 5 поисков за 30 минут",
+    "bank_user_not_found": "❌ Пользователь не найден",
+    "bank_cannot_transfer_self": "❌ Нельзя перевести токены самому себе",
+    "bank_search_blocked": "⏳ Поиск заблокирован на {minutes} мин. {seconds} сек.\n\nПревышен лимит поиска пользователей.",
+    "bank_enter_transfer_amount": "💰 Введите сумму перевода:",
+    "bank_insufficient_balance": "❌ Недостаточно токенов на балансе.\n\n💰 Ваш баланс: {balance}₽",
+    "bank_transfer_confirm": "💸 <b>Подтверждение перевода</b>\n\n👤 Получатель: @{username}\n💰 Сумма: {amount}₽\n\n💰 Ваш баланс после: {balance_after}₽",
+    "bank_transfer_success": "✅ Перевод выполнен!\n\n💰 Переведено: {amount}₽\n👤 Получатель: @{username}",
+    "bank_transfer_received": "📨 Вы получили перевод!\n\n💰 Сумма: {amount}₽\n👤 От: @{username}",
+    "bank_buy_city_title": "🏙 <b>Выберите город:</b>",
+    "bank_buy_route_title": "🎫 <b>Выберите экскурсию:</b>\n\n💰 Ваш баланс: {balance}₽\n\n✅ = хватает токенов\n❌ = не хватает токенов",
+    "bank_purchase_confirm": "🎫 <b>Подтверждение покупки</b>\n\n📍 Маршрут: {route_name}\n💰 Цена: {price}₽\n\n💰 Баланс после: {balance_after}₽",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "bank_purchase_success": "✅ Маршрут «{route_name}» куплен!\n\nТеперь вы можете начать квест.",
     "bank_already_purchased": "ℹ️ Вы уже купили этот маршрут.",
     "bank_already_purchased_short": "(куплено)",
@@ -318,14 +414,19 @@ RU_TEXTS = {
     "bank_tx_transfer_out": "📤 Исходящий перевод",
     "bank_tx_transfer_in": "📨 Входящий перевод",
     "bank_tx_refund": "💰 Возврат",
+<<<<<<< HEAD
     "bank_tx_adjustment": "📉 Списание админом",
     "menu_bank": "🏦 Банк грошей",
+=======
+    "menu_bank": "🏦 Банк токенов",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "photo_duplicate": "❌ Это фото уже отправлялось. Сделайте новое фото!",
     "photo_too_simple": "❌ Фото слишком однотонное. Сделайте фото на улице с объектом!",
     "unknown_route": "Неизвестный маршрут",
     "press_i_am_here_first": "✅ Сначала нажмите кнопку «Я на месте»",
     "press_proceed_task_first": "▶️ Сначала нажмите кнопку «Приступить к заданию»",
     "bank_deposit_invoice_title": "Пополнение баланса",
+<<<<<<< HEAD
     "bank_deposit_invoice_desc": "Пополнение баланса на {amount} грошей",
     "bank_deposit_test": "Пополнение баланса (тест)",
     "bank_tokens_label": "Гроши",
@@ -390,6 +491,14 @@ RU_TEXTS = {
     "partner_levels_title": "🏆 Уровни партнёрки:",
     "partner_friends_word": "друзей",
     "partner_level_prefix": "Ур.",
+=======
+    "bank_deposit_invoice_desc": "Пополнение баланса на {amount}₽",
+    "bank_deposit_test": "Пополнение баланса (тест)",
+    "bank_tokens_label": "Токены",
+    "payment_error": "Ошибка: {error}",
+    "route_already_paid": "Вы уже оплатили этот маршрут!",
+    "pay_with_tokens": "💳 Оплатить токенами",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 }
 EN_TEXTS = {
     "welcome": "👋 Hello, {name}!\n\nI'm your interactive tour guide bot! 🎯\n\nWe'll embark on an exciting journey through the city. You'll find locations, complete tasks, take photos — and learn cool facts and legends!\n\nReady to start an adventure? 🚀",
@@ -418,17 +527,25 @@ EN_TEXTS = {
     "notes_for_audio": "Notes",
     "i_am_here": "✅ I'm here",
     "proceed_to_task": "▶️ Proceed to task",
+<<<<<<< HEAD
+=======
+    "pose_required": "🤸 Pose:",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "min_people": "👥 People in photo: minimum",
     "send_photo": "\n📸 Send a photo when you're at the location!",
     "audio_guide": "🎧 Audio Guide",
     "cancel_quest": "❌ Cancel Quest",
     "quest_cancelled": "❌ Quest cancelled.\n\nYou can start again anytime.",
+<<<<<<< HEAD
     "no_active_quest": "You have no active quest.",
     "route_list": "🗺️ Route list",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "photo_received": "📸 Photo received! Starting verification...",
     "photo_downloading": "📸 Photo received! Downloading...",
     "photo_loading_data": "📸 Photo received! Loading data...",
     "checking": "🔍 Checking photo...",
+<<<<<<< HEAD
     "checking_antifraud": "🔍 Checking photo... (1/3 - Anti-fraud)",
     "checking_people": "🔍 Checking photo... (2/3 - Person detection)",
     "checking_location": "🔍 Checking photo... (3/3 - Location Check 📍)",
@@ -436,6 +553,17 @@ EN_TEXTS = {
     "people_count": "2/3 - Person detection",
     "location_check": "3/3 - Location Check 📍",
     "stickers_not_supported": "Bro, stickers are not allowed 😅 Please don't do that 🙏",
+=======
+    "checking_antifraud": "🔍 Checking photo... (1/4 - Anti-fraud)",
+    "checking_people": "🔍 Checking photo... (2/4 - People Count)",
+    "checking_pose": "🔍 Checking photo... (3/4 - Pose Analysis 🧘)",
+    "checking_location": "🔍 Checking photo... (4/4 - Location Check 📍)",
+    "antifraud": "1/4 - Anti-fraud",
+    "people_count": "2/4 - People Count",
+    "pose_check": "3/4 - Pose Analysis 🧘",
+    "location_check": "4/4 - Location Check 📍",
+    "stickers_not_supported": "❌ Stickers and GIFs are not supported. Please send a regular photo.",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "unknown_command": "❌ Unknown command. Use /start or the menu.",
     "point_completed": "✅ Great! Point completed!",
     "interesting_fact": "💡 Interesting fact:",
@@ -445,7 +573,10 @@ EN_TEXTS = {
     "completed_points": "• Points completed:",
     "time_spent": "• Time:",
     "thanks": "\n\nThank you for participating! Hope you enjoyed it! 🌟",
+<<<<<<< HEAD
     "achievement_unlocked": "New achievement",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "your_stats": "📊 Your Statistics:",
     "total_routes": "Total routes",
     "completed": "Completed",
@@ -455,6 +586,7 @@ EN_TEXTS = {
     "longest_quest": "Longest quest",
     "shortest_quest": "Shortest quest",
     "user_rank": "Your rank",
+<<<<<<< HEAD
     "about_bot": "ℹ️ About the bot\n\nI'm an interactive tour guide bot! 🎯\n\nHow it works:\n1️⃣ Choose a city and route\n2️⃣ Pay (399 грошей)\n3️⃣ Get a task to find a location\n4️⃣ Reach the place\n5️⃣ Take a photo (sometimes with conditions)\n6️⃣ Learn a cool fact\n7️⃣ Move to the next point\n\nTravel at your own pace, without boring tours! 🚀",
     "settings_menu": "⚙️ Settings\n\nChoose a section:",
     "change_language": "🌍 Change Language",
@@ -462,6 +594,11 @@ EN_TEXTS = {
     "show_map_on": "🗺 Show map: On",
     "show_map_off": "🗺 Show map: Off",
     "yandex_maps_button": "🗺 Open in Yandex Maps",
+=======
+    "about_bot": "ℹ️ About the bot\n\nI'm an interactive tour guide bot! 🎯\n\nHow it works:\n1️⃣ Choose a city and route\n2️⃣ Pay (399₽)\n3️⃣ Get a task to find a location\n4️⃣ Reach the place\n5️⃣ Take a photo (sometimes with conditions)\n6️⃣ Learn a cool fact\n7️⃣ Move to the next point\n\nTravel at your own pace, without boring tours! 🚀",
+    "settings_menu": "⚙️ Settings\n\nChoose a section:",
+    "change_language": "🌍 Change Language",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "audio_settings": "🎧 Audio Settings",
     "audio_settings_text": "🎧 Audio Settings\n\nFeature in development. Soon here will be settings for:\n• Auto-play\n• Voice selection\n• Speech rate",
     "language_changed": "✅ Language changed!",
@@ -489,6 +626,7 @@ EN_TEXTS = {
     "hint_map_caption": "🗺 Mini map with location",
     "back_to_task": "◀️ Back to task",
     "leave_review": "⭐ Leave Review",
+<<<<<<< HEAD
     "take_quiz": "📝 Take Quiz",
     "quiz_menu_description": "📝 <b>Route Quiz</b>\n\nYou'll earn tokens for each correct answer. Answer questions about the route you completed — and get a reward!",
     "quiz_finished": "Quiz completed!",
@@ -528,6 +666,8 @@ EN_TEXTS = {
     "back_to_main": "🏠 Main Menu",
     "view_certificate": "📜 View Certificate",
     "select_another_route": "🔄 Select Another Route",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "no_completed_routes": "You haven't completed any routes yet to review.",
     "choose_route_review": "Choose a route to review:",
     "rate_route": "Rate the route from 1 to 5:",
@@ -597,6 +737,12 @@ EN_TEXTS = {
     "thanks_for_activity": "Thank you for your activity! 🌟",
     "complete_quest_to_review": "Complete at least one quest to leave a review!",
     "send_answer_text": "Send your answer as text!",
+<<<<<<< HEAD
+=======
+    "pose_hands_up": "hands up",
+    "pose_heart": "heart with hands",
+    "pose_point": "point with finger",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "photo_sent_to_admin": "⏳ Photo sent to administrator for review.",
     "photo_checking": "🔍 Checking photo...",
     "people_count_error": "Photo has {count} person(s), minimum {min} required",
@@ -605,7 +751,10 @@ EN_TEXTS = {
     "try_closer_photo": "Try taking a photo closer to the object!",
     "next_point": "Next point",
     "admin_approved_photo": "Administrator approved your photo!",
+<<<<<<< HEAD
     "admin_approved_photo_short": "Admin approved your photo.\n\n✅ Great! Point completed!",
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "photo_rejected": "❌ Photo did not pass verification",
     "photo_rejected_try_again": "Please try taking a new photo and send it again.",
     "admin_photo_rejected": "Administrator rejected your photo",
@@ -620,6 +769,10 @@ EN_TEXTS = {
     "attempts_exhausted": "Attempts exhausted",
     "correct_answer_is": "Correct answer",
     "try_again_from_start": "Please try again from the start of the quest or contact the administrator",
+<<<<<<< HEAD
+=======
+    "pose_error": "❌ Pose check error. Please try taking the photo again.",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "memory_error": "Insufficient memory",
     "try_again": "Please try again",
     "photo_error": "❌ An error occurred while processing the photo.",
@@ -634,6 +787,7 @@ EN_TEXTS = {
     "promo_code_not_found": "❌ Promo code not found",
     "promo_code_wrong_route": "❌ Promo code is not applicable to this route",
     "promo_code_enter_command": "🎫 Enter promo code:",
+<<<<<<< HEAD
     "promo_code_price_info": "💰 Price: {original} грошей → {final} грошей",
     "promo_code_free": "Free",
     "for_route": "For route",
@@ -653,6 +807,32 @@ EN_TEXTS = {
     "photo_retake_prompt": "📸 OK, send a new photo.",
     "cancelled": "❌ Cancelled",
     "cancel": "❌ Cancel",
+=======
+    "promo_code_price_info": "💰 Price: {original}₽ → {final}₽",
+    "promo_code_free": "Free",
+    "for_route": "For route",
+    "promo_code_info": "The promo code will be applied when paying for the selected route.",
+    "cancelled": "❌ Cancelled",
+    "cancel": "❌ Cancel",
+    "pose_person_not_recognized": "❌ Could not recognize person in photo. Make sure you are fully visible in frame.",
+    "pose_hands_not_visible": "❌ Cannot see hands in photo. Raise your hands higher!",
+    "pose_shoulders_not_visible": "❌ Cannot see shoulders. Stand closer to camera!",
+    "pose_hands_up_success": "✅ Hands raised! Great!",
+    "pose_raise_both_hands": "❌ Raise both hands higher above your head!",
+    "pose_raise_hands_higher": "❌ Raise your hands higher above your head!",
+    "pose_hands_not_visible_heart": "❌ Cannot see hands. Show heart with hands!",
+    "pose_face_not_visible": "❌ Cannot see face. Face the camera!",
+    "pose_heart_success": "✅ Heart shape achieved! ❤️",
+    "pose_raise_hands_for_heart": "❌ Raise your hands above your head for heart!",
+    "pose_bring_hands_closer": "❌ Bring your hands closer to make a heart!",
+    "pose_hands_not_visible_point": "❌ Cannot see hands. Point at the object with your finger!",
+    "pose_point_success": "✅ Pointing with finger! Great! 👉",
+    "pose_extend_arm_point": "❌ Extend your arm horizontally and point with your finger!",
+    "pose_unknown": "❌ Unknown pose: {pose}. Contact support.",
+    "pose_accepted": "✅ Pose accepted!",
+    "pose_show_hands": "❌ Show your hands in the photo!",
+    "pose_check_failed": "❌ Could not check pose. Please try taking the photo again.",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "photo_read_error": "❌ Could not read photo",
     "photo_looks_like_cover": "❌ Photo looks like a cover or drawing. Take a real photo with your phone.",
     "web_access_title": "🌐 Access to Personal Account",
@@ -661,9 +841,13 @@ EN_TEXTS = {
     "web_login_button": "🌐 Enter Personal Account",
     "web_open_browser_button": "🌐 Open in Browser",
     "web_admin_panel_button": "🔐 Enter Admin Panel",
+<<<<<<< HEAD
     "web_moderator_panel_button": "🎨 Enter Moderator Menu",
     "web_access_message_moderator": "Click the button below to open your personal account or moderator menu (your routes).\n\nYou can also open the site in a browser.",
     "bank_menu_title": "🏦 <b>Groshi Bank</b>",
+=======
+    "bank_menu_title": "🏦 <b>Token Bank</b>",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "bank_balance": "💰 Balance",
     "bank_total_deposited": "📥 Total deposited",
     "bank_total_spent": "📤 Total spent",
@@ -678,6 +862,7 @@ EN_TEXTS = {
     "bank_custom_amount": "✏️ Custom amount",
     "bank_confirm_deposit": "✅ Confirm",
     "bank_confirm_transfer": "✅ Confirm transfer",
+<<<<<<< HEAD
     "bank_confirm_purchase": "✅ Buy for {price} грошей",
     "bank_deposit_title": "💳 <b>Deposit</b>\n\nChoose payment method:",
     "bank_deposit_amount_title": "💰 <b>Choose deposit amount:</b>",
@@ -700,6 +885,28 @@ EN_TEXTS = {
     "bank_buy_city_title": "🏙 <b>Choose city:</b>",
     "bank_buy_route_title": "🎫 <b>Choose tour:</b>\n\n💰 Your balance: {balance} грошей\n\n✅ = enough groshi\n❌ = not enough groshi",
     "bank_purchase_confirm": "🎫 <b>Purchase confirmation</b>\n\n📍 Route: {route_name}\n💰 Price: {price} грошей\n\n💰 Balance after: {balance_after} грошей",
+=======
+    "bank_confirm_purchase": "✅ Buy for {price}₽",
+    "bank_deposit_title": "💳 <b>Deposit</b>\n\nChoose payment method:",
+    "bank_deposit_amount_title": "💰 <b>Choose deposit amount:</b>",
+    "bank_enter_amount": "✏️ Enter deposit amount (minimum 50₽):",
+    "bank_invalid_amount": "❌ Invalid amount. Enter a number from 50 to 100000.",
+    "bank_deposit_confirm": "💳 <b>Confirm deposit</b>\n\n💰 Amount: {amount}₽\n📱 Method: {method}",
+    "bank_deposit_success": "✅ Balance topped up by {amount} tokens!",
+    "bank_transfer_title": "💸 <b>Token Transfer</b>\n\nEnter recipient's username (without @):",
+    "bank_transfer_instruction": "⚠️ Attention:\n• User must be registered in the bot\n• Transfer cannot be cancelled\n• Limit: 5 searches per 30 minutes",
+    "bank_user_not_found": "❌ User not found",
+    "bank_cannot_transfer_self": "❌ Cannot transfer tokens to yourself",
+    "bank_search_blocked": "⏳ Search blocked for {minutes} min. {seconds} sec.\n\nSearch limit exceeded.",
+    "bank_enter_transfer_amount": "💰 Enter transfer amount:",
+    "bank_insufficient_balance": "❌ Insufficient token balance.\n\n💰 Your balance: {balance}₽",
+    "bank_transfer_confirm": "💸 <b>Transfer confirmation</b>\n\n👤 Recipient: @{username}\n💰 Amount: {amount}₽\n\n💰 Your balance after: {balance_after}₽",
+    "bank_transfer_success": "✅ Transfer completed!\n\n💰 Transferred: {amount}₽\n👤 Recipient: @{username}",
+    "bank_transfer_received": "📨 You received a transfer!\n\n💰 Amount: {amount}₽\n👤 From: @{username}",
+    "bank_buy_city_title": "🏙 <b>Choose city:</b>",
+    "bank_buy_route_title": "🎫 <b>Choose tour:</b>\n\n💰 Your balance: {balance}₽\n\n✅ = enough tokens\n❌ = not enough tokens",
+    "bank_purchase_confirm": "🎫 <b>Purchase confirmation</b>\n\n📍 Route: {route_name}\n💰 Price: {price}₽\n\n💰 Balance after: {balance_after}₽",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "bank_purchase_success": "✅ Route «{route_name}» purchased!\n\nYou can now start the quest.",
     "bank_already_purchased": "ℹ️ You have already purchased this route.",
     "bank_already_purchased_short": "(purchased)",
@@ -710,14 +917,19 @@ EN_TEXTS = {
     "bank_tx_transfer_out": "📤 Outgoing transfer",
     "bank_tx_transfer_in": "📨 Incoming transfer",
     "bank_tx_refund": "💰 Refund",
+<<<<<<< HEAD
     "bank_tx_adjustment": "📉 Admin deduction",
     "menu_bank": "🏦 Groshi Bank",
+=======
+    "menu_bank": "🏦 Token Bank",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     "photo_duplicate": "❌ This photo was already sent. Please take a new one!",
     "photo_too_simple": "❌ Photo is too plain. Take a photo outdoors with an object!",
     "unknown_route": "Unknown route",
     "press_i_am_here_first": "✅ Please tap the «I'm here» button first",
     "press_proceed_task_first": "▶️ Please tap the «Proceed to task» button first",
     "bank_deposit_invoice_title": "Balance top-up",
+<<<<<<< HEAD
     "bank_deposit_invoice_desc": "Balance top-up of {amount} грошей",
     "bank_deposit_test": "Balance top-up (test)",
     "bank_tokens_label": "Groshi",
@@ -782,6 +994,14 @@ EN_TEXTS = {
     "partner_levels_title": "🏆 Referral levels:",
     "partner_friends_word": "friends",
     "partner_level_prefix": "Lvl.",
+=======
+    "bank_deposit_invoice_desc": "Balance top-up of {amount}₽",
+    "bank_deposit_test": "Balance top-up (test)",
+    "bank_tokens_label": "Tokens",
+    "payment_error": "Error: {error}",
+    "route_already_paid": "You have already paid for this route!",
+    "pay_with_tokens": "💳 Pay with tokens",
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 }
 def get_localized_field(obj, field_name: str, language: str = 'ru'):
     if language == 'en':

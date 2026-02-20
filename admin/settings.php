@@ -1,17 +1,25 @@
 <?php
+<<<<<<< HEAD
 require_once __DIR__ . '/includes/auth.php';
+=======
+$page_title = 'Настройки';
+require_once __DIR__ . '/includes/header.php';
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 require_once __DIR__ . '/../includes/db.php';
 $pdo = getDB()->getConnection();
 if (!isAdminLoggedIn()) {
     header('Location: /admin/login.php');
     exit;
 }
+<<<<<<< HEAD
 if (isModerator()) {
     header('Location: /admin/dashboard.php?error=no_access');
     exit;
 }
 $page_title = 'Настройки';
 require_once __DIR__ . '/includes/header.php';
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         foreach ($_POST['settings'] as $key => $value) {
@@ -55,7 +63,10 @@ while ($row = $stmt->fetch()) {
                 <form method="POST">
                     <h6 class="mb-3">Уведомления</h6>
                     <div class="mb-3">
+<<<<<<< HEAD
                         <input type="hidden" name="settings[restart_notifications_enabled]" value="0">
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox"
                                    name="settings[restart_notifications_enabled]"
@@ -67,13 +78,17 @@ while ($row = $stmt->fetch()) {
                         </div>
                     </div>
                     <div class="mb-3">
+<<<<<<< HEAD
                         <input type="hidden" name="settings[payment_notifications_enabled]" value="0">
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox"
                                    name="settings[payment_notifications_enabled]"
                                    value="1" id="payment_notifications"
                                    <?= ($settings['payment_notifications_enabled'] ?? '1') == '1' ? 'checked' : '' ?>>
                             <label class="form-check-label" for="payment_notifications">
+<<<<<<< HEAD
                                 Уведомления о пополнении баланса пользователями (в Telegram админам)
                             </label>
                         </div>
@@ -97,11 +112,34 @@ while ($row = $stmt->fetch()) {
                         <input type="time" name="settings[channel_stats_time]" class="form-control" style="max-width: 8rem;"
                                value="<?= htmlspecialchars(substr($settings['channel_stats_time'] ?? '08:00', 0, 5)) ?>">
                         <small class="text-muted">В какое время по Москве отправлять отчёт (например 08:00).</small>
+=======
+                                Уведомления о новых платежах
+                            </label>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <h6 class="mb-3">Модерация</h6>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox"
+                                   name="settings[auto_moderation_enabled]"
+                                   value="1" id="auto_moderation"
+                                   <?= ($settings['auto_moderation_enabled'] ?? '0') == '1' ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="auto_moderation">
+                                Автоматическая модерация (AI)
+                            </label>
+                        </div>
+                        <small class="text-muted">Автоматически принимать фото, прошедшие проверку Vision API</small>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     </div>
                     <hr class="my-4">
                     <h6 class="mb-3">Настройки по умолчанию для маршрутов</h6>
                     <div class="mb-3">
+<<<<<<< HEAD
                         <label class="form-label">Цена по умолчанию (гроши)</label>
+=======
+                        <label class="form-label">Цена по умолчанию (₽)</label>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                         <input type="number" name="settings[default_route_price]"
                                class="form-control" value="<?= $settings['default_route_price'] ?? '399' ?>" min="0">
                     </div>

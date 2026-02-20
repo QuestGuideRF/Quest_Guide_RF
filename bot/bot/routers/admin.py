@@ -35,14 +35,24 @@ from bot.fsm.admin_states import (
     AdminPointStates,
     AdminUserStates,
     AdminSettingsStates,
+<<<<<<< HEAD
     AdminPromoCodeStates,
     AdminReferralStates,
 )
 from bot.loader import config
+=======
+    AdminPromoCodeStates
+)
+from bot.config import load_config
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from bot.utils.safe_edit import safe_edit_text
 from bot.services.admin_notifier import AdminNotifier
 logger = logging.getLogger(__name__)
 router = Router()
+<<<<<<< HEAD
+=======
+config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 def is_admin(user_id: int) -> bool:
     return user_id in config.bot.admin_ids
 @router.message(Command("admin"))
@@ -165,7 +175,11 @@ async def admin_city_add_name(message: Message, state: FSMContext):
 async def admin_city_add_description(message: Message, state: FSMContext, session: AsyncSession):
     data = await state.get_data()
     result = await session.execute(
+<<<<<<< HEAD
         text("INSERT INTO cities (name, description) VALUES (:name, :description)"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {
             "name": data['name'],
             "description": message.text
@@ -225,7 +239,11 @@ async def admin_routes_list(callback: CallbackQuery, session: AsyncSession):
         await callback.answer("❌ Нет прав")
         return
     result = await session.execute(
+<<<<<<< HEAD
         text("SELECT r.id, r.name, r.is_active, c.name as city_name FROM routes r LEFT JOIN cities c ON r.city_id = c.id ORDER BY r.name")
+=======
+        text()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     )
     routes = [dict(row._mapping) for row in result.fetchall()]
     msg_text = f"🗺 <b>Управление маршрутами</b>\n\nВсего маршрутов: {len(routes)}"
@@ -270,7 +288,11 @@ async def admin_route_view(callback: CallbackQuery, session: AsyncSession):
         f"🚶 Тип: {route.route_type.value}\n"
         f"📏 Расстояние: {route.distance}м\n"
         f"⏱ Время: {route.estimated_duration}мин\n"
+<<<<<<< HEAD
         f"💰 Цена: {route.price} г\n"
+=======
+        f"💰 Цена: {route.price}₽\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         f"📊 Статус: {'✅ Активен' if route.is_active else '❌ Неактивен'}\n"
         f"📍 Точек: {points_count}\n"
         f"✅ Пройдено раз: {completed_count}\n"
@@ -287,6 +309,11 @@ async def admin_route_edit(callback: CallbackQuery, session: AsyncSession):
         await callback.answer("❌ Нет прав")
         return
     route_id = int(callback.data.split(":")[-1])
+<<<<<<< HEAD
+=======
+    from bot.config import load_config
+    config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     web_url = f"{config.web.site_url}/admin/routes/edit.php?id={route_id}"
     await callback.message.answer(
         f"✏️ <b>Редактирование маршрута</b>\n\n"
@@ -304,7 +331,11 @@ async def admin_points_list(callback: CallbackQuery, session: AsyncSession):
         await callback.answer("❌ Нет прав")
         return
     result = await session.execute(
+<<<<<<< HEAD
         text("SELECT r.id, r.name, r.is_active, c.name as city_name, (SELECT COUNT(*) FROM points p WHERE p.route_id = r.id) as points_count FROM routes r LEFT JOIN cities c ON r.city_id = c.id ORDER BY r.name")
+=======
+        text()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     )
     routes = result.fetchall()
     if not routes:
@@ -415,6 +446,10 @@ async def admin_point_view(callback: CallbackQuery, session: AsyncSession):
         f"📍 <b>{point.order}. {point.name}</b>\n\n"
         f"📋 Задание: {get_first_task_text(point) or 'Нет'}\n"
         f"💡 Факт: {point.fact_text or 'Нет'}\n"
+<<<<<<< HEAD
+=======
+        f"🤸 Поза: {point.require_pose or 'Не требуется'}\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         f"🎧 Аудиогид: {'✅ Включен' if point.audio_enabled else '❌ Выключен'}\n"
         f"📸 Фото пользователей: {photos_count}\n"
         f"🖼 Эталонных фото: {refs_count}\n"
@@ -439,6 +474,11 @@ async def admin_point_edit(callback: CallbackQuery, session: AsyncSession):
     if not route_id:
         await callback.answer("❌ Точка не найдена")
         return
+<<<<<<< HEAD
+=======
+    from bot.config import load_config
+    config = load_config()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     web_url = f"{config.web.site_url}/admin/points/edit.php?id={point_id}"
     await callback.message.answer(
         f"✏️ <b>Редактирование точки</b>\n\n"
@@ -499,7 +539,11 @@ async def admin_point_audio_toggle(callback: CallbackQuery, session: AsyncSessio
     await session.commit()
     await callback.answer(f"✅ Аудиогид {'включен' if new_audio_enabled else 'выключен'}")
     result = await session.execute(
+<<<<<<< HEAD
         text("SELECT p.id, p.order, p.name, p.fact_text, p.audio_enabled, (SELECT COUNT(*) FROM user_photos WHERE point_id = p.id) as photos_count, (SELECT COUNT(*) FROM reference_images WHERE point_id = p.id) as refs_count FROM points p WHERE p.id = :point_id"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {"point_id": point_id}
     )
     point = result.fetchone()
@@ -508,6 +552,10 @@ async def admin_point_audio_toggle(callback: CallbackQuery, session: AsyncSessio
             f"📍 <b>{point.order}. {point.name}</b>\n\n"
             f"📋 Задание: {get_first_task_text(point) or 'Нет'}\n"
             f"💡 Факт: {point.fact_text or 'Нет'}\n"
+<<<<<<< HEAD
+=======
+            f"🤸 Поза: {point.require_pose or 'Не требуется'}\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             f"🎧 Аудиогид: {'✅ Включен' if new_audio_enabled else '❌ Выключен'}\n"
             f"📸 Фото пользователей: {point.photos_count}\n"
             f"🖼 Эталонных фото: {point.refs_count}\n"
@@ -547,7 +595,11 @@ async def admin_users_list(callback: CallbackQuery, session: AsyncSession):
     per_page = 10
     offset = (page - 1) * per_page
     result = await session.execute(
+<<<<<<< HEAD
         text("SELECT u.id, u.telegram_id, u.first_name, u.username, u.created_at, (SELECT COUNT(*) FROM user_progress up WHERE up.user_id = u.id) as routes_count, (SELECT COUNT(*) FROM user_photos up WHERE up.user_id = u.id) as photos_count FROM users u ORDER BY u.id LIMIT :limit OFFSET :offset"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {"limit": per_page, "offset": offset}
     )
     users = result.fetchall()
@@ -574,14 +626,22 @@ async def admin_user_view(callback: CallbackQuery, session: AsyncSession):
         return
     user_telegram_id = int(callback.data.split(":")[-1])
     result = await session.execute(
+<<<<<<< HEAD
         text("SELECT u.id, u.telegram_id, u.first_name, u.username, u.created_at, (SELECT COUNT(*) FROM user_progress up WHERE up.user_id = u.id AND up.status = 'completed') as completed_routes, (SELECT COUNT(*) FROM user_progress up WHERE up.user_id = u.id AND up.status = 'in_progress') as active_routes, (SELECT COUNT(*) FROM user_photos up WHERE up.user_id = u.id) as photos_count FROM users u WHERE u.telegram_id = :telegram_id"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {"telegram_id": user_telegram_id}
     )
     user = result.fetchone()
     if not user:
         await callback.answer("❌ Пользователь не найден")
         return
+<<<<<<< HEAD
     user_text = (
+=======
+    text = (
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         f"👤 <b>{user.first_name}</b>\n"
         f"@{user.username or 'нет username'}\n\n"
         f"🆔 Telegram ID: {user.telegram_id}\n"
@@ -592,7 +652,11 @@ async def admin_user_view(callback: CallbackQuery, session: AsyncSession):
         f"📸 Загружено фото: {user.photos_count}\n"
     )
     await callback.message.edit_text(
+<<<<<<< HEAD
         user_text,
+=======
+        text,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         reply_markup=get_user_actions(user_telegram_id),
         parse_mode="HTML"
     )
@@ -808,7 +872,11 @@ async def admin_route_add_price(message: Message, state: FSMContext, session: As
         price = int(message.text)
         data = await state.get_data()
         await session.execute(
+<<<<<<< HEAD
             text("INSERT INTO routes (city_id, name, description, route_type, distance, estimated_duration, price) VALUES (:city_id, :name, :description, :route_type, :distance, :duration, :price)"),
+=======
+            text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             {
                 "city_id": data['city_id'],
                 "name": data['name'],
@@ -872,6 +940,7 @@ async def admin_point_add_fact(message: Message, state: FSMContext):
     fact = None if message.text == "/skip" else message.text
     await state.update_data(fact_text=fact)
     await message.answer(
+<<<<<<< HEAD
         "Минимум людей на фото (число). Введите число или /skip для 1:"
     )
     await state.set_state(AdminPointStates.min_people)
@@ -892,13 +961,40 @@ async def admin_point_add_min_people(message: Message, state: FSMContext):
                 INSERT INTO points (route_id, name, task_text, fact_text, `order`, min_people)
                 VALUES (:route_id, :name, :task_text, :fact_text, :order, :min_people)
             """),
+=======
+        "Требуется ли поза?\n\n"
+        "1 - Руки вверх (hands_up)\n"
+        "2 - Сердечко (heart)\n"
+        "3 - Указать на объект (point)\n"
+        "4 - Не требуется\n\n"
+        "Введите номер:"
+    )
+    await state.set_state(AdminPointStates.require_pose)
+@router.message(AdminPointStates.require_pose)
+async def admin_point_add_pose(message: Message, state: FSMContext):
+    poses = {"1": "hands_up", "2": "heart", "3": "point", "4": None}
+    pose = poses.get(message.text)
+    if message.text not in poses:
+        await message.answer("❌ Введите номер от 1 до 4")
+        return
+    await state.update_data(require_pose=pose, min_people=1)
+    data = await state.get_data()
+    try:
+        await session.execute(
+            text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             {
                 "route_id": data['route_id'],
                 "name": data['name'],
                 "task_text": data['task_text'],
                 "fact_text": data.get('fact_text'),
                 "order": data['order'],
+<<<<<<< HEAD
                 "min_people": data.get('min_people', 1)
+=======
+                "require_pose": data.get('require_pose'),
+                "min_people": 1
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             }
         )
         await session.commit()
@@ -935,7 +1031,11 @@ async def admin_statistics(callback: CallbackQuery, session: AsyncSession):
         f"   Принято: {stats['approved_photos']}\n"
         f"   Отклонено: {stats['rejected_photos']}\n\n"
         f"💰 <b>Платежи:</b>\n"
+<<<<<<< HEAD
         f"   Всего: {stats['total_payments']} г\n"
+=======
+        f"   Всего: {stats['total_payments']}₽\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         f"   Успешных: {stats['successful_payments']}\n"
     )
     await callback.message.edit_text(
@@ -953,13 +1053,21 @@ async def admin_photo_history(callback: CallbackQuery, session: AsyncSession):
     if "page:" in callback.data:
         try:
             page = int(callback.data.split(":")[-1])
+<<<<<<< HEAD
         except Exception as e:
             logger.debug("admin photo history: не удалось распарсить номер страницы %s: %s", callback.data, e)
+=======
+        except:
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             page = 1
     per_page = 5
     offset = (page - 1) * per_page
     result = await session.execute(
+<<<<<<< HEAD
         text("SELECT p.name as point_name, p.order as point_order, r.name as route_name, u.first_name, u.username, up.created_at FROM user_photos up JOIN points p ON up.point_id = p.id JOIN routes r ON p.route_id = r.id JOIN users u ON up.user_id = u.id ORDER BY up.created_at DESC LIMIT :limit OFFSET :offset"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {"limit": per_page, "offset": offset}
     )
     photos = result.fetchall()
@@ -977,8 +1085,12 @@ async def admin_photo_history(callback: CallbackQuery, session: AsyncSession):
             )
     else:
         msg_text += "Нет фото для отображения."
+<<<<<<< HEAD
     await safe_edit_text(
         callback,
+=======
+    await callback.message.edit_text(
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         msg_text,
         reply_markup=get_photo_history_pagination(page, total_pages),
         parse_mode="HTML"
@@ -996,12 +1108,19 @@ async def admin_photo_history_refresh(callback: CallbackQuery, session: AsyncSes
     )
     await admin_photo_history(fake_callback, session)
 @router.callback_query(F.data == "admin:settings")
+<<<<<<< HEAD
 async def admin_settings(callback: CallbackQuery, session: AsyncSession, state: FSMContext = None, skip_answer: bool = False):
     if not is_admin(callback.from_user.id):
         await callback.answer("❌ Нет прав")
         return
     if state:
         await state.clear()
+=======
+async def admin_settings(callback: CallbackQuery, session: AsyncSession):
+    if not is_admin(callback.from_user.id):
+        await callback.answer("❌ Нет прав")
+        return
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     result = await session.execute(
         text("SELECT value FROM system_settings WHERE `key` = 'restart_notifications_enabled'")
     )
@@ -1017,12 +1136,15 @@ async def admin_settings(callback: CallbackQuery, session: AsyncSession, state: 
     )
     row3 = result3.fetchone()
     subscription_check = row3[0] == '1' if row3 else (config.channel.require_subscription if hasattr(config.channel, 'require_subscription') else False)
+<<<<<<< HEAD
     r_stats = await session.execute(text("SELECT value FROM system_settings WHERE `key` = 'channel_stats_enabled'"))
     row_stats = r_stats.fetchone()
     channel_stats_enabled = row_stats[0] == '1' if row_stats else True
     r_time = await session.execute(text("SELECT value FROM system_settings WHERE `key` = 'channel_stats_time'"))
     row_time = r_time.fetchone()
     channel_stats_time = (row_time[0] or "08:00").strip() if row_time else "08:00"
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     vision_config = config.vision
     msg_text = (
         f"⚙️ <b>Настройки системы</b>\n\n"
@@ -1033,8 +1155,12 @@ async def admin_settings(callback: CallbackQuery, session: AsyncSession, state: 
         f"🤖 Автопроверки: {'❌ Выключены' if manual_moderation else '✅ Включены'}\n"
         f"👮 Ручная модерация фото: {'✅ Включена' if manual_moderation else '❌ Выключена'}\n"
         f"📢 Проверка подписки на канал: {'✅ Включена' if subscription_check else '❌ Выключена'}\n"
+<<<<<<< HEAD
         f"🔄 Уведомления о перезапуске: {'✅ Включены' if restart_notifications else '❌ Выключены'}\n"
         f"📈 Статистика канала админам: {'✅ Включена' if channel_stats_enabled else '❌ Выключена'} (в {channel_stats_time} МСК)"
+=======
+        f"🔄 Уведомления о перезапуске: {'✅ Включены' if restart_notifications else '❌ Выключены'}"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     )
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [
@@ -1057,6 +1183,7 @@ async def admin_settings(callback: CallbackQuery, session: AsyncSession, state: 
         ],
         [
             InlineKeyboardButton(
+<<<<<<< HEAD
                 text=f"{'🔕 Выключить' if channel_stats_enabled else '🔔 Включить'} статистику канала админам",
                 callback_data="admin:settings:toggle_channel_stats"
             )
@@ -1069,6 +1196,8 @@ async def admin_settings(callback: CallbackQuery, session: AsyncSession, state: 
         ],
         [
             InlineKeyboardButton(
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 text="🛑 Остановить бота",
                 callback_data="admin:settings:stop_bot"
             )
@@ -1078,8 +1207,12 @@ async def admin_settings(callback: CallbackQuery, session: AsyncSession, state: 
         ]
     ])
     await safe_edit_text(callback, msg_text, reply_markup=keyboard)
+<<<<<<< HEAD
     if not skip_answer:
         await callback.answer()
+=======
+    await callback.answer()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data == "admin:settings:toggle_restart_notifications")
 async def admin_toggle_restart_notifications(callback: CallbackQuery, session: AsyncSession):
     if not is_admin(callback.from_user.id):
@@ -1092,13 +1225,21 @@ async def admin_toggle_restart_notifications(callback: CallbackQuery, session: A
     current_value = row[0] if row else '1'
     new_value = '0' if current_value == '1' else '1'
     await session.execute(
+<<<<<<< HEAD
         text("INSERT INTO system_settings (`key`, value) VALUES ('restart_notifications_enabled', :value) ON DUPLICATE KEY UPDATE value = :value"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {"value": new_value}
     )
     await session.commit()
     status = "включены" if new_value == '1' else "выключены"
     await callback.answer(f"✅ Уведомления о перезапуске {status}")
+<<<<<<< HEAD
     await admin_settings(callback, session, skip_answer=True)
+=======
+    await admin_settings(callback, session)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data == "admin:settings:toggle_manual_moderation")
 async def admin_toggle_manual_moderation(callback: CallbackQuery, session: AsyncSession):
     if not is_admin(callback.from_user.id):
@@ -1111,13 +1252,21 @@ async def admin_toggle_manual_moderation(callback: CallbackQuery, session: Async
     current_value = row[0] if row else '0'
     new_value = '0' if current_value == '1' else '1'
     await session.execute(
+<<<<<<< HEAD
         text("INSERT INTO system_settings (`key`, value) VALUES ('manual_photo_moderation_enabled', :value) ON DUPLICATE KEY UPDATE value = :value"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {"value": new_value}
     )
     await session.commit()
     status = "включена" if new_value == '1' else "выключена"
     await callback.answer(f"✅ Ручная модерация фото {status}")
+<<<<<<< HEAD
     await admin_settings(callback, session, skip_answer=True)
+=======
+    await admin_settings(callback, session)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data == "admin:settings:toggle_subscription_check")
 async def admin_toggle_subscription_check(callback: CallbackQuery, session: AsyncSession):
     if not is_admin(callback.from_user.id):
@@ -1133,12 +1282,17 @@ async def admin_toggle_subscription_check(callback: CallbackQuery, session: Asyn
         current_value = '1' if config.channel.require_subscription else '0'
     new_value = '0' if current_value == '1' else '1'
     await session.execute(
+<<<<<<< HEAD
         text("INSERT INTO system_settings (`key`, value) VALUES ('subscription_check_enabled', :value) ON DUPLICATE KEY UPDATE value = :value"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {"value": new_value}
     )
     await session.commit()
     status = "включена" if new_value == '1' else "выключена"
     await callback.answer(f"✅ Проверка подписки {status}")
+<<<<<<< HEAD
     await admin_settings(callback, session, skip_answer=True)
 @router.callback_query(F.data == "admin:settings:toggle_channel_stats")
 async def admin_toggle_channel_stats(callback: CallbackQuery, session: AsyncSession):
@@ -1203,6 +1357,9 @@ async def admin_channel_stats_time_input(message: Message, session: AsyncSession
             [InlineKeyboardButton(text="⚙️ В настройки", callback_data="admin:settings")]
         ])
     )
+=======
+    await admin_settings(callback, session)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data == "admin:settings:stop_bot")
 async def admin_stop_bot(callback: CallbackQuery, session: AsyncSession):
     if not is_admin(callback.from_user.id):
@@ -1250,6 +1407,7 @@ async def admin_stop_bot_confirm(callback: CallbackQuery, session: AsyncSession)
         await dp.stop_polling()
     import asyncio
     asyncio.create_task(stop_bot_task())
+<<<<<<< HEAD
 @router.callback_query(F.data == "admin:referral")
 async def admin_referral_menu(callback: CallbackQuery, session: AsyncSession, state: FSMContext):
     if not is_admin(callback.from_user.id):
@@ -1318,13 +1476,19 @@ async def admin_referral_reward_amount_input(message: Message, session: AsyncSes
         )
     except Exception:
         pass
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.callback_query(F.data == "admin:promo_codes")
 async def admin_promo_codes_list(callback: CallbackQuery, session: AsyncSession):
     if not is_admin(callback.from_user.id):
         await callback.answer("❌ Нет прав")
         return
     result = await session.execute(
+<<<<<<< HEAD
         text("SELECT pc.id, pc.code, pc.discount_type, pc.discount_value, pc.route_id, pc.max_uses, pc.used_count as uses_count, pc.valid_from, pc.valid_until, pc.is_active, r.name as route_name FROM promo_codes pc LEFT JOIN routes r ON pc.route_id = r.id ORDER BY pc.id")
+=======
+        text()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     )
     promos = result.fetchall()
     if not promos:
@@ -1341,7 +1505,11 @@ async def admin_promo_codes_list(callback: CallbackQuery, session: AsyncSession)
             if promo.discount_type == 'percentage':
                 discount_text = f"{promo.discount_value}%"
             elif promo.discount_type == 'fixed':
+<<<<<<< HEAD
                 discount_text = f"{promo.discount_value} г"
+=======
+                discount_text = f"{promo.discount_value}₽"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             elif promo.discount_type == 'free_route':
                 discount_text = f"Бесплатно ({promo.route_name or 'маршрут'})"
             uses_text = f"{promo.uses_count or 0}"
@@ -1424,7 +1592,11 @@ async def admin_promo_add_type(callback: CallbackQuery, state: FSMContext, sessi
         )
         await state.set_state(AdminPromoCodeStates.route_id)
     else:
+<<<<<<< HEAD
         suffix = "%" if discount_type == 'percentage' else " г"
+=======
+        suffix = "%" if discount_type == 'percentage' else "₽"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         await callback.message.answer(
             f"Тип: <b>{'Процентная скидка' if discount_type == 'percentage' else 'Фиксированная сумма'}</b>\n\n"
             f"Введите значение скидки ({suffix}):",
@@ -1451,7 +1623,11 @@ async def admin_promo_add_value(message: Message, state: FSMContext):
             [InlineKeyboardButton(text="📍 Для конкретного маршрута", callback_data="admin:promo:route:specific")],
         ])
         await message.answer(
+<<<<<<< HEAD
             f"Значение: <b>{value}{'%' if discount_type == 'percentage' else ' г'}</b>\n\n"
+=======
+            f"Значение: <b>{value}{'%' if discount_type == 'percentage' else '₽'}</b>\n\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             "Выберите, для какого маршрута промокод:",
             reply_markup=keyboard,
             parse_mode="HTML"
@@ -1546,7 +1722,11 @@ async def admin_promo_add_active(callback: CallbackQuery, state: FSMContext, ses
         else:
             route_id_value = int(route_id_value)
         await session.execute(
+<<<<<<< HEAD
             text("INSERT INTO promo_codes (code, discount_type, discount_value, route_id, max_uses, is_active) VALUES (:code, :discount_type, :discount_value, :route_id, :max_uses, :is_active)"),
+=======
+            text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             {
                 "code": data['code'],
                 "discount_type": data['discount_type'],
@@ -1561,7 +1741,11 @@ async def admin_promo_add_active(callback: CallbackQuery, state: FSMContext, ses
         if data['discount_type'] == 'percentage':
             discount_text = f"{data['discount_value']}%"
         elif data['discount_type'] == 'fixed':
+<<<<<<< HEAD
             discount_text = f"{data['discount_value']} г"
+=======
+            discount_text = f"{data['discount_value']}₽"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         elif data['discount_type'] == 'free_route':
             discount_text = f"Бесплатно"
         max_uses_text = str(data.get('max_uses') or 'Неограниченно')
@@ -1587,7 +1771,11 @@ async def admin_promo_view(callback: CallbackQuery, session: AsyncSession):
         return
     promo_id = int(callback.data.split(":")[-1])
     result = await session.execute(
+<<<<<<< HEAD
         text("SELECT pc.id, pc.code, pc.description, pc.discount_type, pc.discount_value, pc.route_id, pc.max_uses, pc.used_count as uses_count, pc.valid_from, pc.valid_until, pc.is_active, r.name as route_name FROM promo_codes pc LEFT JOIN routes r ON pc.route_id = r.id WHERE pc.id = :promo_id"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {"promo_id": promo_id}
     )
     promo = result.fetchone()
@@ -1599,7 +1787,11 @@ async def admin_promo_view(callback: CallbackQuery, session: AsyncSession):
     if promo.discount_type == 'percentage':
         discount_text = f"{promo.discount_value}%"
     elif promo.discount_type == 'fixed':
+<<<<<<< HEAD
         discount_text = f"{promo.discount_value} г"
+=======
+        discount_text = f"{promo.discount_value}₽"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     elif promo.discount_type == 'free_route':
         discount_text = f"Бесплатно ({promo.route_name or 'маршрут'})"
     uses_text = f"{promo.uses_count or 0}"
@@ -1639,7 +1831,11 @@ async def admin_promo_edit(callback: CallbackQuery, session: AsyncSession):
         return
     promo_id = int(callback.data.split(":")[-1])
     result = await session.execute(
+<<<<<<< HEAD
         text("SELECT pc.id, pc.code, pc.description, pc.discount_type, pc.discount_value, pc.route_id, pc.max_uses, pc.used_count, pc.valid_from, pc.valid_until, pc.is_active, r.name as route_name FROM promo_codes pc LEFT JOIN routes r ON pc.route_id = r.id WHERE pc.id = :promo_id"),
+=======
+        text(),
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         {"promo_id": promo_id}
     )
     promo = result.fetchone()
@@ -1651,7 +1847,11 @@ async def admin_promo_edit(callback: CallbackQuery, session: AsyncSession):
     if promo.discount_type == 'percentage':
         discount_text = f"{promo.discount_value}%"
     elif promo.discount_type == 'fixed':
+<<<<<<< HEAD
         discount_text = f"{promo.discount_value} г"
+=======
+        discount_text = f"{promo.discount_value}₽"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     elif promo.discount_type == 'free_route':
         discount_text = "Бесплатно"
     uses_text = f"{promo.used_count or 0}"
@@ -1771,7 +1971,11 @@ async def admin_promo_delete_confirm(callback: CallbackQuery, session: AsyncSess
         await callback.answer("✅ Промокод удален")
         from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
         result = await session.execute(
+<<<<<<< HEAD
             text("SELECT pc.id, pc.code, pc.discount_type, pc.discount_value, pc.route_id, pc.max_uses, pc.used_count as uses_count, pc.valid_from, pc.valid_until, pc.is_active, r.name as route_name FROM promo_codes pc LEFT JOIN routes r ON pc.route_id = r.id ORDER BY pc.id")
+=======
+            text()
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         )
         promos = result.fetchall()
         if not promos:
@@ -1788,7 +1992,11 @@ async def admin_promo_delete_confirm(callback: CallbackQuery, session: AsyncSess
                 if promo.discount_type == 'percentage':
                     discount_text = f"{promo.discount_value}%"
                 elif promo.discount_type == 'fixed':
+<<<<<<< HEAD
                     discount_text = f"{promo.discount_value} г"
+=======
+                    discount_text = f"{promo.discount_value}₽"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 elif promo.discount_type == 'free_route':
                     discount_text = f"Бесплатно"
                 uses_text = f"{promo.uses_count or 0}"
@@ -1872,6 +2080,7 @@ async def admin_approve_photo(
         user_telegram_id = int(parts[1])
         point_id = int(parts[2])
         progress_id = int(parts[3])
+<<<<<<< HEAD
         try:
             await callback.message.edit_reply_markup(reply_markup=None)
         except Exception:
@@ -1894,6 +2103,14 @@ async def admin_approve_photo(
             await callback.answer("❌ Фото не найдено в сообщении")
             return
         logger.info(f"Админ {callback.from_user.id} принимает фото от пользователя {user_telegram_id}")
+=======
+        logger.info(f"Админ {callback.from_user.id} принимает фото от пользователя {user_telegram_id}")
+        if not callback.message or not callback.message.photo:
+            await callback.answer("❌ Фото не найдено в сообщении")
+            return
+        photo = callback.message.photo[-1]
+        photo_file_id = photo.file_id
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         progress_repo = ProgressRepository(session)
         point_repo = PointRepository(session)
         progress = await progress_repo.get(progress_id)
@@ -1910,7 +2127,10 @@ async def admin_approve_photo(
             await callback.answer("❌ Пользователь не найден")
             return
         user_id = user_row[0]
+<<<<<<< HEAD
         user_language = user_row[1] if len(user_row) > 1 else 'ru'
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         try:
             file = await bot.get_file(photo_file_id)
             temp_path = f"photos/temp_{photo_file_id}.jpg"
@@ -1926,8 +2146,13 @@ async def admin_approve_photo(
             relative_path = f"/photos/{user_telegram_id}/{filename}"
             await session.execute(
                 text(
+<<<<<<< HEAD
                     "INSERT INTO user_photos (user_id, point_id, file_id, file_path, file_hash, moderation_status) "
                     "VALUES (:user_id, :point_id, :file_id, :file_path, :file_hash, 'approved')"
+=======
+                    "INSERT INTO user_photos (user_id, point_id, file_id, file_path, file_hash) "
+                    "VALUES (:user_id, :point_id, :file_id, :file_path, :file_hash)"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                 ),
                 {
                     "user_id": user_id,
@@ -1959,14 +2184,22 @@ async def admin_approve_photo(
             logger.error(f"Ошибка при сохранении фото: {e}", exc_info=True)
             await callback.answer(f"❌ Ошибка сохранения: {str(e)}")
             return
+<<<<<<< HEAD
         next_point_data = await point_repo.get_next_point_data(progress.route_id, point.order)
         if next_point_data:
             await progress_repo.complete_point(progress, next_point_data.id, next_point_data.order)
+=======
+        completed_count = progress.current_point_order + 1
+        next_point = await point_repo.get_next_point(progress.route_id, progress.current_point_order)
+        if next_point:
+            await progress_repo.complete_point(progress, next_point.id, next_point.order)
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         else:
             await progress_repo.complete_point(progress, None, None)
         await session.commit()
         try:
             from bot.utils.i18n import i18n, get_localized_field
+<<<<<<< HEAD
             from bot.utils.helpers import parse_task_text, split_long_message, get_point_tasks, tasks_from_models
             from bot.repositories.task import TaskRepository
             await bot.send_message(
@@ -2036,6 +2269,57 @@ async def admin_approve_photo(
             parse_mode="HTML",
         )
         await callback.answer("✅ Фото принято!")
+=======
+            from aiogram.types import Message as FakeMessage
+            user_language = user_row[1] if user_row and len(user_row) > 1 else 'ru'
+            result_mod = await session.execute(
+                text("SELECT value FROM system_settings WHERE `key` = 'manual_photo_moderation_enabled'")
+            )
+            row_mod = result_mod.fetchone()
+            is_manual = row_mod[0] == '1' if row_mod else False
+            if next_point:
+                point_name = get_localized_field(point, 'name', user_language)
+                next_point_name = get_localized_field(next_point, 'name', user_language)
+                next_point_task = get_localized_field(next_point, 'task_text', user_language)
+                if is_manual:
+                    await bot.send_message(
+                        user_telegram_id,
+                        f"✅ {i18n.get('point_completed', user_language)}: {point_name}\n\n"
+                        f"{i18n.get('next_point', user_language)}: {next_point_name}\n"
+                        f"📝 {next_point_task}",
+                        parse_mode="HTML"
+                    )
+                else:
+                    await bot.send_message(
+                        user_telegram_id,
+                        f"✅ <b>{i18n.get('admin_approved_photo', user_language)}</b>\n\n"
+                        f"📍 {i18n.get('point_completed', user_language)}: {point_name}\n\n"
+                        f"{i18n.get('next_point', user_language)}: {next_point_name}\n"
+                        f"📝 {next_point_task}",
+                        parse_mode="HTML"
+                    )
+            else:
+                completion_msg = f"🎉 <b>{i18n.get('quest_completed', user_language)}!</b>\n\n"
+                if is_manual:
+                    await bot.send_message(
+                        user_telegram_id,
+                        f"✅ {i18n.get('point_completed', user_language)}!\n\n" + completion_msg,
+                        parse_mode="HTML"
+                    )
+                else:
+                    await bot.send_message(
+                        user_telegram_id,
+                        f"✅ <b>{i18n.get('admin_approved_photo', user_language)}</b>\n\n" + completion_msg,
+                        parse_mode="HTML"
+                    )
+        except Exception as e:
+            logger.error(f"Ошибка отправки уведомления пользователю: {e}")
+        await callback.message.edit_caption(
+            caption=f"{callback.message.caption}\n\n✅ <b>ПРИНЯТО</b> администратором @{callback.from_user.username or callback.from_user.id}",
+            parse_mode="HTML"
+        )
+        await callback.answer("✅ Фото принято! Пользователь уведомлён")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     except Exception as e:
         logger.error(f"Ошибка при принятии фото: {e}", exc_info=True)
         await callback.answer("❌ Ошибка при обработке")
@@ -2050,6 +2334,7 @@ async def admin_reject_photo(
             await callback.answer("❌ Неверный формат данных")
             return
         user_telegram_id = int(parts[1])
+<<<<<<< HEAD
         try:
             await callback.message.edit_reply_markup(reply_markup=None)
         except Exception:
@@ -2072,6 +2357,13 @@ async def admin_reject_photo(
                 {"fid": photo_file_id},
             )
             await session.commit()
+=======
+        result_mod = await session.execute(
+            text("SELECT value FROM system_settings WHERE `key` = 'manual_photo_moderation_enabled'")
+        )
+        row_mod = result_mod.fetchone()
+        is_manual = row_mod[0] == '1' if row_mod else False
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         user_result = await session.execute(
             text("SELECT language FROM users WHERE telegram_id = :telegram_id"),
             {"telegram_id": user_telegram_id}
@@ -2080,6 +2372,7 @@ async def admin_reject_photo(
         user_language = user_row[0] if user_row else 'ru'
         from bot.utils.i18n import i18n
         try:
+<<<<<<< HEAD
             await bot.send_message(
                 user_telegram_id,
                 f"❌ <b>{i18n.get('admin_photo_rejected', user_language, default='Администратор отклонил ваше фото')}</b>\n\n"
@@ -2100,11 +2393,47 @@ async def admin_reject_photo(
             await callback.answer("❌ Фото отклонено")
         except Exception:
             pass
+=======
+            if is_manual:
+                await bot.send_message(
+                    user_telegram_id,
+                    f"❌ {i18n.get('photo_rejected', user_language, default='Фото не прошло проверку')}\n\n"
+                    f"{i18n.get('photo_rejected_try_again', user_language, default='Пожалуйста, попробуйте сделать новое фото и отправьте его снова.')}\n\n"
+                    f"💡 {i18n.get('photo_tips', user_language, default='Убедитесь, что:')}\n"
+                    f"• {i18n.get('photo_tip_location', user_language, default='Вы находитесь в нужном месте')}\n"
+                    f"• {i18n.get('photo_tip_elements', user_language, default='На фото видны все необходимые элементы')}\n"
+                    f"• {i18n.get('photo_tip_quality', user_language, default='Фото сделано чётко и ясно')}",
+                    parse_mode="HTML"
+                )
+            else:
+                await bot.send_message(
+                    user_telegram_id,
+                    f"❌ <b>{i18n.get('admin_photo_rejected', user_language, default='Администратор отклонил ваше фото')}</b>\n\n"
+                    f"{i18n.get('photo_rejected_try_again', user_language, default='Пожалуйста, попробуйте сделать новое фото и отправьте его снова.')}\n\n"
+                    f"💡 {i18n.get('photo_tips', user_language, default='Убедитесь, что:')}\n"
+                    f"• {i18n.get('photo_tip_location', user_language, default='Вы находитесь в нужном месте')}\n"
+                    f"• {i18n.get('photo_tip_elements', user_language, default='На фото видны все необходимые элементы')}\n"
+                    f"• {i18n.get('photo_tip_quality', user_language, default='Фото сделано чётко и ясно')}",
+                    parse_mode="HTML"
+                )
+        except Exception as e:
+            logger.error(f"Ошибка отправки уведомления пользователю: {e}")
+        await callback.message.edit_caption(
+            caption=f"{callback.message.caption}\n\n❌ <b>ОТКЛОНЕНО</b> администратором @{callback.from_user.username or callback.from_user.id}",
+            parse_mode="HTML"
+        )
+        try:
+            await callback.answer("❌ Фото отклонено. Пользователь уведомлён")
+        except Exception as answer_error:
+            if "query is too old" not in str(answer_error).lower() and "query id is invalid" not in str(answer_error).lower():
+                logger.error(f"Ошибка при ответе на callback: {answer_error}")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         logger.info(f"Админ {callback.from_user.id} отклонил фото от пользователя {user_telegram_id}")
     except Exception as e:
         logger.error(f"Ошибка при отклонении фото: {e}", exc_info=True)
         try:
             await callback.answer("❌ Ошибка при обработке")
+<<<<<<< HEAD
         except Exception:
             pass
 from bot.fsm.admin_states import AdminModeratorStates
@@ -2318,3 +2647,8 @@ async def admin_send_reply_to_mod(message: Message, state: FSMContext):
         logger.error(f"Ошибка отправки сообщения модератору: {e}")
         await message.answer("❌ Не удалось отправить сообщение")
     await state.clear()
+=======
+        except Exception as answer_error:
+            if "query is too old" not in str(answer_error).lower() and "query id is invalid" not in str(answer_error).lower():
+                logger.error(f"Ошибка при ответе на callback: {answer_error}")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

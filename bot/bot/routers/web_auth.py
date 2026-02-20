@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+<<<<<<< HEAD
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
@@ -12,6 +13,23 @@ async def _send_web_access(target, session: AsyncSession, user, from_user_id: in
     user_repo = UserRepository(session)
     full_user = await user_repo.get_by_telegram_id(from_user_id)
     telegram_id = from_user_id
+=======
+from aiogram import Router
+from aiogram.filters import Command
+from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from sqlalchemy.ext.asyncio import AsyncSession
+from bot.models.user_session import UserSession
+from bot.config import load_config
+from bot.utils.i18n import i18n
+router = Router()
+config = load_config()
+@router.message(Command("web"))
+async def cmd_web(message: Message, session: AsyncSession, user):
+    from bot.repositories.user import UserRepository
+    user_repo = UserRepository(session)
+    full_user = await user_repo.get_by_telegram_id(message.from_user.id)
+    telegram_id = message.from_user.id
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     token = UserSession.generate_token()
     user_session = UserSession(
         telegram_id=telegram_id,
@@ -40,11 +58,16 @@ async def _send_web_access(target, session: AsyncSession, user, from_user_id: in
                 url=f"{config.web.site_url}/auth/telegram.php?token={token}"
             )]
         ])
+<<<<<<< HEAD
         await target.answer(
+=======
+        await message.answer(
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             f"{i18n.get('web_access_title', user_language)}\n\n"
             f"{i18n.get('web_access_message_admin', user_language)}",
             reply_markup=keyboard
         )
+<<<<<<< HEAD
     elif full_user and (full_user.role == "MODERATOR" or full_user.role.upper() == "MODERATOR"):
         auth_url = f"{config.web.site_url}/admin/login.php?token={token}"
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
@@ -66,6 +89,8 @@ async def _send_web_access(target, session: AsyncSession, user, from_user_id: in
             f"{i18n.get('web_access_message_moderator', user_language)}",
             reply_markup=keyboard
         )
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     else:
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(
@@ -77,11 +102,16 @@ async def _send_web_access(target, session: AsyncSession, user, from_user_id: in
                 url=f"{config.web.site_url}/auth/telegram.php?token={token}"
             )]
         ])
+<<<<<<< HEAD
         await target.answer(
+=======
+        await message.answer(
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
             f"{i18n.get('web_access_title', user_language)}\n\n"
             f"{i18n.get('web_access_message', user_language)}",
             reply_markup=keyboard
         )
+<<<<<<< HEAD
 @router.message(Command("web"))
 async def cmd_web(message: Message, session: AsyncSession, user):
     await _send_web_access(message, session, user, message.from_user.id)
@@ -89,6 +119,8 @@ async def cmd_web(message: Message, session: AsyncSession, user):
 async def cb_open_web(callback: CallbackQuery, session: AsyncSession, user):
     await _send_web_access(callback.message, session, user, callback.from_user.id)
     await callback.answer()
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 @router.message(Command("admin"))
 async def cmd_admin(message: Message, session: AsyncSession, user):
     if user.role != "ADMIN":

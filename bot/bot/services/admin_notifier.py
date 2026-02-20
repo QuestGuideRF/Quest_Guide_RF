@@ -1,17 +1,25 @@
+<<<<<<< HEAD
 import asyncio
 import html
 import logging
 from decimal import Decimal
+=======
+import html
+import logging
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 from typing import List, Optional
 from aiogram import Bot
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, FSInputFile
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import text
 logger = logging.getLogger(__name__)
+<<<<<<< HEAD
 _review_buffer: List[dict] = []
 _review_flush_task: Optional[asyncio.Task] = None
 _review_bot: Optional[Bot] = None
 _review_admin_ids: List[int] = []
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 class AdminNotifier:
     def __init__(self, bot: Bot, admin_ids: List[int]):
         self.bot = bot
@@ -28,6 +36,7 @@ class AdminNotifier:
         except Exception as e:
             logger.error(f"Ошибка проверки настройки уведомлений: {e}")
             return True
+<<<<<<< HEAD
     async def is_payment_notifications_enabled(self, session: AsyncSession) -> bool:
         try:
             result = await session.execute(
@@ -74,6 +83,8 @@ class AdminNotifier:
                 logger.info(f"Отправлено уведомление о пополнении админу {admin_id}, пользователь {user_id}, сумма {amount}")
             except Exception as e:
                 logger.error(f"Ошибка отправки уведомления о пополнении админу {admin_id}: {e}")
+=======
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
     async def notify_photo_verification_needed(
         self,
         photo_path: str,
@@ -86,6 +97,10 @@ class AdminNotifier:
         route_name: str,
         error_reason: str,
         people_count: Optional[int] = None,
+<<<<<<< HEAD
+=======
+        pose_required: Optional[str] = None,
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         location_match: Optional[float] = None,
         is_manual_moderation: bool = False,
     ):
@@ -112,6 +127,16 @@ class AdminNotifier:
             )
         if people_count is not None:
             message += f"👥 Людей на фото: {people_count}\n"
+<<<<<<< HEAD
+=======
+        if pose_required:
+            pose_names = {
+                'hands_up': 'Руки вверх',
+                'heart': 'Сердечко руками',
+                'point': 'Указать на объект'
+            }
+            message += f"🤸 Требуемая поза: {pose_names.get(pose_required, pose_required)}\n"
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
         if location_match is not None:
             message += f"📸 Совпадение локации: {location_match:.1f}%\n"
         message += "\n<b>Принять фото?</b>"
@@ -223,6 +248,7 @@ class AdminNotifier:
                 )
             except Exception as e:
                 logger.error(f"Не удалось отправить уведомление админу {admin_id}: {e}")
+<<<<<<< HEAD
     async def notify_moderator_request(
         self,
         user_first_name: Optional[str],
@@ -383,3 +409,28 @@ async def _do_flush_reviews() -> None:
             logger.info("Отправлена сводка отзывов (%s шт.) админу %s", len(to_send), admin_id)
         except Exception as e:
             logger.error("Не удалось отправить сводку отзывов админу %s: %s", admin_id, e)
+=======
+    async def notify_new_review(
+        self,
+        user_id: int,
+        username: str,
+        route_name: str,
+        rating: int,
+        text: str = None
+    ):
+        stars = "⭐" * rating
+        username_text = f"@{username}" if username else f"ID: {user_id}"
+        message = (
+            f"⭐ <b>Новый отзыв!</b>\n\n"
+            f"👤 Пользователь: {username_text}\n"
+            f"🗺 Маршрут: {route_name}\n"
+            f"⭐ Оценка: {stars} ({rating}/5)\n"
+        )
+        if text:
+            message += f"\n💬 Отзыв:\n{text}"
+        for admin_id in self.admin_ids:
+            try:
+                await self.bot.send_message(admin_id, message, parse_mode="HTML")
+            except Exception as e:
+                logger.error(f"Не удалось отправить уведомление админу {admin_id}: {e}")
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c

@@ -45,8 +45,20 @@ $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
     <div class="d-flex gap-2 align-items-center">
         <span class="badge bg-warning" id="pendingCount"><?= count($photos) ?></span>
         <span class="ms-2">на модерации</span>
+<<<<<<< HEAD
     </div>
 </div>
+=======
+        <button class="btn btn-success btn-sm" id="bulkApproveBtn" style="display: none;" onclick="bulkModerate('approve')">
+            <i class="fas fa-check me-2"></i>Принять выбранные
+        </button>
+        <button class="btn btn-danger btn-sm" id="bulkRejectBtn" style="display: none;" onclick="bulkModerate('reject')">
+            <i class="fas fa-times me-2"></i>Отклонить выбранные
+        </button>
+    </div>
+</div>
+<!-- Фильтры -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" class="row g-3">
@@ -77,6 +89,10 @@ $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Фото на модерацию -->
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <?php if (empty($photos)): ?>
     <div class="card">
         <div class="card-body text-center py-5">
@@ -90,6 +106,12 @@ $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
         <?php foreach ($photos as $photo): ?>
             <div class="col-md-6" id="photo-<?= $photo['id'] ?>">
                 <div class="card">
+<<<<<<< HEAD
+=======
+                    <div class="card-header">
+                        <input type="checkbox" class="photo-checkbox" value="<?= $photo['id'] ?>" onchange="updateBulkButtons()">
+                    </div>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                     <div class="row g-0">
                         <div class="col-md-5">
                             <?php
@@ -139,6 +161,17 @@ $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
                                     </div>
                                 </div>
                                 <div class="d-grid gap-2">
+<<<<<<< HEAD
+=======
+                                    <button class="btn btn-success btn-sm"
+                                            onclick="moderatePhoto(<?= $photo['id'] ?>, 'approve')">
+                                        <i class="fas fa-check me-2"></i>Принять
+                                    </button>
+                                    <button class="btn btn-danger btn-sm"
+                                            onclick="showRejectModal(<?= $photo['id'] ?>)">
+                                        <i class="fas fa-times me-2"></i>Отклонить
+                                    </button>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
                                     <a href="https://t.me/<?= htmlspecialchars($photo['username'] ?: $photo['telegram_id']) ?>"
                                        target="_blank"
                                        class="btn btn-outline-primary btn-sm">
@@ -153,4 +186,166 @@ $routes = $pdo->query("SELECT id, name FROM routes ORDER BY name")->fetchAll();
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
+<<<<<<< HEAD
+=======
+<!-- Модальное окно для отклонения -->
+<div class="modal fade" id="rejectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Отклонить фото</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Выберите причину отклонения или введите свою:</p>
+                <div class="mb-3">
+                    <button class="btn btn-outline-secondary btn-sm w-100 mb-2"
+                            onclick="setRejectionReason('Неверная локация')">
+                        Неверная локация
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm w-100 mb-2"
+                            onclick="setRejectionReason('Плохое качество фото')">
+                        Плохое качество фото
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm w-100 mb-2"
+                            onclick="setRejectionReason('Не та точка')">
+                        Не та точка
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm w-100 mb-2"
+                            onclick="setRejectionReason('Фото не соответствует заданию')">
+                        Фото не соответствует заданию
+                    </button>
+                </div>
+                <textarea id="rejectionReason" class="form-control" rows="3" placeholder="Или введите причину..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-danger" onclick="confirmReject()">Отклонить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+let currentPhotoId = null;
+let rejectModal = null;
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof bootstrap !== 'undefined') {
+        const modalElement = document.getElementById('rejectModal');
+        if (modalElement) {
+            rejectModal = new bootstrap.Modal(modalElement);
+        }
+    }
+});
+function showRejectModal(photoId) {
+    currentPhotoId = photoId;
+    document.getElementById('rejectionReason').value = '';
+    if (rejectModal) {
+        rejectModal.show();
+    } else if (typeof bootstrap !== 'undefined') {
+        const modalElement = document.getElementById('rejectModal');
+        if (modalElement) {
+            rejectModal = new bootstrap.Modal(modalElement);
+            rejectModal.show();
+        }
+    }
+}
+function setRejectionReason(reason) {
+    document.getElementById('rejectionReason').value = reason;
+}
+function confirmReject() {
+    const reason = document.getElementById('rejectionReason').value.trim();
+    if (!reason) {
+        alert('Укажите причину отклонения');
+        return;
+    }
+    moderatePhoto(currentPhotoId, 'reject', reason);
+    rejectModal.hide();
+}
+function updateBulkButtons() {
+    const selected = document.querySelectorAll('.photo-checkbox:checked').length;
+    const approveBtn = document.getElementById('bulkApproveBtn');
+    const rejectBtn = document.getElementById('bulkRejectBtn');
+    if (selected > 0) {
+        approveBtn.style.display = 'inline-block';
+        rejectBtn.style.display = 'inline-block';
+    } else {
+        approveBtn.style.display = 'none';
+        rejectBtn.style.display = 'none';
+    }
+}
+function bulkModerate(action) {
+    const selected = Array.from(document.querySelectorAll('.photo-checkbox:checked')).map(cb => cb.value);
+    if (selected.length === 0) {
+        alert('Выберите фото для модерации');
+        return;
+    }
+    if (action === 'reject') {
+        const reason = prompt('Введите причину отклонения:');
+        if (!reason) return;
+        Promise.all(selected.map(photoId =>
+            fetch('/admin/api/moderate_photo.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({photo_id: photoId, action: 'reject', reason})
+            }).then(r => r.json())
+        )).then(results => {
+            const success = results.filter(r => r.success).length;
+            alert(`Обработано: ${success} из ${selected.length}`);
+            location.reload();
+        });
+    } else {
+        Promise.all(selected.map(photoId =>
+            fetch('/admin/api/moderate_photo.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({photo_id: photoId, action: 'approve'})
+            }).then(r => r.json())
+        )).then(results => {
+            const success = results.filter(r => r.success).length;
+            alert(`Обработано: ${success} из ${selected.length}`);
+            location.reload();
+        });
+    }
+}
+function moderatePhoto(photoId, action, reason = null) {
+    fetch('/admin/api/moderate_photo.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({photo_id: photoId, action, reason})
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            const card = document.getElementById('photo-' + photoId);
+            card.style.transition = 'opacity 0.3s';
+            card.style.opacity = '0';
+            setTimeout(() => card.remove(), 300);
+            const count = document.querySelectorAll('[id^="photo-"]').length - 1;
+            document.getElementById('pendingCount').textContent = count;
+            alert(action === 'approve' ? 'Фото принято!' : 'Фото отклонено');
+        } else {
+            alert('Ошибка: ' + data.error);
+        }
+    })
+    .catch(err => {
+        alert('Ошибка: ' + err.message);
+    });
+}
+let autoRefreshInterval = null;
+function startAutoRefresh() {
+    if (autoRefreshInterval) return;
+    autoRefreshInterval = setInterval(function() {
+        location.reload();
+    }, 5000);
+}
+document.addEventListener('DOMContentLoaded', function() {
+    startAutoRefresh();
+});
+window.addEventListener('beforeunload', function() {
+    if (autoRefreshInterval) {
+        clearInterval(autoRefreshInterval);
+    }
+});
+</script>
+>>>>>>> 2ed20ce8af442d6700b46589978e78c41bb0322c
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
