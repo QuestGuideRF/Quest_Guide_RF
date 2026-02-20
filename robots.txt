@@ -1,0 +1,48 @@
+# Правила для поисковых роботов
+User-agent: *
+Allow: /
+
+# Разрешаем индексацию основных страниц
+Allow: /index.php
+Allow: /dashboard.php
+Allow: /routes.php
+Allow: /photos.php
+Allow: /achievements.php
+Allow: /bank.php
+Allow: /settings.php
+
+# Запрещаем индексацию служебных файлов и директорий
+Disallow: /includes/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /uploads/
+Disallow: /photos/
+Disallow: /*.log
+Disallow: /*.env
+Disallow: /vendor/
+Disallow: /node_modules/
+
+# Запрещаем индексацию файлов конфигурации
+Disallow: /.htaccess
+Disallow: /.env
+Disallow: /composer.json
+Disallow: /package.json
+
+# Публичные страницы для индексации (2026-01-20: добавлен profile)
+Allow: /certificates.php
+Allow: /reviews.php
+Allow: /profile.php
+# Публичные профили: /username (rewrite на profile.php)
+
+# Карта сайта (актуально на 2026-02-05)
+Sitemap: https://questguiderf.ru/sitemap.xml
+
+# Директивы для основных поисковых систем
+User-agent: Yandex
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Задержка между запросами (секунды)
+Crawl-delay: 1

@@ -1,0 +1,22 @@
+# Игнорируемые файлы для Git
+
+.env
+*.log
+vendor/
+node_modules/
+photos/
+uploads/avatars/
+uploads/reference/
+uploads/hints/
+uploads/audio/
+uploads/temp/
+bot/venv/
+bot/__pycache__/
+bot/**/__pycache__/
+*.pyc
+.Python
+*.egg-info/
+.idea/
+.vscode/
+*.sql.gz
+backups/

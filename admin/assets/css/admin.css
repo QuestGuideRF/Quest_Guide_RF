@@ -1,0 +1,825 @@
+:root {
+    --sidebar-width: 250px;
+    --header-height: 60px;
+    --primary-color: #667eea;
+    --success-color: #4caf50;
+    --danger-color: #f44336;
+    --warning-color: #ff9800;
+    --info-color: #2196f3;
+    --bg-primary: #1a1d29;
+    --bg-secondary: #252936;
+    --bg-tertiary: #2d3142;
+    --text-primary: #e4e6eb;
+    --text-secondary: #b0b3b8;
+    --border-color: rgba(255,255,255,0.1);
+    --hover-bg: rgba(255,255,255,0.05);
+}
+body {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.stat-card {
+    transition: all 0.3s ease;
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+}
+table,
+.table {
+    color: var(--text-primary) !important;
+    background-color: var(--bg-secondary) !important;
+    border-collapse: collapse !important;
+}
+table thead,
+.table thead {
+    background-color: var(--bg-tertiary) !important;
+}
+table thead th,
+.table thead th,
+table thead td,
+.table thead td {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+    border-bottom: 2px solid var(--border-color) !important;
+}
+table tbody,
+.table tbody {
+    background-color: var(--bg-secondary) !important;
+}
+table tbody tr,
+.table tbody tr {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+table tbody tr:hover,
+.table tbody tr:hover,
+.table-hover tbody tr:hover {
+    background-color: var(--hover-bg) !important;
+    color: var(--text-primary) !important;
+}
+table td,
+.table td,
+table th,
+.table th {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+    padding: 12px !important;
+}
+table tbody tr:nth-child(even),
+.table tbody tr:nth-child(even) {
+    background-color: var(--bg-secondary) !important;
+}
+table tbody tr:nth-child(odd),
+.table tbody tr:nth-child(odd) {
+    background-color: var(--bg-secondary) !important;
+}
+.table-hover tbody tr {
+    transition: background-color 0.2s;
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.table-bordered {
+    border: 1px solid var(--border-color) !important;
+}
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid var(--border-color) !important;
+}
+.table-responsive {
+    background-color: transparent !important;
+}
+table *,
+.table * {
+    color: var(--text-primary) !important;
+}
+table strong,
+.table strong,
+table b,
+.table b {
+    color: var(--text-primary) !important;
+}
+table a,
+.table a {
+    color: var(--primary-color) !important;
+}
+table a:hover,
+.table a:hover {
+    color: #5568d3 !important;
+}
+.table-actions .btn {
+    margin: 0 2px;
+}
+.badge-custom {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.modal-content {
+    border-radius: 15px;
+    border: 1px solid var(--border-color) !important;
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.modal-header {
+    background-color: var(--bg-tertiary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: 15px 15px 0 0;
+    color: var(--text-primary) !important;
+}
+.modal-body {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.modal-footer {
+    background-color: var(--bg-secondary) !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+.form-control,
+.form-select,
+.form-label {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    color: var(--text-primary) !important;
+}
+.form-control::placeholder {
+    color: var(--text-secondary) !important;
+}
+.card {
+    border: 1px solid var(--border-color) !important;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+    transition: box-shadow 0.3s;
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5) !important;
+}
+.card-header {
+    background: var(--bg-tertiary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: 10px 10px 0 0 !important;
+    color: var(--text-primary) !important;
+}
+.card-body {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+canvas {
+    max-height: 300px;
+}
+.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.alert {
+    border: none;
+    border-radius: 10px;
+}
+.dropdown-menu {
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+    border-radius: 10px;
+    background-color: var(--bg-secondary) !important;
+}
+.dropdown-item {
+    padding: 10px 20px;
+    transition: background-color 0.2s;
+    color: var(--text-primary) !important;
+}
+.dropdown-item:hover {
+    background-color: var(--hover-bg) !important;
+    color: var(--text-primary) !important;
+}
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1050;
+    }
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    .main-content {
+        margin-left: 0 !important;
+    }
+    .top-bar {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+    }
+    .content {
+        padding: 15px;
+    }
+    .stat-card {
+        margin-bottom: 15px;
+    }
+    .mobile-menu-toggle {
+        display: block !important;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1051;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1049;
+    }
+    .sidebar-overlay.show {
+        display: block;
+    }
+    .table-responsive {
+        font-size: 14px;
+    }
+    .table th,
+    .table td {
+        padding: 8px 4px;
+    }
+    .card {
+        margin-bottom: 15px;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .btn {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    .form-control,
+    .form-select {
+        font-size: 16px;
+    }
+}
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 3px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.5);
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-bg);
+}
+.draggable {
+    cursor: move;
+}
+.dragging {
+    opacity: 0.5;
+}
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+.empty-state i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+.text-muted {
+    color: var(--text-secondary) !important;
+}
+.bg-light {
+    background-color: var(--bg-tertiary) !important;
+}
+.border {
+    border-color: var(--border-color) !important;
+}
+.alert {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.list-group-item {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.list-group-item:hover {
+    background-color: var(--hover-bg) !important;
+}
+.progress {
+    height: 8px;
+    border-radius: 4px;
+}
+[title] {
+    position: relative;
+}
+@media print {
+    .sidebar,
+    .top-bar,
+    .btn,
+    .table-actions {
+        display: none !important;
+    }
+    .main-content {
+        margin-left: 0 !important;
+    }
+}
+.btn-link {
+    color: var(--text-primary) !important;
+}
+.btn-link:hover {
+    color: var(--text-primary) !important;
+    opacity: 0.8;
+}
+.btn-primary,
+a.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.btn-primary:hover,
+a.btn-primary:hover {
+    background-color: #5568d3 !important;
+    border-color: #5568d3 !important;
+    color: #ffffff !important;
+}
+.btn-primary:focus,
+a.btn-primary:focus {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.5) !important;
+}
+.btn-outline-primary,
+a.btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+}
+.btn-outline-primary:hover,
+a.btn-outline-primary:hover {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.btn-outline-primary.active,
+a.btn-outline-primary.active,
+.btn-outline-primary:active,
+a.btn-outline-primary:active {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.btn-group .btn-primary,
+.btn-group a.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.btn-group .btn-outline-primary,
+.btn-group a.btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+}
+.btn-group .btn-outline-primary:hover,
+.btn-group a.btn-outline-primary:hover {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+button.btn-primary,
+input.btn-primary,
+a.btn-primary {
+    color: #ffffff !important;
+}
+button.btn-primary:hover,
+input.btn-primary:hover,
+a.btn-primary:hover {
+    color: #ffffff !important;
+}
+.btn-outline-secondary,
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-warning,
+.btn-outline-info {
+    border-color: var(--border-color) !important;
+}
+.pagination .page-link {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.pagination .page-link:hover {
+    background-color: var(--hover-bg) !important;
+    color: var(--text-primary) !important;
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+.nav-tabs {
+    border-bottom-color: var(--border-color) !important;
+}
+.nav-tabs .nav-link {
+    color: var(--text-secondary) !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+.nav-tabs .nav-link:hover {
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.nav-tabs .nav-link.active {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) var(--border-color) var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.input-group-text {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+p, span, div, a, label, small, strong, b, i {
+    color: var(--text-primary) !important;
+}
+a {
+    color: var(--primary-color) !important;
+}
+a:hover {
+    color: #5568d3 !important;
+}
+.bg-white {
+    background-color: var(--bg-secondary) !important;
+}
+.bg-light {
+    background-color: var(--bg-tertiary) !important;
+}
+.list-group {
+    background-color: var(--bg-secondary) !important;
+}
+.list-group-item {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.list-group-item:hover {
+    background-color: var(--hover-bg) !important;
+}
+.list-group-flush .list-group-item {
+    border-color: var(--border-color) !important;
+}
+.nav-tabs {
+    border-bottom-color: var(--border-color) !important;
+}
+.nav-tabs .nav-link {
+    color: var(--text-secondary) !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+.nav-tabs .nav-link:hover {
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.nav-tabs .nav-link.active {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) var(--border-color) var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.tab-content {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.tab-pane {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+.chart-container {
+    background-color: var(--bg-secondary) !important;
+    padding: 10px;
+    border-radius: 10px;
+}
+.badge {
+    color: #fff !important;
+}
+.badge.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+.badge.bg-success {
+    background-color: var(--success-color) !important;
+}
+.badge.bg-danger {
+    background-color: var(--danger-color) !important;
+}
+.badge.bg-warning {
+    background-color: var(--warning-color) !important;
+    color: #000 !important;
+}
+.badge.bg-info {
+    background-color: var(--info-color) !important;
+}
+.badge.bg-secondary {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+code {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+pre {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+.btn-group .btn {
+    border-color: var(--border-color) !important;
+}
+.btn-group .btn.active,
+.btn-group .btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.btn-group .btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background-color: transparent !important;
+}
+.btn-group .btn-outline-primary:hover,
+.btn-group .btn-outline-primary.active {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.container,
+.container-fluid {
+    background-color: transparent !important;
+}
+.row {
+    background-color: transparent !important;
+}
+.col,
+[class*="col-"] {
+    background-color: transparent !important;
+}
+small,
+.text-muted {
+    color: var(--text-secondary) !important;
+}
+.text-success {
+    color: var(--success-color) !important;
+}
+.text-danger {
+    color: var(--danger-color) !important;
+}
+.text-warning {
+    color: var(--warning-color) !important;
+}
+.text-info {
+    color: var(--info-color) !important;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: var(--text-primary) !important;
+}
+p {
+    color: var(--text-primary) !important;
+}
+a {
+    color: var(--primary-color) !important;
+}
+a:hover {
+    color: #5568d3 !important;
+}
+hr {
+    border-color: var(--border-color) !important;
+    opacity: 1;
+}
+.empty-state,
+.text-center.text-muted {
+    color: var(--text-secondary) !important;
+}
+.stat-card .icon {
+    background-color: var(--bg-tertiary) !important;
+}
+label {
+    color: var(--text-primary) !important;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--bg-tertiary) !important;
+}
+.table-bordered {
+    border-color: var(--border-color) !important;
+}
+.table-bordered th,
+.table-bordered td {
+    border-color: var(--border-color) !important;
+}
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+.tooltip .tooltip-inner {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+.tooltip .tooltip-arrow::before {
+    border-top-color: var(--bg-tertiary) !important;
+}
+.popover {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.popover-header {
+    background-color: var(--bg-tertiary) !important;
+    border-bottom-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+.popover-body {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+body .table,
+body table,
+body .table-responsive .table,
+body .table-responsive table,
+body .card .table,
+body .card table {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-collapse: collapse !important;
+}
+body .table thead,
+body table thead,
+body .table-responsive .table thead,
+body .table-responsive table thead {
+    background-color: var(--bg-tertiary) !important;
+}
+body .table thead th,
+body table thead th,
+body .table thead td,
+body table thead td,
+body .table-responsive .table thead th,
+body .table-responsive table thead th {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+    border-bottom: 2px solid var(--border-color) !important;
+    font-weight: 600 !important;
+}
+body .table tbody,
+body table tbody,
+body .table-responsive .table tbody,
+body .table-responsive table tbody {
+    background-color: var(--bg-secondary) !important;
+}
+body .table tbody tr,
+body table tbody tr,
+body .table-responsive .table tbody tr,
+body .table-responsive table tbody tr {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+body .table tbody tr:hover,
+body table tbody tr:hover,
+body .table-hover tbody tr:hover,
+body .table-responsive .table tbody tr:hover {
+    background-color: var(--hover-bg) !important;
+    color: var(--text-primary) !important;
+}
+body .table tbody tr td,
+body table tbody tr td,
+body .table tbody tr th,
+body table tbody tr th,
+body .table thead tr th,
+body table thead tr th,
+body .table thead tr td,
+body table thead tr td,
+body .table-responsive .table tbody tr td,
+body .table-responsive table tbody tr td {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+    padding: 12px !important;
+}
+body .table-striped tbody tr:nth-of-type(odd),
+body table tbody tr:nth-of-type(odd) {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+body .table-striped tbody tr:nth-of-type(even),
+body table tbody tr:nth-of-type(even) {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+body .table-bordered,
+body table.table-bordered {
+    border: 1px solid var(--border-color) !important;
+}
+body .table-bordered th,
+body .table-bordered td,
+body table.table-bordered th,
+body table.table-bordered td {
+    border: 1px solid var(--border-color) !important;
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+}
+body .table-responsive {
+    background-color: transparent !important;
+}
+body .table *,
+body table * {
+    color: var(--text-primary) !important;
+}
+body .table strong,
+body table strong,
+body .table b,
+body table b {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+}
+body .table a,
+body table a {
+    color: var(--primary-color) !important;
+}
+body .table a:hover,
+body table a:hover {
+    color: #5568d3 !important;
+}
+body .table .badge,
+body table .badge {
+    color: var(--text-primary) !important;
+}

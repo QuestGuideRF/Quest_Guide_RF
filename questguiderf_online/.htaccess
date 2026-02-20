@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+# Защита .env
+RewriteRule ^\.env - [F,L]
+</IfModule>

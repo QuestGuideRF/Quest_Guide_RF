@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+
+Allow: /index.php
+Allow: /dashboard.php
+Allow: /routes.php
+Allow: /routes/
+Allow: /photos.php
+Allow: /achievements.php
+Allow: /bank.php
+Allow: /certificates.php
+Allow: /reviews.php
+Allow: /partner.php
+Allow: /settings.php
+
+Disallow: /includes/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /quest/api/
+Disallow: /uploads/
+Disallow: /*.log
+Disallow: /*.env
+Disallow: /.htaccess
+Disallow: /.env
+
+Sitemap: https://questguiderf.online/sitemap.xml
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Googlebot
+Allow: /
